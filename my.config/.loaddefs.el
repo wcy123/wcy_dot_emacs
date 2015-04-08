@@ -188,6 +188,17 @@ edit abbrevs
 
 ;;;***
 
+;;;### (autoloads nil "../my.elisp/wcy-init-my-package" "../my.elisp/wcy-init-my-package.el"
+;;;;;;  (21796 53641 0 0))
+;;; Generated autoloads from ../my.elisp/wcy-init-my-package.el
+
+(autoload 'wcy-init-my-package "../my.elisp/wcy-init-my-package" "\
+install all my package.
+
+\(fn)" t nil)
+
+;;;***
+
 ;;;### (autoloads nil "../my.elisp/wcy-kill-emacs" "../my.elisp/wcy-kill-emacs.el"
 ;;;;;;  (21796 44530 0 0))
 ;;; Generated autoloads from ../my.elisp/wcy-kill-emacs.el
@@ -201,7 +212,7 @@ kill emacs when only one frame left, otherwise, delete selected frame
 
 ;;;### (autoloads nil "../my.elisp/wcy-update-my.elisp-directory-autoloads"
 ;;;;;;  "../my.elisp/wcy-update-my.elisp-directory-autoloads.el"
-;;;;;;  (21796 44530 0 0))
+;;;;;;  (21796 53882 0 0))
 ;;; Generated autoloads from ../my.elisp/wcy-update-my.elisp-directory-autoloads.el
 
 (autoload 'wcy-update-my\.elisp-directory-autoloads "../my.elisp/wcy-update-my.elisp-directory-autoloads" "\

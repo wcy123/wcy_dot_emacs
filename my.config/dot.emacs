@@ -18,7 +18,7 @@
 (ad-activate 'load)
 ;; -------------------- PATH ----------------------------------
 (add-to-list 'load-path my-elisp-path)
-(add-to-list 'load-path (expand-file-name "../emacs-package/" my-emacs-home))
+(add-to-list 'load-path (expand-file-name "my.package" my-emacs-home))
 ;; -------------------- LOAD MOST COMMON MODULE ---------------
 ;; remove-if-not is defined here
 (require 'cl)
@@ -65,6 +65,10 @@
                                       (interactive "r")
                                       (delete-region b e))
                                   'delete-char)
+;; ---------------------- ACE JUMP --------------------------
+(wcy-eval-if-installed "ace-jump-mode"
+  (autoload 'ace-jump-mode "ace-jump-mode" "Emacs quick move minor mode" t)
+  (global-set-key (kbd "M-l") 'ace-jump-mode))
 
 ;;; --------------------- MY SETTINGS -----------------------
 ;; do NOT add whitespace as needed when inserting parentheses.
