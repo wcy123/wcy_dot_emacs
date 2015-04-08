@@ -3,9 +3,8 @@
 ;;; Code:
 
 
-;;;### (autoloads nil "../my.elisp/wcy-add-local-variable-for-file"
-;;;;;;  "../my.elisp/wcy-add-local-variable-for-file.el" (21796 44530
-;;;;;;  0 0))
+;;;### (autoloads (wcy-add-local-variable-for-file) "../my.elisp/wcy-add-local-variable-for-file"
+;;;;;;  "../my.elisp/wcy-add-local-variable-for-file.el" (21796 54089))
 ;;; Generated autoloads from ../my.elisp/wcy-add-local-variable-for-file.el
 
 (autoload 'wcy-add-local-variable-for-file "../my.elisp/wcy-add-local-variable-for-file" "\
@@ -15,8 +14,8 @@
 
 ;;;***
 
-;;;### (autoloads nil "../my.elisp/wcy-complete" "../my.elisp/wcy-complete.el"
-;;;;;;  (21796 44530 0 0))
+;;;### (autoloads (wcy-complete) "../my.elisp/wcy-complete" "../my.elisp/wcy-complete.el"
+;;;;;;  (21796 54089))
 ;;; Generated autoloads from ../my.elisp/wcy-complete.el
 
 (autoload 'wcy-complete "../my.elisp/wcy-complete" "\
@@ -26,31 +25,33 @@
 
 ;;;***
 
-;;;### (autoloads nil "../my.elisp/wcy-compose" "../my.elisp/wcy-compose.el"
-;;;;;;  (21796 44530 0 0))
+;;;### (autoloads (call aprogn aand awhile awhen aif wcy-find-if
+;;;;;;  wcy-map-r wcy-flip wcy-partial-apply* wcy-partial-apply wcy-compose)
+;;;;;;  "../my.elisp/wcy-compose" "../my.elisp/wcy-compose.el" (21796
+;;;;;;  54089))
 ;;; Generated autoloads from ../my.elisp/wcy-compose.el
 
 (autoload 'wcy-compose "../my.elisp/wcy-compose" "\
 
 
-\(fn &rest FSV)" nil t)
+\(fn &rest FSV)" nil (quote macro))
 
 (autoload 'wcy-partial-apply "../my.elisp/wcy-compose" "\
 partialy apply the function and return a new function with
 fewer arguments
 
-\(fn F &rest ARGS)" nil t)
+\(fn F &rest ARGS)" nil (quote macro))
 
 (autoload 'wcy-partial-apply* "../my.elisp/wcy-compose" "\
 partialy apply the function and return a new function with
 fewer arguments
 
-\(fn F &rest ARGS)" nil t)
+\(fn F &rest ARGS)" nil (quote macro))
 
 (autoload 'wcy-flip "../my.elisp/wcy-compose" "\
 
 
-\(fn F)" nil t)
+\(fn F)" nil (quote macro))
 
 (autoload 'wcy-map-r "../my.elisp/wcy-compose" "\
 FUNCS is a list of functions. apply the functions to X and return a list of
@@ -72,38 +73,38 @@ return a list whose car satisfy PRED
 (autoload 'aif "../my.elisp/wcy-compose" "\
 
 
-\(fn TEST-FORM THEN-FORM &optional ELSE-FORM)" nil t)
+\(fn TEST-FORM THEN-FORM &optional ELSE-FORM)" nil (quote macro))
 
 (autoload 'awhen "../my.elisp/wcy-compose" "\
 
 
-\(fn TEST-FORM &rest THEN-FORM)" nil t)
+\(fn TEST-FORM &rest THEN-FORM)" nil (quote macro))
 
 (autoload 'awhile "../my.elisp/wcy-compose" "\
 
 
-\(fn TEST-FORM &rest BODY)" nil t)
+\(fn TEST-FORM &rest BODY)" nil (quote macro))
 
 (autoload 'aand "../my.elisp/wcy-compose" "\
 
 
-\(fn &rest ARGS)" nil t)
+\(fn &rest ARGS)" nil (quote macro))
 
 (autoload 'aprogn "../my.elisp/wcy-compose" "\
 
 
-\(fn &rest BODY)" nil t)
+\(fn &rest BODY)" nil (quote macro))
 
 (autoload 'call "../my.elisp/wcy-compose" "\
 
 
-\(fn LIST-OF-FUNCTIONS &rest ARGS)" nil t)
+\(fn LIST-OF-FUNCTIONS &rest ARGS)" nil (quote macro))
 
 ;;;***
 
-;;;### (autoloads nil "../my.elisp/wcy-define-key-in-transient-mode"
+;;;### (autoloads (wcy-define-key-in-transient-mode) "../my.elisp/wcy-define-key-in-transient-mode"
 ;;;;;;  "../my.elisp/wcy-define-key-in-transient-mode.el" (21796
-;;;;;;  44530 0 0))
+;;;;;;  54089))
 ;;; Generated autoloads from ../my.elisp/wcy-define-key-in-transient-mode.el
 
 (autoload 'wcy-define-key-in-transient-mode "../my.elisp/wcy-define-key-in-transient-mode" "\
@@ -113,8 +114,8 @@ return a list whose car satisfy PRED
 
 ;;;***
 
-;;;### (autoloads nil "../my.elisp/wcy-display-buffer-name" "../my.elisp/wcy-display-buffer-name.el"
-;;;;;;  (21796 44530 0 0))
+;;;### (autoloads (wcy-display-buffer-name) "../my.elisp/wcy-display-buffer-name"
+;;;;;;  "../my.elisp/wcy-display-buffer-name.el" (21796 54089))
 ;;; Generated autoloads from ../my.elisp/wcy-display-buffer-name.el
 
 (autoload 'wcy-display-buffer-name "../my.elisp/wcy-display-buffer-name" "\
@@ -124,8 +125,8 @@ return a list whose car satisfy PRED
 
 ;;;***
 
-;;;### (autoloads nil "../my.elisp/wcy-dot-emacs-is-done" "../my.elisp/wcy-dot-emacs-is-done.el"
-;;;;;;  (21796 48546 0 0))
+;;;### (autoloads (wcy-dot-emacs-is-done) "../my.elisp/wcy-dot-emacs-is-done"
+;;;;;;  "../my.elisp/wcy-dot-emacs-is-done.el" (21796 54089))
 ;;; Generated autoloads from ../my.elisp/wcy-dot-emacs-is-done.el
 
 (autoload 'wcy-dot-emacs-is-done "../my.elisp/wcy-dot-emacs-is-done" "\
@@ -135,8 +136,9 @@ return a list whose car satisfy PRED
 
 ;;;***
 
-;;;### (autoloads nil "../my.elisp/wcy-edit-config" "../my.elisp/wcy-edit-config.el"
-;;;;;;  (21796 44530 0 0))
+;;;### (autoloads (wcy-edit-ac wcy-edit-my-elisp wcy-edit-abbrev
+;;;;;;  wcy-edit-config-experimental wcy-edit-config) "../my.elisp/wcy-edit-config"
+;;;;;;  "../my.elisp/wcy-edit-config.el" (21796 54089))
 ;;; Generated autoloads from ../my.elisp/wcy-edit-config.el
 
 (autoload 'wcy-edit-config "../my.elisp/wcy-edit-config" "\
@@ -166,19 +168,19 @@ edit abbrevs
 
 ;;;***
 
-;;;### (autoloads nil "../my.elisp/wcy-eval-if-installed" "../my.elisp/wcy-eval-if-installed.el"
-;;;;;;  (21796 44530 0 0))
+;;;### (autoloads (wcy-eval-if-installed) "../my.elisp/wcy-eval-if-installed"
+;;;;;;  "../my.elisp/wcy-eval-if-installed.el" (21796 54089))
 ;;; Generated autoloads from ../my.elisp/wcy-eval-if-installed.el
 
 (autoload 'wcy-eval-if-installed "../my.elisp/wcy-eval-if-installed" "\
 
 
-\(fn FILE &rest FORM)" nil t)
+\(fn FILE &rest FORM)" nil (quote macro))
 
 ;;;***
 
-;;;### (autoloads nil "../my.elisp/wcy-global-set-key" "../my.elisp/wcy-global-set-key.el"
-;;;;;;  (21796 44530 0 0))
+;;;### (autoloads (wcy-global-set-key) "../my.elisp/wcy-global-set-key"
+;;;;;;  "../my.elisp/wcy-global-set-key.el" (21796 54089))
 ;;; Generated autoloads from ../my.elisp/wcy-global-set-key.el
 
 (autoload 'wcy-global-set-key "../my.elisp/wcy-global-set-key" "\
@@ -188,8 +190,8 @@ edit abbrevs
 
 ;;;***
 
-;;;### (autoloads nil "../my.elisp/wcy-init-my-package" "../my.elisp/wcy-init-my-package.el"
-;;;;;;  (21796 53641 0 0))
+;;;### (autoloads (wcy-init-my-package) "../my.elisp/wcy-init-my-package"
+;;;;;;  "../my.elisp/wcy-init-my-package.el" (21796 55617))
 ;;; Generated autoloads from ../my.elisp/wcy-init-my-package.el
 
 (autoload 'wcy-init-my-package "../my.elisp/wcy-init-my-package" "\
@@ -199,8 +201,8 @@ install all my package.
 
 ;;;***
 
-;;;### (autoloads nil "../my.elisp/wcy-kill-emacs" "../my.elisp/wcy-kill-emacs.el"
-;;;;;;  (21796 44530 0 0))
+;;;### (autoloads (wcy-kill-emacs) "../my.elisp/wcy-kill-emacs" "../my.elisp/wcy-kill-emacs.el"
+;;;;;;  (21796 54089))
 ;;; Generated autoloads from ../my.elisp/wcy-kill-emacs.el
 
 (autoload 'wcy-kill-emacs "../my.elisp/wcy-kill-emacs" "\
@@ -210,9 +212,9 @@ kill emacs when only one frame left, otherwise, delete selected frame
 
 ;;;***
 
-;;;### (autoloads nil "../my.elisp/wcy-update-my.elisp-directory-autoloads"
+;;;### (autoloads (wcy-update-my\.elisp-directory-autoloads) "../my.elisp/wcy-update-my.elisp-directory-autoloads"
 ;;;;;;  "../my.elisp/wcy-update-my.elisp-directory-autoloads.el"
-;;;;;;  (21796 53882 0 0))
+;;;;;;  (21796 54089))
 ;;; Generated autoloads from ../my.elisp/wcy-update-my.elisp-directory-autoloads.el
 
 (autoload 'wcy-update-my\.elisp-directory-autoloads "../my.elisp/wcy-update-my.elisp-directory-autoloads" "\
