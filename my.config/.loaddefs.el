@@ -207,7 +207,7 @@ edit abbrevs
 ;;;***
 
 ;;;### (autoloads nil "../my.elisp/wcy-init-my-package" "../my.elisp/wcy-init-my-package.el"
-;;;;;;  (21796 55805 0 0))
+;;;;;;  (21796 63624 0 0))
 ;;; Generated autoloads from ../my.elisp/wcy-init-my-package.el
 
 (autoload 'wcy-init-my-package "../my.elisp/wcy-init-my-package" "\
