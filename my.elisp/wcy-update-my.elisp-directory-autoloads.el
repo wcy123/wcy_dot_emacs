@@ -12,5 +12,5 @@
            (list my-elisp-path))
       (dolist (path (list my-elisp-path))
         (update-directory-autoloads path)
-        (byte-recompile-directory path)))
+        (byte-recompile-directory path 0 t)))
     (load-file generated-autoload-file)))
