@@ -190,14 +190,46 @@ edit abbrevs
 
 ;;;***
 
-;;;### (autoloads (wcy-init-my-package) "../my.elisp/wcy-init-my-package"
-;;;;;;  "../my.elisp/wcy-init-my-package.el" (21796 55617))
+;;;### (autoloads nil "../my.elisp/wcy-goto-shell" "../my.elisp/wcy-goto-shell.el"
+;;;;;;  (21796 56083 0 0))
+;;; Generated autoloads from ../my.elisp/wcy-goto-shell.el
+
+(autoload 'wcy-toggle-shell-and-cd "../my.elisp/wcy-goto-shell" "\
+
+
+\(fn ARG)" t nil)
+
+(autoload 'wcy-toggle-shell "../my.elisp/wcy-goto-shell" "\
+
+
+\(fn ARG)" t nil)
+
+;;;***
+
+;;;### (autoloads nil "../my.elisp/wcy-init-my-package" "../my.elisp/wcy-init-my-package.el"
+;;;;;;  (21796 55805 0 0))
 ;;; Generated autoloads from ../my.elisp/wcy-init-my-package.el
 
 (autoload 'wcy-init-my-package "../my.elisp/wcy-init-my-package" "\
 install all my package.
 
 \(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads nil "../my.elisp/wcy-jekyll-new-post" "../my.elisp/wcy-jekyll-new-post.el"
+;;;;;;  (21796 63173 0 0))
+;;; Generated autoloads from ../my.elisp/wcy-jekyll-new-post.el
+
+(autoload 'wcy-jekyll-new-post "../my.elisp/wcy-jekyll-new-post" "\
+
+
+\(fn TITLE)" t nil)
+
+(autoload 'wcy-jekyll-insert-front-matter "../my.elisp/wcy-jekyll-new-post" "\
+
+
+\(fn TITLE)" t nil)
 
 ;;;***
 

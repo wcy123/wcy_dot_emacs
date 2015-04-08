@@ -89,12 +89,45 @@
 ;; ----------------------- SWITCH BUFFER --------------------
 (require 'iswitchb)
 (iswitchb-mode t)
-;; ------------------- COMPILE ----------------------------
+;; ------------------- COMPILE ------------------------------
 (eval-after-load "compile"
   '(progn 
      (setq compilation-scroll-output t
            compilation-read-command nil) 
      ))
+;; ------------------- MARKDOWN -----------------------------
+(wcy-eval-if-installed "markdown-mode"
+  (autoload 'markdown-mode "markdown-mode")
+  (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+  (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+  (eval-after-load "markdown-mode"
+    '(progn 
+       (setq markdown-command "multimarkdown")
+       (setq markdown-command "markdown")
+       (define-key markdown-mode-map (kbd "ESC <up>") 'markdown-move-up)
+       (define-key markdown-mode-map (kbd "ESC <down>") 'markdown-move-down)
+       (define-key markdown-mode-map (kbd "ESC <left>") 'markdown-promote)
+       (define-key markdown-mode-map (kbd "ESC <right>") 'markdown-demote)
+       (define-key markdown-mode-map (kbd "<M-RET>") 'markdown-insert-list-item)
+       (setq markdown-xhtml-header-content
+             "<script type=\"text/x-mathjax-config\">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'],['[',']']]}});
+</script>
+<script type=\"text/javascript\"
+  src=\"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML\">
+</script> ")
+       (defun my-markdown-hook()
+         (let ((filename (wcy-search-file-in-parent-dir (list "markdown.css")
+                                                        default-directory)))
+           (setq markdown-css-path
+                 (or (and filename
+                          (file-relative-name filename default-directory))
+                     "")))
+         ;; (add-hook 'after-save-hook 'markdown-export t t)
+         )
+       (add-hook 'markdown-mode-hook 'my-markdown-hook)
+       )))
+
 ;;; -------------------  DONE --------------------------------
 ;; setq inhibit-startup-message to show "*scratch*" as the initial
 (setq inhibit-startup-message t)
