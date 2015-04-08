@@ -1,0 +1,9 @@
+
+(nil
+ "using namespace std;" \n
+ > _)
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

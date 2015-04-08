@@ -1,0 +1,8 @@
+(nil
+ "int64_t len = voba_array_len(" _ ");"
+ )
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

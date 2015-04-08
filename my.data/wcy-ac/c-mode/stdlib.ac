@@ -1,0 +1,10 @@
+(nil
+ "#include <stdio.h>" ?\n
+ "#include <stdlib.h>" ?\n
+ > _
+ )
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

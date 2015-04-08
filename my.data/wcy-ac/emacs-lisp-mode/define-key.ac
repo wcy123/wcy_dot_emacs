@@ -1,0 +1,10 @@
+(nil "(define-key "
+     (wcy-read-variable "In keymap:"
+                        #'(lambda(v) (keymapp (symbol-value v))))
+     (format " (kbd %S) " (key-description 
+                           (read-key-sequence "Define the key:")))
+     (format "'%s " (read-command "to command: "))
+     ")" ?\n
+     > _)
+
+

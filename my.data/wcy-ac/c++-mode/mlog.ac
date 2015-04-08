@@ -1,0 +1,17 @@
+(nil
+ (ignore (setq a (completing-read "LogLevel: " '("WARN" "INFO" "SESSION" "AC" "HANDOVER"
+                                      "MOBILITY" "HANDOVERMEAS" "TRAFFIC"
+                                      "SCHEDULER" "RLC" "LA" "TFC" "SAW" "ACK"
+                                      "NACK" "CQI" "PDU" "PC" "DTRX" "CD")
+                       nil t "")))
+ > "mlog(OS_LogLevel::" a ") " ?\n
+ > "<< __PRETTY_FUNCTION__<< \"(\" << __FILE__ << \":\" << __LINE__ << \")\"" ?\n
+ > _
+ )
+
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

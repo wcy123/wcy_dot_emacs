@@ -1,0 +1,13 @@
+(nil
+ "{{site.attachments}}/" _ 
+ (let ((dir
+        "/media/sf_home/chunywan/d/working/jekyll/attachments/"))
+   (file-relative-name
+    (read-file-name "img:" nil dir t dir nil)
+    dir))
+ )
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

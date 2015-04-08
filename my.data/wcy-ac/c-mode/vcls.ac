@@ -1,0 +1,9 @@
+(nil
+ (ignore (setq a (read-string  "Cls:")))
+ "DEFINE_CLS(sizeof(" a "_t)," a ");"
+  )
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

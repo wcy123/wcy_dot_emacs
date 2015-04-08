@@ -1,0 +1,6 @@
+(nil "(define-figure 'ex-" (number-to-string (setq a (+ 1 a))) ?\n
+     >  "(lambda ()" ?\n
+     > _ "))" ?\n
+     >  ?\n)
+
+

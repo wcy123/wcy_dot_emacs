@@ -1,0 +1,6 @@
+(nil "(cond " ?\n > "((" _ ")))"  )
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

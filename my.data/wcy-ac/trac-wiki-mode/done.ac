@@ -1,0 +1,8 @@
+(nil
+ "DONE by " (format-time-string "%Y/%m/%d %H:%M:%S")
+ )
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

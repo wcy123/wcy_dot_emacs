@@ -1,0 +1,9 @@
+(nil
+  "#define EXEC_ONCE_TU_NAME \"" (file-name-sans-extension
+  (file-name-nondirectory (buffer-file-name))) "\"")
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

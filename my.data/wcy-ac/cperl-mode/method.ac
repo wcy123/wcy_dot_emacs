@@ -1,0 +1,13 @@
+(nil
+ (ignore (setq name (read-string "Name: ")))
+ "sub " name " {" ?\n
+ >  "my $self = shift;" ?\n
+ > _
+ "}" > )
+
+ 
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

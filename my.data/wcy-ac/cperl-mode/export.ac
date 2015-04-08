@@ -1,0 +1,13 @@
+(nil
+ "package " (file-name-sans-extension 
+              (file-name-nondirectory
+               (buffer-file-name))) ";" \n
+               "our @ISA = 'Exporter';" \n
+               "our @EXPORT = qw(" _ ");" \n
+               )
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

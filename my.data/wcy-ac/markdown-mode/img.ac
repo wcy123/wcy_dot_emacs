@@ -1,0 +1,9 @@
+(nil
+  "<center><img src=\"" _ "\"" 
+  "></img></center>"
+)
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

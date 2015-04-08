@@ -1,0 +1,17 @@
+(nil
+ (ignore
+  (save-excursion
+    (or (search-backward-regexp "^use" nil t nil)
+        (goto-char (point-min)))
+    (insert 
+     "use strict;" ?\n
+     "use warnings;" ?\n)
+    (sit-for 1))
+ ""))
+
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

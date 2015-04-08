@@ -1,0 +1,13 @@
+(nil "(global-set-key (kbd "
+     (format "%S" (key-description 
+                   (read-key-sequence "Set key globally:")))
+     ") '"
+     (format "%s" (read-command "to command: "))
+     ")" ?\n
+     > _)
+global-set-key.ac
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

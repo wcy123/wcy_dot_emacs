@@ -1,0 +1,8 @@
+(nil
+  "<pre>" _ "</pre>"
+)
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

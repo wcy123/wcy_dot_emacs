@@ -1,0 +1,7 @@
+(nil 
+ "cd "
+ (read-directory-name "Dir:"))
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

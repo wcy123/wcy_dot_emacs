@@ -1,0 +1,8 @@
+(nil
+  "({{site.baseurl}}/{% post_url " _ (file-name-base (read-file-name "nFile:"))" %})"
+)
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

@@ -1,0 +1,14 @@
+(nil
+ "<table class=\"image\">\n"
+ "<caption>" _ "</caption>\n"
+ "<tr><td><img src=\"{{site.workspace}}/"
+ _
+ "\" style=\"width: " _ "800px;\"></img>\n"
+ "</td></tr>\n"
+ "</table>\n"
+)
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

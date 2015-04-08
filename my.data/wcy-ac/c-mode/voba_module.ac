@@ -1,0 +1,11 @@
+(nil
+"#pragma once
+#define VOBA_MODULE_ID \"" (replace-regexp-in-string "\n" "" (shell-command-to-string "uuidgen -t")) "\"
+
+#define VOBA_SYMBOL_TABLE(XX)         \\
+    XX(" _ ")                         \\
+    
+#define VOBA_MODULE_NAME \"" (read-string "Module Name:") "\"
+#include <voba/module_end.h>
+"
+)

@@ -1,0 +1,17 @@
+(nil
+ "var docstring = require('docstring.js');
+var help = docstring.help;
+var doc = docstring.doc;
+var doc_function = docstring.doc_function;
+var doc_constructor = docstring.doc_consstructor;
+var doc_method = docstring.doc_method;
+var doc_module = docstring.doc_module;
+var doc_module_method = docstring.doc_module_mothod;
+")
+
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

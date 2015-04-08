@@ -1,0 +1,16 @@
+(nil
+ (ignore (setq a (read-string  "Struct Name:")))
+ "typedef struct " a "_s " a "_t;
+struct " a "_s {\n"
+ _
+"};
+#define " (upcase a) "(s)  VOBA_USER_DATA_AS(" a "_t *,s)
+extern voba_value_t voba_cls_" a ";
+voba_value_t make_" a "();
+"
+  )
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

@@ -1,0 +1,17 @@
+(nil
+ (ignore 
+  (setq a (read-string "use what? " ))
+  (save-excursion
+    (or (and (search-backward-regexp "^use .*;$" nil t nil)
+             (goto-char (1+ (match-end 0))))
+        (goto-char (point-min)))
+    (insert 
+     "use " a ";" ?\n)
+    (sit-for 1))))
+
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

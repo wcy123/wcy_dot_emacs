@@ -1,0 +1,15 @@
+(nil
+ "#include <iostream>" ?\n
+ "#include <vector>" ?\n
+ "#include <algorithm>" ?\n
+ "#include <iterator>" ?\n
+ "#include <functional>" ?\n
+ "#include <deque>" ?\n
+ "using namespace std;" ?\n
+ > _
+ )
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

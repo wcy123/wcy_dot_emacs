@@ -1,0 +1,13 @@
+(nil
+ (ignore (setq str1 (read-string "module: ")))
+ (ignore (setq dest (completing-read
+           "destination: "
+           '(("lib" 1) ("bin" 2) ("include" 3) 
+             nil t nil))))
+ "install (TARGETS " str1 " DESTINATION " dest ")"
+ )
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

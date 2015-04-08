@@ -1,0 +1,8 @@
+(nil
+  "DECL(VOBA_CONST_CHAR(\"" _ "\"));"
+  )
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

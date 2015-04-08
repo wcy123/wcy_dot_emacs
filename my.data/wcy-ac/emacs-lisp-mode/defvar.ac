@@ -1,0 +1,11 @@
+(nil 
+ "(defvar " _ "()" ?\n > "\""  "\"" ?\n >  ")")
+
+
+
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

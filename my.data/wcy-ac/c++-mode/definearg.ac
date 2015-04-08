@@ -1,0 +1,8 @@
+(nil
+ "VOBA_DEFINE_ARG(String" _ ",str1,args,0);")
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

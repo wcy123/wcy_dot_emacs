@@ -1,0 +1,7 @@
+(nil
+  (ignore (wcy-insert-html-table (x-get-selection))))
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

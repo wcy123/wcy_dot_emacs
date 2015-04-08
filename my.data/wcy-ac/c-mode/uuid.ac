@@ -1,0 +1,10 @@
+(nil
+ "#define VOBA_MODULE_ID \""
+ (replace-regexp-in-string "\n" "" (shell-command-to-string "uuidgen -t"))
+ "\""
+ )
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

@@ -1,0 +1,11 @@
+(nil
+"use FindBin;" ?\n
+"use lib \"$FindBin::Bin\";" ?\n
+_
+)
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

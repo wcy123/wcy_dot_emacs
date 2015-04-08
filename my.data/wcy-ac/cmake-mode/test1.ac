@@ -1,0 +1,12 @@
+(nil
+ (ignore (setq str1 (read-string "test: ")))
+ "
+add_test(" _ str1 " ${CMAKE_BINARY_DIR}/src/voba ${CMAKE_CURRENT_SOURCE_DIR}/"
+ str1 ")"
+
+ )
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

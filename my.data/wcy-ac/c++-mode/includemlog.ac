@@ -1,0 +1,12 @@
+(nil
+ > "#include \"OS_LogContext.h\"" ?\n
+ > "#include \"OS_Logging.h\"" ?\n
+ > "#include \"OS_LogLevel.h\"" _
+ )
+
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

@@ -1,0 +1,8 @@
+(nil
+ "my $self = shift;")
+ 
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

@@ -68,9 +68,13 @@
 
 ;;; --------------------- MY SETTINGS -----------------------
 ;; do NOT add whitespace as needed when inserting parentheses.
+(setq parens-require-spaces nil)
 (menu-bar-mode 0)
 (tool-bar-mode 0)
-(setq parens-require-spaces nil)
+;;; --------------------- WCY COMPLETE -----------------------
+;; for code snippet
+(setq wcy-complete-directory (expand-file-name "wcy-ac/" my-data-path))
+(global-set-key (kbd "C-]") 'wcy-complete)
 ;;;---------------------- DESKTOP&SESSION--------------------
 ;; save all history
 (wcy-eval-if-installed  

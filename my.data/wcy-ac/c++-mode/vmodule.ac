@@ -1,0 +1,38 @@
+(nil
+ (ignore (setq str (read-string "name: " (if (buffer-file-name) 
+                                             (file-name-sans-extension
+                                              (file-relative-name
+                                               (buffer-file-name))) ""))))
+"#include <v8.h>" ?\n
+"#include <iostream>" ?\n
+"using namespace std;" ?\n
+"#include \"void_ptr.h\"" ?\n
+"#include \"voba_utils.h\"" ?\n
+"" ?\n
+"ANONYMOUS_NAMESPACE_BEGIN" ?\n
+"static void JS_new_" str "(const v8::FunctionCallbackInfo<Value>& args);" ?\n
+"struct " str "_module : public voba_ctor_base0<" str "_module> {" ?\n
+"  static void def(template_initializor_c& def){" ?\n
+"    def(\"new_" str "\", JS_new_" str " )" ?\n
+"      ;" ?\n
+"  }" ?\n
+"};" ?\n
+"static void JS_new_" str "(const v8::FunctionCallbackInfo<Value>& args) " ?\n
+"{" ?\n
+"  args.GetReturnValue().Set(" str "_module::New());" ?\n
+"}" ?\n
+"ANONYMOUS_NAMESPACE_END" ?\n
+"extern \"C\" void voba_init(const v8::FunctionCallbackInfo<Value>& args)" ?\n
+"{" ?\n
+"  args.GetReturnValue().Set(" str "_module::New());"
+"  return;" ?\n
+"}" ?\n
+"" ?\n
+)
+  
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

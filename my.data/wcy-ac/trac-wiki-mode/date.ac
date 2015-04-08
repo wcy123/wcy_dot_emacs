@@ -1,0 +1,7 @@
+(nil
+ (format-time-string "%Y/%m/%d %H:%M:%S") _ )
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

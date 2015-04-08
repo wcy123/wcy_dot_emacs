@@ -1,0 +1,11 @@
+(nil "#ifdef __cplusplus\n"
+"extern \"C\" {\n"
+"#endif\n"
+_)
+
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

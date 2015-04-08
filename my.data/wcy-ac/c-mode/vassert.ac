@@ -1,0 +1,8 @@
+(nil
+  "assert(voba_is_a(" _ "));"
+  )
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:
