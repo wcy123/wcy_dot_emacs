@@ -1,0 +1,7 @@
+(nil
+ (ignore (wcy-add-local-variable-for-file)
+	 ))
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: undecided-unix
+;; End:

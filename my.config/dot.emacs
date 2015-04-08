@@ -38,7 +38,7 @@
  "M-'" 'backward-kill-sexp
  "C-x f" 'find-file-at-point
  "M-<SPC>" 'just-one-space
- "M-4" 'kill-buffer
+ "M-4" 'kill-this-buffer
  "M-1" 'delete-other-windows
  "M-0" 'wcy-other-window
  "M-5" 'wcy-display-buffer-name
