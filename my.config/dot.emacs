@@ -89,6 +89,12 @@
 ;; ----------------------- SWITCH BUFFER --------------------
 (require 'iswitchb)
 (iswitchb-mode t)
+;; ------------------- COMPILE ----------------------------
+(eval-after-load "compile"
+  '(progn 
+     (setq compilation-scroll-output t
+           compilation-read-command nil) 
+     ))
 ;;; -------------------  DONE --------------------------------
 ;; setq inhibit-startup-message to show "*scratch*" as the initial
 (setq inhibit-startup-message t)
