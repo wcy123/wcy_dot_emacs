@@ -9,11 +9,12 @@
 
 ;; ------------------- MEASURE --------------------------------
 ;; measure the loading time per file.
+(defvar wcy-profile-startup '())
 (defadvice load (around load-with-time-logging)
   "display the load time for each file."
   (let ((now (float-time)))
     ad-do-it
-    (message "%2.2f seconds is used." (- (float-time) now))))
+    (push (cons file (- (float-time) now)) wcy-profile-startup)))
 (ad-activate 'load)
 ;; -------------------- PATH ----------------------------------
 (add-to-list 'load-path my-elisp-path)
@@ -25,11 +26,8 @@
 (require 'wcy-compose)
 ;; -------------------- LOAD PRECOMPILED AUTOLOADS ------------
 ;; try to load precompiled auto to speed up.
-(if (load (expand-file-name 
-           "wcy-update-my.elisp-directory-autoloads.el"
-           my-elisp-path))
-    (wcy-update-my.elisp-directory-autoloads)
-  (error "dot.emacs: can not load file wcy-update-my.elisp-directory-autoloads.el"))
+(autoload 'wcy-update-my\.elisp-directory-autoloads "../my.elisp/wcy-update-my.elisp-directory-autoloads" "" nil nil)
+(wcy-update-my.elisp-directory-autoloads)
 ;; --------------------- SETUP MY KEY BINDINGS -----------------
 (wcy-global-set-key
  "C-x M-e" 'pp-eval-last-sexp
@@ -67,7 +65,11 @@
                                       (interactive "r")
                                       (delete-region b e))
                                   'delete-char)
+
+;;; --------------------- MY SETTINGS -----------------------
 ;; do NOT add whitespace as needed when inserting parentheses.
+(menu-bar-mode 0)
+(tool-bar-mode 0)
 (setq parens-require-spaces nil)
 ;;;---------------------- DESKTOP&SESSION--------------------
 ;; save all history

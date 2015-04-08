@@ -4,7 +4,7 @@
 
 
 ;;;### (autoloads nil "../my.elisp/wcy-add-local-variable-for-file"
-;;;;;;  "../my.elisp/wcy-add-local-variable-for-file.el" (21796 40194
+;;;;;;  "../my.elisp/wcy-add-local-variable-for-file.el" (21796 44530
 ;;;;;;  0 0))
 ;;; Generated autoloads from ../my.elisp/wcy-add-local-variable-for-file.el
 
@@ -16,7 +16,7 @@
 ;;;***
 
 ;;;### (autoloads nil "../my.elisp/wcy-complete" "../my.elisp/wcy-complete.el"
-;;;;;;  (21796 40316 0 0))
+;;;;;;  (21796 44530 0 0))
 ;;; Generated autoloads from ../my.elisp/wcy-complete.el
 
 (autoload 'wcy-complete "../my.elisp/wcy-complete" "\
@@ -27,7 +27,7 @@
 ;;;***
 
 ;;;### (autoloads nil "../my.elisp/wcy-compose" "../my.elisp/wcy-compose.el"
-;;;;;;  (21796 36829 0 0))
+;;;;;;  (21796 44530 0 0))
 ;;; Generated autoloads from ../my.elisp/wcy-compose.el
 
 (autoload 'wcy-compose "../my.elisp/wcy-compose" "\
@@ -103,7 +103,7 @@ return a list whose car satisfy PRED
 
 ;;;### (autoloads nil "../my.elisp/wcy-define-key-in-transient-mode"
 ;;;;;;  "../my.elisp/wcy-define-key-in-transient-mode.el" (21796
-;;;;;;  36027 0 0))
+;;;;;;  44530 0 0))
 ;;; Generated autoloads from ../my.elisp/wcy-define-key-in-transient-mode.el
 
 (autoload 'wcy-define-key-in-transient-mode "../my.elisp/wcy-define-key-in-transient-mode" "\
@@ -114,7 +114,7 @@ return a list whose car satisfy PRED
 ;;;***
 
 ;;;### (autoloads nil "../my.elisp/wcy-display-buffer-name" "../my.elisp/wcy-display-buffer-name.el"
-;;;;;;  (21796 42442 0 0))
+;;;;;;  (21796 44530 0 0))
 ;;; Generated autoloads from ../my.elisp/wcy-display-buffer-name.el
 
 (autoload 'wcy-display-buffer-name "../my.elisp/wcy-display-buffer-name" "\
@@ -125,7 +125,7 @@ return a list whose car satisfy PRED
 ;;;***
 
 ;;;### (autoloads nil "../my.elisp/wcy-dot-emacs-is-done" "../my.elisp/wcy-dot-emacs-is-done.el"
-;;;;;;  (21796 40618 0 0))
+;;;;;;  (21796 48546 0 0))
 ;;; Generated autoloads from ../my.elisp/wcy-dot-emacs-is-done.el
 
 (autoload 'wcy-dot-emacs-is-done "../my.elisp/wcy-dot-emacs-is-done" "\
@@ -136,7 +136,7 @@ return a list whose car satisfy PRED
 ;;;***
 
 ;;;### (autoloads nil "../my.elisp/wcy-edit-config" "../my.elisp/wcy-edit-config.el"
-;;;;;;  (21796 37729 0 0))
+;;;;;;  (21796 44530 0 0))
 ;;; Generated autoloads from ../my.elisp/wcy-edit-config.el
 
 (autoload 'wcy-edit-config "../my.elisp/wcy-edit-config" "\
@@ -167,7 +167,7 @@ edit abbrevs
 ;;;***
 
 ;;;### (autoloads nil "../my.elisp/wcy-eval-if-installed" "../my.elisp/wcy-eval-if-installed.el"
-;;;;;;  (21796 40082 0 0))
+;;;;;;  (21796 44530 0 0))
 ;;; Generated autoloads from ../my.elisp/wcy-eval-if-installed.el
 
 (autoload 'wcy-eval-if-installed "../my.elisp/wcy-eval-if-installed" "\
@@ -178,7 +178,7 @@ edit abbrevs
 ;;;***
 
 ;;;### (autoloads nil "../my.elisp/wcy-global-set-key" "../my.elisp/wcy-global-set-key.el"
-;;;;;;  (21796 35417 0 0))
+;;;;;;  (21796 44530 0 0))
 ;;; Generated autoloads from ../my.elisp/wcy-global-set-key.el
 
 (autoload 'wcy-global-set-key "../my.elisp/wcy-global-set-key" "\
@@ -189,7 +189,7 @@ edit abbrevs
 ;;;***
 
 ;;;### (autoloads nil "../my.elisp/wcy-kill-emacs" "../my.elisp/wcy-kill-emacs.el"
-;;;;;;  (21796 34835 0 0))
+;;;;;;  (21796 44530 0 0))
 ;;; Generated autoloads from ../my.elisp/wcy-kill-emacs.el
 
 (autoload 'wcy-kill-emacs "../my.elisp/wcy-kill-emacs" "\
@@ -201,26 +201,10 @@ kill emacs when only one frame left, otherwise, delete selected frame
 
 ;;;### (autoloads nil "../my.elisp/wcy-update-my.elisp-directory-autoloads"
 ;;;;;;  "../my.elisp/wcy-update-my.elisp-directory-autoloads.el"
-;;;;;;  (21546 5479 0 0))
+;;;;;;  (21796 44530 0 0))
 ;;; Generated autoloads from ../my.elisp/wcy-update-my.elisp-directory-autoloads.el
 
 (autoload 'wcy-update-my\.elisp-directory-autoloads "../my.elisp/wcy-update-my.elisp-directory-autoloads" "\
-
-
-\(fn)" t nil)
-
-;;;***
-
-;;;### (autoloads nil "../my.elisp/wcy-windows-ops" "../my.elisp/wcy-windows-ops.el"
-;;;;;;  (21796 42519 0 0))
-;;; Generated autoloads from ../my.elisp/wcy-windows-ops.el
-
-(autoload 'wcy-delete-other-windows "../my.elisp/wcy-windows-ops" "\
-
-
-\(fn)" t nil)
-
-(autoload 'wcy-other-window "../my.elisp/wcy-windows-ops" "\
 
 
 \(fn)" t nil)
