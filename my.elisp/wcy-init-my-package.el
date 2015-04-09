@@ -11,7 +11,9 @@
 	      "session.el")
 	     ("markdown-mode" "http://jblevins.org/projects/markdown-mode/markdown-mode.el"
 	      "markdown-mode.el")
-	     ))
+	     ("xcscope" "https://raw.githubusercontent.com/dkogan/xcscope.el/master/xcscope.el"
+	      "xcscope.el"
+	      )))
     (apply #'wcy-init-my-package-simple var)))
 (defun wcy-init-my-package-simple(name url filename)
   (if (not (locate-file name load-path '(".elc" ".el")))
