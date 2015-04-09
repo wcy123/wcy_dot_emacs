@@ -95,6 +95,47 @@
      (setq compilation-scroll-output t
            compilation-read-command nil) 
      ))
+;; ------------------- C/C++ --------------------------------
+(eval-after-load "ffap"
+  '(progn
+     (if (getenv "INCLUDE")
+         (setq ffap-c-path
+               (append (split-string (getenv "INCLUDE") ":" nil)
+                       ffap-c-path)))))
+(eval-after-load "cc-mode"
+  '(progn
+     (setq gud-chdir-before-run nil)
+     ;; 设置缩进风格. 用 M-x c-set-style ,然后用 TAB 查看补全结果,可以看到所有风格名称.
+     (setq c-default-style
+           '((java-mode . "java")
+             ;;(c-mode . "k&r")
+             (c-mode . "linux")
+             ;;(c++-mode . "ellemtel")
+             (c++-mode . "stroustrup")
+             (other . "gnu")
+             ))
+     ;;; install cscope
+     (add-hook 'c-mode-hook 'wcy-c-mode-hook)
+     (add-hook 'c++-mode-hook 'wcy-c-mode-hook)
+     (add-hook 'c++-mode-hook 'hs-minor-mode)
+     (setq vc-diff-switches "-bBu")     
+     (setq ffap-c-path '("/usr/include/c++/4.3/" "/usr/include"))
+     (define-key c-mode-map (kbd "C-c f") 'wcy-c-open-other-file)
+     (define-key c++-mode-map (kbd "C-c f") 'wcy-c-open-other-file)
+     ))
+(eval-after-load "xcscope"
+  '(progn
+     (autoload 'cscope:hook "xcscope")
+     (add-hook 'c-mode-hook (function cscope:hook))
+     (add-hook 'c++-mode-hook (function cscope:hook))
+     (add-hook 'dired-mode-hook (function cscope:hook))
+     (add-hook 'cscope-list-entry-hook 'wcy-cscope-list-entry-hook)
+     (if (display-graphic-p)
+         (setq cscope-use-face t)
+       (setq cscope-use-face nil))
+     (defun wcy-cscope-list-entry-hook()
+       (local-set-key (kbd "<RET>") 'cscope-select-entry-other-window))
+     ))
 ;; ------------------- MARKDOWN -----------------------------
 (wcy-eval-if-installed "markdown-mode"
   (autoload 'markdown-mode "markdown-mode")
