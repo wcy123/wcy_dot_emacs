@@ -73,6 +73,13 @@
 ;;; --------------------- MY SETTINGS -----------------------
 ;; do NOT add whitespace as needed when inserting parentheses.
 (setq parens-require-spaces nil)
+;; setup these mode at idle time
+(run-with-idle-timer
+ 1 nil
+ #'(lambda ()
+     (show-paren-mode 1)
+     (iswitchb-mode t)
+     (which-func-mode 1)))
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 ;;; --------------------- WCY COMPLETE -----------------------
@@ -86,9 +93,6 @@
   (require 'session)
   (add-hook 'after-init-hook 'session-initialize)
   (setq session-initialize '(session)))
-;; ----------------------- SWITCH BUFFER --------------------
-(require 'iswitchb)
-(iswitchb-mode t)
 ;; ------------------- COMPILE ------------------------------
 (eval-after-load "compile"
   '(progn 

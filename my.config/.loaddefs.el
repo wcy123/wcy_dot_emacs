@@ -14,6 +14,17 @@
 
 ;;;***
 
+;;;### (autoloads nil "../my.elisp/wcy-c-mode-hook" "../my.elisp/wcy-c-mode-hook.el"
+;;;;;;  (21797 57685 0 0))
+;;; Generated autoloads from ../my.elisp/wcy-c-mode-hook.el
+
+(autoload 'wcy-c-mode-hook "../my.elisp/wcy-c-mode-hook" "\
+
+
+\(fn)" nil nil)
+
+;;;***
+
 ;;;### (autoloads (wcy-complete) "../my.elisp/wcy-complete" "../my.elisp/wcy-complete.el"
 ;;;;;;  (21796 54089))
 ;;; Generated autoloads from ../my.elisp/wcy-complete.el
@@ -207,7 +218,7 @@ edit abbrevs
 ;;;***
 
 ;;;### (autoloads nil "../my.elisp/wcy-init-my-package" "../my.elisp/wcy-init-my-package.el"
-;;;;;;  (21796 63624 0 0))
+;;;;;;  (21797 57969 0 0))
 ;;; Generated autoloads from ../my.elisp/wcy-init-my-package.el
 
 (autoload 'wcy-init-my-package "../my.elisp/wcy-init-my-package" "\
