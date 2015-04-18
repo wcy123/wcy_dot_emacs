@@ -1,0 +1,8 @@
+(nil
+ "string ((istreambuf_iterator<char>(" _ ")), (istreambuf_iterator<char>()));")
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:
