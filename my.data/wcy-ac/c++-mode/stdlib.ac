@@ -5,6 +5,7 @@
  "#include <iterator>" ?\n
  "#include <functional>" ?\n
  "#include <deque>" ?\n
+ "#include <cassert>" ?\n
  "using namespace std;" ?\n
  > _
  )
