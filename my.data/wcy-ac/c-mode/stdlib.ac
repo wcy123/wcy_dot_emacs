@@ -1,6 +1,7 @@
 (nil
  "#include <stdio.h>" ?\n
  "#include <stdlib.h>" ?\n
+ "#include <assert.h>" ?\n
  > _
  )
 
