@@ -1,5 +1,5 @@
 (nil
-  "VOBA_FUNC static voba_value_t " _ "(voba_value_t self, voba_value_t args)\n"
+  "static VOBA_FUNC voba_value_t " _ "(voba_value_t fun, voba_value_t args, voba_value_t* next_fun, voba_value_t next_args[])\n"
   "{\n"
   "}"
   )

@@ -13,15 +13,33 @@
 \(fn)" t nil)
 
 ;;;***
+
+;;;***
+
+;;;### (autoloads nil "../my.elisp/wcy-backup-buffer" "../my.elisp/wcy-backup-buffer.el"
+;;;;;;  (21830 6364 0 0))
+;;; Generated autoloads from ../my.elisp/wcy-backup-buffer.el
 
 ;;;### (autoloads nil "../my.elisp/wcy-c-mode-hook" "../my.elisp/wcy-c-mode-hook.el"
-;;;;;;  (21797 57685 0 0))
+;;;;;;  (21825 55238 0 0))
 ;;; Generated autoloads from ../my.elisp/wcy-c-mode-hook.el
 
 (autoload 'wcy-c-mode-hook "../my.elisp/wcy-c-mode-hook" "\
 
 
 \(fn)" nil nil)
+
+;;;***
+
+;;;### (autoloads nil "../my.elisp/wcy-c-open-other-file" "../my.elisp/wcy-c-open-other-file.el"
+;;;;;;  (21797 59806 0 0))
+;;; Generated autoloads from ../my.elisp/wcy-c-open-other-file.el
+
+(autoload 'wcy-c-open-other-file "../my.elisp/wcy-c-open-other-file" "\
+if current file is a header file, then open the
+corresponding source file or vice versa.
+
+\(fn)" t nil)
 
 ;;;***
 
@@ -110,18 +128,6 @@ return a list whose car satisfy PRED
 
 
 \(fn LIST-OF-FUNCTIONS &rest ARGS)" nil (quote macro))
-
-;;;***
-
-;;;### (autoloads (wcy-define-key-in-transient-mode) "../my.elisp/wcy-define-key-in-transient-mode"
-;;;;;;  "../my.elisp/wcy-define-key-in-transient-mode.el" (21796
-;;;;;;  54089))
-;;; Generated autoloads from ../my.elisp/wcy-define-key-in-transient-mode.el
-
-(autoload 'wcy-define-key-in-transient-mode "../my.elisp/wcy-define-key-in-transient-mode" "\
-
-
-\(fn GLOBAL-P KEY CMD-MARK-ACTIVE CMD-MARK-NO-ACTIVE)" nil nil)
 
 ;;;***
 
@@ -252,12 +258,53 @@ install all my package.
 kill emacs when only one frame left, otherwise, delete selected frame
 
 \(fn)" t nil)
+;;;***
+
+;;;### (autoloads nil "../my.elisp/wcy-kill-next-move" "../my.elisp/wcy-kill-next-move.el"
+;;;;;;  (21827 43714 0 0))
+;;; Generated autoloads from ../my.elisp/wcy-kill-next-move.el
+
+(autoload 'wcy-kill-next-move "../my.elisp/wcy-kill-next-move" "\
+kill until the next movement
+
+\(fn KEY)" t nil)
 
 ;;;***
 
-;;;### (autoloads (wcy-update-my\.elisp-directory-autoloads) "../my.elisp/wcy-update-my.elisp-directory-autoloads"
+;;;### (autoloads nil "../my.elisp/wcy-read-variable" "../my.elisp/wcy-read-variable.el"
+;;;;;;  (21546 5479 0 0))
+;;; Generated autoloads from ../my.elisp/wcy-read-variable.el
+
+(autoload 'wcy-read-variable "../my.elisp/wcy-read-variable" "\
+read a varable
+
+\(fn PROMPT PREDICATE &optional DEFAULT)" nil nil)
+
+;;;***
+
+;;;### (autoloads nil "../my.elisp/wcy-search-file-in-parent-dir"
+;;;;;;  "../my.elisp/wcy-search-file-in-parent-dir.el" (21797 59828
+;;;;;;  0 0))
+;;; Generated autoloads from ../my.elisp/wcy-search-file-in-parent-dir.el
+
+(autoload 'wcy-search-file-in-parent-dir "../my.elisp/wcy-search-file-in-parent-dir" "\
+
+
+\(fn FILE-LIST DIR &optional PRED)" nil nil)
+
+;;;***
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil "../my.elisp/wcy-transient-mode" "../my.elisp/wcy-transient-mode.el"
+;;;;;;  (21824 36202 0 0))
+;;; Generated autoloads from ../my.elisp/wcy-transient-mode.el
+
+;;;### (autoloads nil "../my.elisp/wcy-update-my.elisp-directory-autoloads"
 ;;;;;;  "../my.elisp/wcy-update-my.elisp-directory-autoloads.el"
-;;;;;;  (21796 54089))
+;;;;;;  (21796 53882 0 0))
 ;;; Generated autoloads from ../my.elisp/wcy-update-my.elisp-directory-autoloads.el
 
 (autoload 'wcy-update-my\.elisp-directory-autoloads "../my.elisp/wcy-update-my.elisp-directory-autoloads" "\
