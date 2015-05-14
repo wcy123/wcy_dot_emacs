@@ -44,7 +44,7 @@
   (let ((m (make-sparse-keymap)))
     (mapc
      #'(lambda (k-c) 
-	 (define-key m (kbd (car k-c)) (cdr k-c)))
+	 (define-key m (read-kbd-macro (car k-c)) (cdr k-c)))
      args)
     m))
 (defconst wcy-emulation-mode-map-alist
