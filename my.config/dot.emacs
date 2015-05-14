@@ -70,6 +70,7 @@
 	  ("p" . previous-line)
 	  ("q" . keyboard-quit)
 	  ("u" . backward-up-list)
+	  ("C-w" . kill-region)
 	  ("w" . kill-region)
 	  ("x" . kill-region)
 	  ("y" . (lambda(b e)
