@@ -30,41 +30,126 @@
 (wcy-update-my.elisp-directory-autoloads)
 ;; --------------------- SETUP MY KEY BINDINGS -----------------
 (wcy-global-set-key
- "C-x M-e" 'pp-eval-last-sexp
- "C-M-:" 'pp-eval-expression
- "C-/" 'dabbrev-expand
- "M-?" 'dabbrev-expand
- "M-/" 'hippie-expand
- "M-'" 'backward-kill-sexp
- "C-x f" 'find-file-at-point
- "M-<SPC>" 'just-one-space
- "M-4" 'kill-this-buffer
- "M-1" 'delete-other-windows
- "M-0" 'wcy-other-window
- "M-5" 'wcy-display-buffer-name
- "C-]" 'wcy-complete
- "M-3" 'wcy-toggle-shell-and-cd
- "M-#" 'wcy-toggle-shell
- "<f7>" 'compile
- "C-x r C-j" 'wcy-jump-to-register-and-insert
- "M-o" nil
- "M-c" nil
- "M-c M-c" 'capitalize-word
- "M-c M-l" 'downcase-word
- "M-c M-u" 'upcase-word
- "C-x C-c" 'wcy-kill-emacs
- "M-`" 'next-error
  "C-z" 'kmacro-start-macro-or-insert-counter
  "M-z" 'kmacro-end-or-call-macro
+ "C-w"  'backward-kill-word
+ "C-x" #'(lambda () (interactive) (ding))
+ "C-v" 'yank
  )
-(wcy-define-key-in-transient-mode t "\C-w"
-                                  'kill-region
-                                  'backward-kill-word)
-(wcy-define-key-in-transient-mode t (kbd "C-d")
-                                  #'(lambda(b e)
-                                      (interactive "r")
-                                      (delete-region b e))
-                                  'delete-char)
+(add-to-list 'minor-mode-alist '(mark-active " Mark"))
+(defvar wcy-leader-key-mode t
+  "Minor mode to support <leader> support.")
+(defun wcy-make-keymap(args)
+  (let ((m (make-sparse-keymap)))
+    (mapc
+     #'(lambda (k-c) 
+	 (define-key m (kbd (car k-c)) (cdr k-c)))
+     args)
+    m))
+(defconst wcy-emulation-mode-map-alist
+  `((mark-active
+     ,@(wcy-make-keymap
+	`(
+	  ("a" . move-beginning-of-line)
+	  ("A" . beginning-of-defun)
+	  ("b" . backward-word)
+	  ("B" . backward-sexp)
+	  ("c" . kill-ring-save)
+	  ("C-d" . (lambda(b e)
+		     (interactive "r")
+		     (delete-region b e)))
+	  ("d" . (lambda(b e)
+		   (interactive "r")
+		   (delete-region b e)))
+	  ("e" . move-end-of-line)
+	  ("f" . forward-word)
+	  ("F" . forward-sexp)
+	  ("n" . next-line)
+	  ("o" . exchange-point-and-mark)
+	  ("p" . previous-line)
+	  ("q" . keyboard-quit)
+	  ("u" . backward-up-list)
+	  ("w" . kill-region)
+	  ("x" . kill-region)
+	  ("y" . (lambda(b e)
+		   (interactive "r")
+		   (delete-region b e)
+		   (call-interactively 'yank)))
+	  ("v" . (lambda(b e)
+		   (interactive "r")
+		   (delete-region b e)
+		   (call-interactively 'yank)))
+	  ("SPC" . (lambda () (interactive "") (set-mark (point))))	    
+	  )))
+    (wcy-leader-key-mode
+     ,@(wcy-make-keymap
+	`(
+	  ("\\" ,@(wcy-make-keymap
+		    `(
+		      ("\\" . 
+		       (lambda ()
+			(interactive)
+			(switch-to-buffer (other-buffer))))
+		      ("b" . iswitchb-buffer)
+		      ("c" . kill-ring-save)
+		      ("f" . nil)
+		      ("f s" . save-buffer)
+		      ("f o" . find-file-at-point)
+		      ("f S" . save-some-buffers)
+		      ("(" . insert-parentheses)
+		      ("\"" . (lambda (arg) (interactive "P")
+				(insert-pair arg ?\" ?\")))
+		      ("[" . (lambda (arg) (interactive "P")
+			       (insert-pair arg ?\[ ?\])))
+		      ("{" . (lambda (arg) (interactive "P")
+			       (insert-pair arg ?\{ ?\})))
+		      ("g" . nil)
+		      ("g g" . beginning-of-buffer)
+		      ("g t" . goto-line)
+		      ("g w" . ace-jump-word-mode)
+		      ("g c" . ace-jump-char-mode)
+		      ("g l" . ace-jump-line-mode)
+		      ("G"  . end-of-buffer)
+		      ("h" . help-command)
+		      ("l" . iswitchb-buffer)
+		      ("L" . ibuffer)
+		      ("n" . universal-argument)
+		      ("o" . exchange-point-and-mark)
+		      ("r" . query-replace-regexp)
+		      ("s" . (lambda () (interactive)
+			       (call-interactively 'search-forward)
+			       (unless mark-active (set-mark (match-beginning 0)))))
+		      ("S" . (lambda () (interactive)
+			       (call-interactively 'search-backward)
+			       (unless mark-active (set-mark (match-end 0)))))
+		      ("p" . nil)
+		      ("p b" . compile)
+		      ("w" . kill-region)
+		      ("@" . mark-sexp)
+		      ("x" ,@ctl-x-map)
+		      ("y" . yank)
+		      ("v" . yank)
+		      ("u" . undo)
+		      ("SPC" . set-mark-command)
+		      (":" . pp-eval-expression)
+		      ("/" . dabbrev-expand)
+		      ("?" . hippie-expand)
+		      ("4" . kill-this-buffer)
+		      ("1" . delete-other-windows)
+		      ("0" . wcy-other-window)
+		      ("5" . wcy-display-buffer-name)
+		      ("]" . wcy-complete)
+		      ("3" . wcy-toggle-shell-and-cd)
+		      ("#" . wcy-toggle-shell)
+		      ("`" . next-error)
+		      ("!" . shell-command)
+		      ("RET" . execute-extended-command)
+		      )))
+	  )))
+    ))
+(add-to-list 'emulation-mode-map-alists
+	     'wcy-emulation-mode-map-alist)
+
 ;; ---------------------- ACE JUMP --------------------------
 (wcy-eval-if-installed "ace-jump-mode"
   (autoload 'ace-jump-mode "ace-jump-mode" "Emacs quick move minor mode" t)
@@ -93,6 +178,11 @@
   (require 'session)
   (add-hook 'after-init-hook 'session-initialize)
   (setq session-initialize '(session)))
+;; ------------------- SKELETON ----------------------------
+(eval-after-load "skeleton"
+  '(progn 
+     (setq skeleton-end-newline nil)
+     (setq skeleton-pair nil)))
 ;; ------------------- COMPILE ------------------------------
 (eval-after-load "compile"
   '(progn 
@@ -172,14 +262,39 @@
          )
        (add-hook 'markdown-mode-hook 'my-markdown-hook)
        )))
-
+;; -------------------- ELISP --------------------------------
+(eval-after-load "lisp-mode"
+  '(progn
+     (defun wcy-lisp-mode-common-hook()
+       (set-fill-column 80)
+       (hs-minor-mode 1)
+       (local-set-key (kbd "C-c C-v") 'hs-toggle-hiding))
+     (defun wcy-emacs-lisp-mode-hook()
+       (interactive)
+       (wcy-lisp-mode-common-hook)
+       ;; compile after file is saved.
+       (add-hook 'after-save-hook 'wcy-emacs-lisp-compile-on-save t t))
+     (defun wcy-lisp-mode-hook()
+       (wcy-lisp-mode-common-hook))
+     (defun wcy-emacs-lisp-compile-on-save ()
+       (if (and buffer-file-name
+                (string-match "\\.el$" buffer-file-name))
+           (byte-compile-file buffer-file-name)))
+     (add-hook 'lisp-mode-hook 'wcy-lisp-mode-common-hook)
+     (add-hook 'emacs-lisp-mode-hook 'wcy-emacs-lisp-mode-hook)
+     (add-hook 'emacs-lisp-mode-hook 'auto-fill-mode)
+     (define-key emacs-lisp-mode-map (kbd "C-c C-l") 'eval-buffer )
+     (define-key emacs-lisp-mode-map (kbd "C-c C-c") 'eval-defun )
+     (define-key emacs-lisp-mode-map (kbd "C-c C-m") 'pp-macroexpand-expression )
+     ;;(define-key emacs-lisp-mode-map (kbd "<SPC>") 'just-one-space)
+     ))
 ;;; -------------------  DONE --------------------------------
 ;; setq inhibit-startup-message to show "*scratch*" as the initial
 (setq inhibit-startup-message t)
 (wcy-dot-emacs-is-done)
 (message "dot emacs is successful loaded.")
 
-
+(defalias 'exit 'save-buffers-kill-terminal)
 ;; Local Variables:
 ;; mode:emacs-lisp
 ;; coding: undecided-unix

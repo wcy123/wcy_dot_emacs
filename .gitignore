@@ -3,3 +3,4 @@
 *.lisp-temp
 my.package
 *.elc
+my.config/.loaddefs.el
