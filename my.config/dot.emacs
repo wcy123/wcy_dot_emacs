@@ -33,8 +33,9 @@
  "C-z" 'kmacro-start-macro-or-insert-counter
  "M-z" 'kmacro-end-or-call-macro
  "C-w"  'backward-kill-word
- "C-x" #'(lambda () (interactive) (ding))
+ ;;"C-x" #'(lambda () (interactive) (ding))
  "C-v" 'yank
+ "<f7>" 'compile
  )
 (add-to-list 'minor-mode-alist '(mark-active " Mark"))
 (defvar wcy-leader-key-mode t
@@ -92,6 +93,8 @@
 			(switch-to-buffer (other-buffer))))
 		      ("b" . iswitchb-buffer)
 		      ("c" . kill-ring-save)
+		      ("d" . nil)
+		      ("d d" . kill-line)
 		      ("f" . nil)
 		      ("f s" . save-buffer)
 		      ("f o" . find-file-at-point)
@@ -136,6 +139,7 @@
 		      ("?" . hippie-expand)
 		      ("4" . kill-this-buffer)
 		      ("1" . delete-other-windows)
+		      ("2" . mark-sexp)
 		      ("0" . wcy-other-window)
 		      ("5" . wcy-display-buffer-name)
 		      ("]" . wcy-complete)
@@ -149,11 +153,6 @@
     ))
 (add-to-list 'emulation-mode-map-alists
 	     'wcy-emulation-mode-map-alist)
-
-;; ---------------------- ACE JUMP --------------------------
-(wcy-eval-if-installed "ace-jump-mode"
-  (autoload 'ace-jump-mode "ace-jump-mode" "Emacs quick move minor mode" t)
-  (global-set-key (kbd "M-l") 'ace-jump-mode))
 
 ;;; --------------------- MY SETTINGS -----------------------
 ;; do NOT add whitespace as needed when inserting parentheses.
