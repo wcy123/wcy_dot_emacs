@@ -1,5 +1,5 @@
 ;; default value for the useful variables
-(defvar my-emacs-home 
+(defvar my-emacs-home
   (if load-file-name
       (file-name-as-directory (expand-file-name ".." (file-name-directory load-file-name)))
     (or (getenv "MY_EMACS_HOME") "~/MyEmacs")))
@@ -83,14 +83,14 @@
 		   (interactive "r")
 		   (delete-region b e)
 		   (call-interactively 'yank)))
-	  ("SPC" . (lambda () (interactive "") (set-mark (point))))	    
+	  ("SPC" . (lambda () (interactive "") (set-mark (point))))
 	  )))
     (wcy-leader-key-mode
      ,@(wcy-make-keymap
 	`(
 	  ("\\" ,@(wcy-make-keymap
 		    `(
-		      ("\\" . 
+		      ("\\" .
 		       (lambda ()
 			(interactive)
 			(switch-to-buffer (other-buffer))))
@@ -175,21 +175,21 @@
 (global-set-key (kbd "C-]") 'wcy-complete)
 ;;;---------------------- DESKTOP&SESSION--------------------
 ;; save all history
-(wcy-eval-if-installed  
+(wcy-eval-if-installed
     "session"
   (require 'session)
   (add-hook 'after-init-hook 'session-initialize)
   (setq session-initialize '(session)))
 ;; ------------------- SKELETON ----------------------------
 (eval-after-load "skeleton"
-  '(progn 
+  '(progn
      (setq skeleton-end-newline nil)
      (setq skeleton-pair nil)))
 ;; ------------------- COMPILE ------------------------------
 (eval-after-load "compile"
-  '(progn 
+  '(progn
      (setq compilation-scroll-output t
-           compilation-read-command nil) 
+           compilation-read-command nil)
      ))
 ;; ------------------- C/C++ --------------------------------
 (eval-after-load "ffap"
@@ -214,7 +214,7 @@
      (add-hook 'c-mode-hook 'wcy-c-mode-hook)
      (add-hook 'c++-mode-hook 'wcy-c-mode-hook)
      (add-hook 'c++-mode-hook 'hs-minor-mode)
-     (setq vc-diff-switches "-bBu")     
+     (setq vc-diff-switches "-bBu")
      (setq ffap-c-path '("/usr/include/c++/4.3/" "/usr/include"))
      (define-key c-mode-map (kbd "C-c f") 'wcy-c-open-other-file)
      (define-key c++-mode-map (kbd "C-c f") 'wcy-c-open-other-file)
@@ -238,7 +238,7 @@
   (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
   (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
   (eval-after-load "markdown-mode"
-    '(progn 
+    '(progn
        (setq markdown-command "multimarkdown")
        (setq markdown-command "markdown")
        (define-key markdown-mode-map (kbd "ESC <up>") 'markdown-move-up)
