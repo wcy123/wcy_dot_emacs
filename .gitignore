@@ -4,3 +4,4 @@
 my.package
 *.elc
 my.config/.loaddefs.el
+*~
