@@ -1,6 +1,6 @@
 (nil
- > "fprintf(stderr,__FILE__ \":%d:[%s] " _ "\", __LINE__, __FUNCTION__\n"
- > ");\n"
+ > "fprintf(stderr,__FILE__ \":%d:[%s] " _ "\\n\", __LINE__, __FUNCTION__\n"
+ > ",);\n"
  )
 
 

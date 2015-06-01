@@ -1,0 +1,9 @@
+(nil
+ (ignore (setq a (read-string "Node:")))
+  a " [ label=\"" a "\" URL=\"@ref " a "\"];"
+  )
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

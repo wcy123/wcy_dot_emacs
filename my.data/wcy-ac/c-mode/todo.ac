@@ -1,5 +1,5 @@
 (nil
-  "EZ_NIL"
+  "assert(0&&\"todo\");"
   )
 
 ;; Local Variables:

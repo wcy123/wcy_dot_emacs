@@ -1,0 +1,31 @@
+(nil
+ (ignore (setq a (read-string  "Type:")))
+"static inline struct " a "_t * ez_to_" a "(ez_value_t s)
+{
+    struct ez_user_t * p = ez_to_user(s);
+    assert(p->type == &the_" a "_type_object);
+    return (struct " a "_t*)p->data;
+}
+static EZ_FUN_ATTR ez_value_t " a "_ctor(ez_value_t fun, ez_args_t args)
+{
+    struct " a "_t * self = ez_to_" a "(fun);
+"
+>     _
+    "
+}
+static const struct ez_type_t the_" a "_type_object __attribute__((aligned(16))) = {
+    .type = &ez_the_type_object,
+    .u.gf = {
+	.apply = NULL,
+	.ctor = " a "_ctor,
+    },
+    .name = \"" a "\",
+    .size = EZ_SIZEOF_TO_USER_SIZE(sizeof(struct " a "_t))
+};
+"
+  )
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:
