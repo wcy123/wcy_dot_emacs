@@ -37,13 +37,15 @@
  "C-v" 'yank
  "<f7>" 'compile
  )
+(set-default 'indent-tabs-mode nil)
+(add-hook 'before-save-hook 'delete-trailing-whitespace t nil)
 (add-to-list 'minor-mode-alist '(mark-active " Mark"))
 (defvar wcy-leader-key-mode t
   "Minor mode to support <leader> support.")
 (defun wcy-make-keymap(args)
   (let ((m (make-sparse-keymap)))
     (mapc
-     #'(lambda (k-c) 
+     #'(lambda (k-c)
 	 (define-key m (read-kbd-macro (car k-c)) (cdr k-c)))
      args)
     m))
