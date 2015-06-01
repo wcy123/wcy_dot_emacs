@@ -31,5 +31,6 @@ layout: post
 title:  \"%s\"
 date:   %s
 categories: 
+comments: true
 ---
 " title (format-time-string "%Y/%m/%d %H:%M:%S"))))
