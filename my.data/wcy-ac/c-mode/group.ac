@@ -1,5 +1,8 @@
 (nil
-  "EZ_NIL"
+  "/** @defgroup " _ "
+@{
+*/
+  "
   )
 
 ;; Local Variables:
