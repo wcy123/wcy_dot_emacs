@@ -222,13 +222,13 @@
      (define-key c-mode-map (kbd "C-c f") 'wcy-c-open-other-file)
      (define-key c++-mode-map (kbd "C-c f") 'wcy-c-open-other-file)
      ))
-(eval-after-load "xcscope"
-  '(progn
-     (autoload 'cscope:hook "xcscope")
-     (add-hook 'c-mode-hook (function cscope:hook))
-     (add-hook 'c++-mode-hook (function cscope:hook))
-     (add-hook 'dired-mode-hook (function cscope:hook))
-     (add-hook 'cscope-list-entry-hook 'wcy-cscope-list-entry-hook)
+(wcy-eval-if-installed "xcscope"
+  (progn
+    (autoload 'cscope-minor-mode "xcscope")
+    (add-hook 'c-mode-hook (function cscope-minor-mode))
+    (add-hook 'c++-mode-hook (function cscope-minor-mode))
+    (add-hook 'dired-mode-hook (function cscope-minor-mode))
+    (add-hook 'cscope-list-entry-hook 'wcy-cscope-list-entry-hook)
      (if (display-graphic-p)
          (setq cscope-use-face t)
        (setq cscope-use-face nil))
