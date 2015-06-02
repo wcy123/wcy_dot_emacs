@@ -37,6 +37,9 @@
  "C-v" 'yank
  "<f7>" 'compile
  )
+(require 'color-theme)
+(require 'color-theme-solarized)
+(color-theme-solarized-light)
 (set-default 'indent-tabs-mode nil)
 (add-hook 'before-save-hook 'delete-trailing-whitespace t nil)
 (add-to-list 'minor-mode-alist '(mark-active " Mark"))
