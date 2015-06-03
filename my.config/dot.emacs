@@ -36,6 +36,7 @@
  ;;"C-x" #'(lambda () (interactive) (ding))
  "C-v" 'yank
  "<f7>" 'compile
+ "M-`" 'next-error
  )
 (require 'color-theme)
 (require 'color-theme-solarized)
