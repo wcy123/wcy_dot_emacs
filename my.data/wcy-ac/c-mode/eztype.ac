@@ -1,29 +1,34 @@
 (nil
- (ignore (setq a (read-string  "Type:")))
-"static inline struct " a "_t * ez_to_" a "(ez_value_t s)
-{
-    struct ez_user_t * p = ez_to_user(s);
-    assert(p->type == &the_" a "_type_object);
-    return (struct " a "_t*)p->data;
-}
-static EZ_FUN_ATTR ez_value_t " a "_ctor(ez_value_t fun, ez_args_t args)
-{
-    struct " a "_t * self = ez_to_" a "(fun);
-"
->     _
-    "
-}
-static const struct ez_type_t the_" a "_type_object __attribute__((aligned(16))) = {
+ (ignore (setq name (read-string  "Type: ")))
+ (ignore (setq method (let ((r nil)
+                            (m ""))
+                        (while
+                            (not
+                             (string-equal (setq m (read-string "Prop: ")) ""))
+                          (push m r))
+                        (nreverse r))))
+ "static const struct ez_type_t the_" name "_type_object\n"
+ "__attribute__((aligned(16))) = {
     .type = &ez_the_type_object,
-    .u.gf = {
-	.apply = NULL,
-	.ctor = " a "_ctor,
-    },
-    .name = \"" a "\",
-    .size = EZ_SIZEOF_TO_USER_SIZE(sizeof(struct " a "_t))
+    .u.gf = {"
+ "\n        .ctor = " name "_ctor,
+        .access = &ez_user_access,
+        .to_string = " _ name "_to_string
+    }
+    ,.name = \"" name "\",
+    .size = " (int-to-string (length method)) "
 };
+const ez_value_t EZ_PACKAGE(" name ") =
+        (ez_value_t)(
+            ((char*) &the_" name "_type_object) + EZ_TYPE_USER);
 "
-  )
+ (cl-loop for m being the elements of method using (index i)
+          concat
+          (concat "const ez_value_t EZ_PACKAGE(" name "_2D" m ") "
+                  " = EZ_MAKE_I32(" (int-to-string i) ");\n"
+                  ))
+
+ )
 
 ;; Local Variables:
 ;; mode:emacs-lisp
