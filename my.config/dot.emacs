@@ -326,6 +326,23 @@
 (add-to-list 'load-path "/home2/chunywan/d/working/distel/elisp")
 (require 'distel)
 (distel-setup)
+(setq inferior-erlang-machine-options (list "-sname"
+                                            (format "%s" (emacs-pid))))
+
+(defconst distel-shell-keys
+  '(("--i" erl-complete)
+    ("-?" erl-complete)
+    ("-." erl-find-source-under-point)
+    ("-," erl-find-source-unwind)
+    ("-*" erl-find-source-unwind)
+    )
+  "Additional keys to bind when in Erlang shell.")
+(add-hook 'erlang-shell-mode-hook
+          (lambda ()
+            ;; add some Distel bindings to the Erlang shell
+            (dolist (spec distel-shell-keys)
+              (define-key erlang-shell-mode-map (car spec) (cadr spec)))))
+
 ;;; -------------------  DONE --------------------------------
 ;; setq inhibit-startup-message to show "*scratch*" as the initial
 (setq inhibit-startup-message t)
