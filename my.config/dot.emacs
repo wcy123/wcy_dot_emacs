@@ -318,6 +318,12 @@
      (define-key emacs-lisp-mode-map (kbd "C-c C-m") 'pp-macroexpand-expression )
      ;;(define-key emacs-lisp-mode-map (kbd "<SPC>") 'just-one-space)
      ))
+;; ------------------- ERLANG --------------------------
+(add-to-list 'load-path
+   "/home2/chunywan/d/local/lib/erlang/lib/tools-2.8/emacs/")
+(require 'erlang)
+(setq erlang-root-dir  "/home2/chunywan/d/local/lib/erlang")
+
 ;;; -------------------  DONE --------------------------------
 ;; setq inhibit-startup-message to show "*scratch*" as the initial
 (setq inhibit-startup-message t)
