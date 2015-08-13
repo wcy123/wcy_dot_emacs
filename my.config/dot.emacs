@@ -36,6 +36,7 @@
  ;;"C-x" #'(lambda () (interactive) (ding))
  "C-v" 'yank
  "<f7>" 'compile
+ "M-`" 'next-error
  )
 (cond
  ((eq emacs-major-version 23)
@@ -67,6 +68,7 @@
 (set-default 'indent-tabs-mode nil)
 (add-hook 'before-save-hook 'delete-trailing-whitespace t nil)
 (add-to-list 'minor-mode-alist '(mark-active " Mark"))
+(defalias 'yes-or-no-p #'y-or-n-p)
 (defvar wcy-leader-key-mode t
   "Minor mode to support <leader> support.")
 (defun wcy-make-keymap(args)
