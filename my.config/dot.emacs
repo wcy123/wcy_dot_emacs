@@ -323,7 +323,9 @@
    "/home2/chunywan/d/local/lib/erlang/lib/tools-2.8/emacs/")
 (require 'erlang)
 (setq erlang-root-dir  "/home2/chunywan/d/local/lib/erlang")
-
+(add-to-list 'load-path "/home2/chunywan/d/working/distel/elisp")
+(require 'distel)
+(distel-setup)
 ;;; -------------------  DONE --------------------------------
 ;; setq inhibit-startup-message to show "*scratch*" as the initial
 (setq inhibit-startup-message t)
