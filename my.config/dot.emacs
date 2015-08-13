@@ -37,9 +37,33 @@
  "C-v" 'yank
  "<f7>" 'compile
  )
-(require 'color-theme)
-(require 'color-theme-solarized)
-(color-theme-solarized-light)
+(cond
+ ((eq emacs-major-version 23)
+  (wcy-eval-if-installed
+      "color-theme"
+    (require 'color-theme)
+    (wcy-eval-if-installed "color-theme-solarized"
+      (require 'color-theme-solarized)
+      (color-theme-solarized-light))))
+ ((and (eq emacs-major-version 24)
+       (eq emacs-minor-version 2))
+  (defun plist-to-alist (the-plist)
+    (defun get-tuple-from-plist (the-plist)
+      (when the-plist
+        (cons (car the-plist) (cadr the-plist))))
+
+    (let ((alist '()))
+      (while the-plist
+        (add-to-list 'alist (get-tuple-from-plist the-plist))
+        (setq the-plist (cddr the-plist)))
+      alist))
+  (wcy-eval-if-installed
+      "color-theme"
+    (require 'color-theme)
+    (wcy-eval-if-installed "color-theme-solarized"
+      (require 'color-theme-solarized)
+      (color-theme-solarized-light)))))
+
 (set-default 'indent-tabs-mode nil)
 (add-hook 'before-save-hook 'delete-trailing-whitespace t nil)
 (add-to-list 'minor-mode-alist '(mark-active " Mark"))
@@ -213,7 +237,6 @@
              (c++-mode . "stroustrup")
              (other . "gnu")
              ))
-     ;;; install cscope
      (add-hook 'c-mode-hook 'wcy-c-mode-hook)
      (add-hook 'c++-mode-hook 'wcy-c-mode-hook)
      (add-hook 'c++-mode-hook 'hs-minor-mode)
