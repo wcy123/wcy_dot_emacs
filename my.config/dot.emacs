@@ -22,7 +22,7 @@
 ;; -------------------- LOAD MOST COMMON MODULE ---------------
 ;; remove-if-not is defined here
 (require 'cl)
-(require 'cl-extra)
+;;(require 'cl-extra)
 (if (not (boundp 'cl-coerce))
     (defalias 'cl-coerce 'coerce))
 ;; this function is used by wcy-update-my.elisp-directory-autoloads
