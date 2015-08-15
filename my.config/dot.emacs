@@ -322,31 +322,57 @@
      ;;(define-key emacs-lisp-mode-map (kbd "<SPC>") 'just-one-space)
      ))
 ;; ------------------- ERLANG --------------------------
+;; detect erlang installation.
+(let* ((erl-exec (locate-file "escript" exec-path)))
+  (when erl-exec
+    (let ((temp-file (make-temp-file "erl")))
+      (with-temp-file temp-file
+        (insert "#!/usr/bin/env escript
+-export([main/1]).
+main(_) ->
+    ToolPath = code:lib_dir(tools),
+    RootDir = code:root_dir(),
+    io:format(\"(setq erlang-root-dir ~p)~n\",[RootDir]),
+    ElangModePath = filename:join(ToolPath, \"emacs\"),
+    io:format(\"(add-to-list 'load-path ~p)~n\",[ElangModePath]).
+"))
+      (with-temp-buffer
+        (call-process-shell-command "escript"
+                                    nil ;input
+                                    (current-buffer) ;output
+                                    nil      ;display
+                                    temp-file)
+        (message "%s" (buffer-string))
+        (delete-file temp-file)
+        (eval-buffer)
+        ))))
 (wcy-eval-if-installed "erlang"
-  (add-to-list 'load-path
-               "/home2/chunywan/d/local/lib/erlang/lib/tools-2.8/emacs/")
   (require 'erlang)
-  (setq erlang-root-dir  "/home2/chunywan/d/local/lib/erlang")
-  (add-to-list 'load-path "/home2/chunywan/d/working/distel/elisp")
-  (require 'distel)
-  (distel-setup)
-  (setq inferior-erlang-machine-options (list "-sname"
-                                              (format "%s" (emacs-pid))))
-
-  (defconst distel-shell-keys
-    '(("--i" erl-complete)
-      ("-?" erl-complete)
-      ("-." erl-find-source-under-point)
-      ("-," erl-find-source-unwind)
-      ("-*" erl-find-source-unwind)
-      )
-    "Additional keys to bind when in Erlang shell.")
-  (add-hook 'erlang-shell-mode-hook
-            (lambda ()
-              ;; add some Distel bindings to the Erlang shell
-              (dolist (spec distel-shell-keys)
-                (define-key erlang-shell-mode-map (car spec) (cadr spec)))))
-  )
+  ;;  this is set properly in the detection period
+  ;; (setq erlang-root-dir  "/home2/chunywan/d/local/lib/erlang")
+  (setq inferior-erlang-machine-options
+        (list "-sname"
+              (format "%s" (emacs-pid))))
+  ;; TODO: this is no good way to detect distel is installed.
+  (let ((distel-root (expand-file-name "~/d/working/distel")))
+    (when (file-exists-p distel-root)
+      (let ((dist-el (expand-file-name "elisp" distel-root)))
+        (add-to-list 'load-path dist-el)
+        (require 'distel)
+        (distel-setup)
+        (defconst distel-shell-keys
+          '(("M-i" erl-complete)
+            ("M-?" erl-complete)
+            ("M-." erl-find-source-under-point)
+            ("M-," erl-find-source-unwind)
+            ("M-*" erl-find-source-unwind)
+            )
+          "Additional keys to bind when in Erlang shell.")
+        (defun erlang-shell-mode-hook-1 ()
+          ;; add some Distel bindings to the Erlang shell
+          (dolist (spec distel-shell-keys)
+            (define-key erlang-shell-mode-map (car spec) (cadr spec))))
+        (add-hook 'erlang-shell-mode-hook 'erlang-shell-mode-hook-1)))))
 ;;; -------------------  DONE --------------------------------
 ;; setq inhibit-startup-message to show "*scratch*" as the initial
 (setq inhibit-startup-message t)
