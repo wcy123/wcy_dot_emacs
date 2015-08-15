@@ -371,7 +371,7 @@ main(_) ->
         (defun erlang-shell-mode-hook-1 ()
           ;; add some Distel bindings to the Erlang shell
           (dolist (spec distel-shell-keys)
-            (define-key erlang-shell-mode-map (car spec) (cadr spec))))
+            (define-key erlang-shell-mode-map (read-kbd-macro (car spec)) (cadr spec))))
         (add-hook 'erlang-shell-mode-hook 'erlang-shell-mode-hook-1)))))
 ;;; -------------------  DONE --------------------------------
 ;; setq inhibit-startup-message to show "*scratch*" as the initial
