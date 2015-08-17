@@ -200,7 +200,9 @@
      (iswitchb-mode t)
      (which-func-mode 1)))
 (menu-bar-mode 0)
-(tool-bar-mode 0)
+(if (fboundp 'tool-bar-mode)
+    (tool-bar-mode -1)
+    (setq tool-bar-mode nil))
 ;;; --------------------- WCY COMPLETE -----------------------
 ;; for code snippet
 (setq wcy-complete-directory (expand-file-name "wcy-ac/" my-data-path))
