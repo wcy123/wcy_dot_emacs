@@ -1,0 +1,11 @@
+(nil
+ (ignore (setq a (read-string "Var name: ")))
+ a "(Vars) ->
+    ej_vars:get(" a " ?MODULE, Vars).
+"
+  )
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:
