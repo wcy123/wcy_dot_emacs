@@ -4,3 +4,4 @@
        "dot.emacs"
        (concat (getenv "MY_EMACS_HOME") "/my.config")))
 
+(put 'narrow-to-region 'disabled nil)

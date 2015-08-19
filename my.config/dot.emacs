@@ -355,6 +355,9 @@ main(_) ->
   (setq inferior-erlang-machine-options
         (list "-sname"
               (format "%s" (emacs-pid))))
+  (setq erlang-compile-extra-opts
+        (list '(i . "include")
+              'debug_info))
   ;; TODO: this is no good way to detect distel is installed.
   (let ((distel-root (expand-file-name "~/d/working/distel")))
     (when (file-exists-p distel-root)
