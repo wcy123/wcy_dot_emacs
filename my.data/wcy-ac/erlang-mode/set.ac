@@ -1,0 +1,10 @@
+(nil
+ (ignore (setq a (read-string "Var name: ")))
+> "get_"  a "/1," ?\n
+> "set_"  a "/2," ?\n
+)xs
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:
