@@ -1,0 +1,12 @@
+
+(nil
+ > "io:format(user,\"~s:~p: [~p] -- ~p~n\",[?FILE, ?LINE, ?MODULE, {" _ "}]),"
+
+ )
+
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:
