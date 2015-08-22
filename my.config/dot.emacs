@@ -1,4 +1,5 @@
 ;; default value for the useful variables
+(defvar after-init-time nil)
 (defvar my-emacs-home
   (if load-file-name
       (file-name-as-directory (expand-file-name ".." (file-name-directory load-file-name)))
@@ -23,8 +24,8 @@
 ;; remove-if-not is defined here
 (require 'cl)
 ;;(require 'cl-extra)
-(if (not (boundp 'cl-coerce))
-    (defalias 'cl-coerce 'coerce))
+;; (if (not (boundp 'cl-coerce))
+;;     (defalias 'cl-coerce 'coerce))
 ;; this function is used by wcy-update-my.elisp-directory-autoloads
 (require 'wcy-compose)
 ;; -------------------- LOAD PRECOMPILED AUTOLOADS ------------
@@ -50,7 +51,7 @@
       (require 'color-theme-solarized)
       (color-theme-solarized-light))))
  ((and (eq emacs-major-version 24)
-       (eq emacs-minor-version 2))
+       (> emacs-minor-version 2))
   (defun plist-to-alist (the-plist)
     (defun get-tuple-from-plist (the-plist)
       (when the-plist
@@ -186,6 +187,7 @@
 		      )))
 	  )))
     ))
+(wcy-adhoc-clipboard-enable)
 (add-to-list 'emulation-mode-map-alists
 	     'wcy-emulation-mode-map-alist)
 
@@ -357,7 +359,10 @@ main(_) ->
               (format "%s" (emacs-pid))))
   (setq erlang-compile-extra-opts
         (list '(i . "./include")
-              '(i . "/home/chunywan/d/working/ejabberd/deps/p1_xml/include")
+              'export_all
+              (cons 'i (expand-file-name
+                     "d/working/easemob/ejabberd/deps/p1_xml/include"
+                     (getenv "HOME")))
               'debug_info))
   ;; TODO: this is no good way to detect distel is installed.
   (let ((distel-root (expand-file-name "~/d/working/distel")))
