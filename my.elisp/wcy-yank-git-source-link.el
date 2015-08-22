@@ -14,7 +14,7 @@
            (sha1 (trim (shell-command-to-string "git rev-parse HEAD")))
            (link
             (concat git-remote-url "/blob/"
-                    sha1
+                    sha1 "/"
                     relative-name
                     (format "#L%d-#L%d" begin-line end-line))))
       (message "%S" link)
