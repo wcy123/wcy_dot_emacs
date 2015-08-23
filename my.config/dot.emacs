@@ -37,6 +37,7 @@
  "C-z" 'kmacro-start-macro-or-insert-counter
  "M-z" 'kmacro-end-or-call-macro
  "C-w"  'backward-kill-word
+ "M-7" 'compile
  ;;"C-x" #'(lambda () (interactive) (ding))
  "C-v" 'yank
  "<f7>" 'compile
@@ -356,7 +357,9 @@ main(_) ->
   ;; (setq erlang-root-dir  "/home2/chunywan/d/local/lib/erlang")
   (setq inferior-erlang-machine-options
         (list "-sname"
-              (format "%s" (emacs-pid))))
+              (format "%s" (emacs-pid))
+              "-mnesia" "dir" "\"Mnesia.dir\""
+              ))
   (setq erlang-compile-extra-opts
         (list '(i . "./include")
               'export_all

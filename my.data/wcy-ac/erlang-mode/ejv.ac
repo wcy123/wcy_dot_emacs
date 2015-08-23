@@ -1,7 +1,12 @@
 (nil
  (ignore (setq a (read-string "Var name: ")))
+ (ignore (setq b (read-string "Var Type: ")))
+ "-spec "
+ "get_"  a "(Vars :: ej_vars:ej_vars()) ->  " b ".\n"
+
 "get_"  a "(Vars) ->
     ej_vars:get(" a ",?MODULE, Vars).
+-spec set_" a "(Value :: " b ", Vars :: ej_vars:ej_vars() ) -> ej_vars:ej_vars().
 set_" a "(Value,Vars) ->
     ej_vars:set(" a ", Value, ?MODULE, Vars)."
   )
