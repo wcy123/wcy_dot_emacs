@@ -39,7 +39,7 @@
  "C-w"  'backward-kill-word
  "M-7" 'compile
  ;;"C-x" #'(lambda () (interactive) (ding))
- "C-v" 'yank
+ ;;"C-v" 'yank
  "<f7>" 'compile
  "M-`" 'next-error
  )
@@ -358,14 +358,17 @@ main(_) ->
   (setq inferior-erlang-machine-options
         (list "-sname"
               (format "%s" (emacs-pid))
-              "-mnesia" "dir" "\"Mnesia.dir\""
+              "-remsh"
+              "ejabberd@localhost"
+              "-hidden"
               ))
   (setq erlang-compile-extra-opts
         (list '(i . "./include")
               'export_all
               (cons 'i (expand-file-name
-                     "d/working/easemob/ejabberd/deps/p1_xml/include"
-                     (getenv "HOME")))
+                        "d/working/easemob/ejabberd/deps/p1_xml/include"
+                        (getenv "HOME")))
+              (cons 'd (intern "'LAGER'"))
               'debug_info))
   ;; TODO: this is no good way to detect distel is installed.
   (let ((distel-root (expand-file-name "~/d/working/distel")))

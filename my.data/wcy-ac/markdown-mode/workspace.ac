@@ -1,7 +1,7 @@
 (nil
- "{{site.workspace}}/" _ 
+ "{{site.workspace}}/" _
  (let ((dir
-        "/media/sf_home/d/working/jekyll/workspace/"))
+        "~/d/working/wiki.im/workspace"))
    (file-relative-name
     (read-file-name "img:" nil dir t dir nil)
     dir))
