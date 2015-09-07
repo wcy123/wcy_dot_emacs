@@ -1,3 +1,4 @@
+;;;###autoload
 (defun wcy-yank-git-source-link (&optional begin end)
     "yank the http link to github."
     (interactive "r")

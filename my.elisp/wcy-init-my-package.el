@@ -14,6 +14,9 @@
 	     ("xcscope" "https://raw.githubusercontent.com/dkogan/xcscope.el/master/xcscope.el"
 	      "xcscope.el"
 	      )
+             ("color-theme"
+              "http://download.savannah.gnu.org/releases/color-theme/color-theme.el.gz"
+              "color-theme.el.gz")
              ("solarized"
               "https://raw.githubusercontent.com/altercation/solarized/master/emacs-colors-solarized/color-theme-solarized.el"
               "color-theme-solarized.el")
@@ -31,6 +34,13 @@
 				  url)))
 	  (if (eq ret 0)
 	      (condition-case nil
-		  (byte-compile-file full-name))
-	    (warn "cannot retrieve %s" url))))
+                  (let* ((ext (file-name-extension full-name))
+                         (full-name-2 (if (string= ext "gz")
+                                          (file-name-sans-extension full-name)
+                                        full-name)))
+                    (when (string= ext "gz")
+                      (call-process "gunzip" nil nil nil
+                                    full-name))
+                    (byte-compile-file full-name))
+                (warn "cannot retrieve %s" url)))))
     (message "%s is already installed" name)))

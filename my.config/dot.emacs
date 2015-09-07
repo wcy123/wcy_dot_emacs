@@ -51,8 +51,9 @@
     (wcy-eval-if-installed "color-theme-solarized"
       (require 'color-theme-solarized)
       (color-theme-solarized-light))))
- ((and (eq emacs-major-version 24)
-       (> emacs-minor-version 2))
+ ((or (and (eq emacs-major-version 24)
+           (> emacs-minor-version 2))
+      (eq emacs-major-version 25))
   (defun plist-to-alist (the-plist)
     (defun get-tuple-from-plist (the-plist)
       (when the-plist
@@ -195,6 +196,11 @@
 ;;; --------------------- MY SETTINGS -----------------------
 ;; do NOT add whitespace as needed when inserting parentheses.
 (setq parens-require-spaces nil)
+ ;; scroll one line at a time (less "jumpy" than defaults)
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+(setq scroll-step 1) ;; keyboard scroll one line at a time
 ;; setup these mode at idle time
 (run-with-idle-timer
  1 nil
@@ -360,13 +366,14 @@ main(_) ->
               (format "%s" (emacs-pid))
               "-remsh"
               "ejabberd@localhost"
+              ;;"tsung_controller@my"
               "-hidden"
               ))
   (setq erlang-compile-extra-opts
         (list '(i . "./include")
               'export_all
               (cons 'i (expand-file-name
-                        "d/working/easemob/ejabberd/deps/p1_xml/include"
+                        "d/working/easemob/deps/p1_xml/include"
                         (getenv "HOME")))
               (cons 'd (intern "'LAGER'"))
               'debug_info))
