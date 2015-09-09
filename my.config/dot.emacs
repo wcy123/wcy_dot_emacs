@@ -42,7 +42,14 @@
  ;;"C-v" 'yank
  "<f7>" 'compile
  "M-`" 'next-error
+ "<C-s-268632070>"  'toggle-fullscreen
  )
+(defun toggle-fullscreen ()
+  "Toggle full screen"
+  (interactive)
+  (set-frame-parameter
+     nil 'fullscreen
+     (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
 (cond
  ((eq emacs-major-version 23)
   (wcy-eval-if-installed
