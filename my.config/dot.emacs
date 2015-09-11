@@ -384,6 +384,9 @@ main(_) ->
               (cons 'i (expand-file-name
                         "d/working/easemob/deps/p1_xml/include"
                         (getenv "HOME")))
+              (cons 'i (expand-file-name
+                        "d/working/easemob/deps/tick"
+                        (getenv "HOME")))
               (cons 'd (intern "'LAGER'"))
               'debug_info))
   ;; TODO: this is no good way to detect distel is installed.
