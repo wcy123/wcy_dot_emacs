@@ -77,7 +77,7 @@
     (wcy-eval-if-installed "color-theme-solarized"
       (require 'color-theme-solarized)
       (color-theme-solarized-light)))))
-
+(set-default 'tab-width 4)
 (set-default 'indent-tabs-mode nil)
 (add-hook 'before-save-hook 'delete-trailing-whitespace t nil)
 (add-to-list 'minor-mode-alist '(mark-active " Mark"))
@@ -203,6 +203,7 @@
 ;;; --------------------- MY SETTINGS -----------------------
 ;; do NOT add whitespace as needed when inserting parentheses.
 (setq parens-require-spaces nil)
+(setq split-width-threshold 2400) ; I prefer split horizontally.
  ;; scroll one line at a time (less "jumpy" than defaults)
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
 (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
