@@ -1,6 +1,6 @@
 
 (nil
- > "io:format(\"~s:~p: [~p] -- ~p~n\",[?FILE, ?LINE, ?MODULE, {" _ "}]),"
+ > "?DEBUG(\"~s:~p: [~p] -- ~p~n\",[?FILE, ?LINE, ?MODULE, {" _ "}]),"
 
  )
 

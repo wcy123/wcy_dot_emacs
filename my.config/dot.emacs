@@ -50,33 +50,34 @@
   (set-frame-parameter
      nil 'fullscreen
      (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
-(cond
- ((eq emacs-major-version 23)
-  (wcy-eval-if-installed
-      "color-theme"
-    (require 'color-theme)
-    (wcy-eval-if-installed "color-theme-solarized"
-      (require 'color-theme-solarized)
-      (color-theme-solarized-light))))
- ((or (and (eq emacs-major-version 24)
-           (> emacs-minor-version 2))
-      (eq emacs-major-version 25))
-  (defun plist-to-alist (the-plist)
-    (defun get-tuple-from-plist (the-plist)
-      (when the-plist
-        (cons (car the-plist) (cadr the-plist))))
+(when (display-graphic-p)
+  (cond
+   ((eq emacs-major-version 23)
+    (wcy-eval-if-installed
+        "color-theme"
+      (require 'color-theme)
+      (wcy-eval-if-installed "color-theme-solarized"
+        (require 'color-theme-solarized)
+        (color-theme-solarized-light))))
+   ((or (and (eq emacs-major-version 24)
+             (> emacs-minor-version 2))
+        (eq emacs-major-version 25))
+    (defun plist-to-alist (the-plist)
+      (defun get-tuple-from-plist (the-plist)
+        (when the-plist
+          (cons (car the-plist) (cadr the-plist))))
 
-    (let ((alist '()))
-      (while the-plist
-        (add-to-list 'alist (get-tuple-from-plist the-plist))
-        (setq the-plist (cddr the-plist)))
-      alist))
-  (wcy-eval-if-installed
-      "color-theme"
-    (require 'color-theme)
-    (wcy-eval-if-installed "color-theme-solarized"
-      (require 'color-theme-solarized)
-      (color-theme-solarized-light)))))
+      (let ((alist '()))
+        (while the-plist
+          (add-to-list 'alist (get-tuple-from-plist the-plist))
+          (setq the-plist (cddr the-plist)))
+        alist))
+    (wcy-eval-if-installed
+        "color-theme"
+      (require 'color-theme)
+      (wcy-eval-if-installed "color-theme-solarized"
+        (require 'color-theme-solarized)
+        (color-theme-solarized-light))))))
 (set-default 'tab-width 4)
 (set-default 'indent-tabs-mode nil)
 (add-hook 'before-save-hook 'delete-trailing-whitespace t nil)
@@ -342,6 +343,10 @@
      (define-key emacs-lisp-mode-map (kbd "C-c C-m") 'pp-macroexpand-expression )
      ;;(define-key emacs-lisp-mode-map (kbd "<SPC>") 'just-one-space)
      ))
+;; ------------------- protobuf ------------------------
+(wcy-eval-if-installed "protobuf-mode"
+  (require 'protobuf-mode)
+  (add-to-list 'auto-mode-alist '("\\.proto\\'" . protobuf-mode)))
 ;; ------------------- ERLANG --------------------------
 ;; detect erlang installation.
 (let* ((erl-exec (locate-file "escript" exec-path)))
@@ -375,20 +380,45 @@ main(_) ->
         (list "-sname"
               (format "%s" (emacs-pid))
               "-remsh"
-              "ejabberd@localhost"
+              ;;"ejabberd@localhost"
               ;;"tsung_controller@my"
+              ;;"msync2@localhost"
+              ;;"message@localhost"
+              ;; msync_client@localhost
+              ;;"message@localhost"
+              ;;"ejabberd@wangchunye"
+              "msync2@wangchunye"
               "-hidden"
               ))
+  (setenv "ERL_ROOT" erlang-root-dir)
+  (setq user-mail-address (or (getenv "EMAIL") ""))
+  (setq erlang-skel-mail-address user-mail-address)
   (setq erlang-compile-extra-opts
         (list '(i . "./include")
               'export_all
               (cons 'i (expand-file-name
-                        "d/working/easemob/deps/p1_xml/include"
+                        (getenv "HOME")))
+              (cons 'i (expand-file-name
+                        "d/working/ejabberd/deps/p1_xml/include"
+                        (getenv "HOME")))
+              (cons 'i (expand-file-name
+                        "d/working/msync/include"
+                        (getenv "HOME")))
+              (cons 'i (expand-file-name
+                        "d/working/msync/deps/im_libs/apps/msync_proto/include"
+                        (getenv "HOME")))
+              (cons 'i (expand-file-name
+                        "d/working/easemob/msync/deps/mochiweb/include"
+                        (getenv "HOME")))
+              (cons 'i (expand-file-name
+                        "d/working/wiki.im.hexo/source/asn1-vs-protobuf/index/deps/gpb/include"
                         (getenv "HOME")))
               (cons 'i (expand-file-name
                         "d/working/easemob/deps/tick"
                         (getenv "HOME")))
               (cons 'd (intern "'LAGER'"))
+              (cons 'd (intern "'LICENSE'"))
+              (list 'd (intern "'INITIAL_LICENSE_TIME'") 86400)
               'debug_info))
   ;; TODO: this is no good way to detect distel is installed.
   (let ((distel-root (expand-file-name "~/d/working/distel")))
@@ -407,6 +437,7 @@ main(_) ->
           "Additional keys to bind when in Erlang shell.")
         (defun erlang-shell-mode-hook-1 ()
           ;; add some Distel bindings to the Erlang shell
+          (define-key erlang-mode-map (kbd "<f7>") #'erlang-compile)
           (dolist (spec distel-shell-keys)
             (define-key erlang-shell-mode-map (read-kbd-macro (car spec)) (cadr spec))))
         (add-hook 'erlang-shell-mode-hook 'erlang-shell-mode-hook-1)))))
