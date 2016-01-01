@@ -1,0 +1,8 @@
+(nil
+ "-compile([export_all])."
+)
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:
