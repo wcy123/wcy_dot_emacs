@@ -1,0 +1,33 @@
+(nil
+
+ "#!/usr/bin/env escript\n"
+ "%% -*- erlang -*-\n"
+ "%%! -smp enable -sname factorial -mnesia debug verbose\n"
+ "main([]) ->\n"
+ "    setup_path(),\n"
+ "    try\n"
+ > _ "\n"
+ "    catch\n"
+ "        Class:Error ->\n"
+ "            usage(Class,Error)\n"
+ "    end;\n"
+ "main(X) ->\n"
+ "    usage(1,X).\n"
+ "\n"
+ "usage(Class,Error) ->\n"
+ "    io:format(\"usage: ~p:~p ~p\n\", [Class, Error, erlang:get_stacktrace()]),\n"
+ "    halt(1).\n"
+ "\n"
+ "setup_path() ->\n"
+ "    ScriptName = escript:script_name(),\n"
+ "    ScriptDir = filename:dirname(ScriptName),\n"
+ "    ProjectRoot = filename:join([ScriptDir, \"..\", \"..\", \"..\"]),\n"
+ "    Dirs = filelib:wildcard(filename:join([ProjectRoot, \"apps\", \"*\", \"ebin\"]))\n"
+ "        ++ filelib:wildcard(filename:join([ProjectRoot, \"deps\", \"*\", \"ebin\"])),\n"
+ "    lists:foreach(fun code:add_path/1, Dirs).\n"
+ )
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:
