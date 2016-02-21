@@ -1,6 +1,6 @@
 
 (nil
- > "?DEBUG(\"~s:~p: [~p] -- ~p~n\",[?FILE, ?LINE, ?MODULE, {" _ "}]),"
+ > "lager:debug(\"~s~n\", [erlang:iolist_to_binary([\"debugging: \\n\" " _ "])]),"
 
  )
 
