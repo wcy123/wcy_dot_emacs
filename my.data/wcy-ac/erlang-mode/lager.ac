@@ -1,0 +1,8 @@
+(nil
+ "-compile([{parse_transform, lager_transform}]).\n"
+)
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

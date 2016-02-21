@@ -2,7 +2,7 @@
 
  "#!/usr/bin/env escript\n"
  "%% -*- erlang -*-\n"
- "%%! -smp enable -sname factorial -mnesia debug verbose\n"
+ "%%! -smp enable -sname escript -mnesia debug verbose\n"
  "main([]) ->\n"
  "    setup_path(),\n"
  "    try\n"
@@ -21,8 +21,8 @@
  "setup_path() ->\n"
  "    ScriptName = escript:script_name(),\n"
  "    ScriptDir = filename:dirname(ScriptName),\n"
- "    ProjectRoot = filename:join([ScriptDir, \"..\", \"..\", \"..\"]),\n"
- "    Dirs = filelib:wildcard(filename:join([ProjectRoot, \"apps\", \"*\", \"ebin\"]))\n"
+ "    ProjectRoot = filename:join([ScriptDir, \"..\", \"..\"]),\n"
+ "    Dirs = filelib:wildcard(filename:join([ProjectRoot, \"ebin\"]))\n"
  "        ++ filelib:wildcard(filename:join([ProjectRoot, \"deps\", \"*\", \"ebin\"])),\n"
  "    lists:foreach(fun code:add_path/1, Dirs).\n"
  )
