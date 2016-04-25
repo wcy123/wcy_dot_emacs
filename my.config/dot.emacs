@@ -1,5 +1,8 @@
 ;; default value for the useful variables
 (defvar after-init-time nil)
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "http://stable.melpa.org/packages/") t)
 (defvar my-emacs-home
   (if load-file-name
       (file-name-as-directory (expand-file-name ".." (file-name-directory load-file-name)))
@@ -387,7 +390,7 @@ main(_) ->
               ;; msync_client@localhost
               ;;"message@localhost"
               ;;"ejabberd@wangchunye"
-              "msync2@wangchunye"
+              "msync@localhost"
               "-hidden"
               ))
   (setenv "ERL_ROOT" erlang-root-dir)
@@ -441,6 +444,69 @@ main(_) ->
           (dolist (spec distel-shell-keys)
             (define-key erlang-shell-mode-map (read-kbd-macro (car spec)) (cadr spec))))
         (add-hook 'erlang-shell-mode-hook 'erlang-shell-mode-hook-1)))))
+
+;;; -------------------- GO --------------------
+(defvar my-gopath (or (getenv "GOPATH")
+                      (getenv "HOME")))
+(add-to-list 'load-path (expand-file-name "src/github.com/dougm/goflymake/"
+                                          my-gopath))
+
+(wcy-eval-if-installed "go-mode"
+  (require 'go-mode-autoloads)
+  ;; gotfmt will check whether the major mode is go-mode or not.
+  (add-hook 'before-save-hook 'gofmt-before-save)
+  (setq gofmt-command "goimports")
+  (eval-after-load "go-mode"
+    '(progn
+       (define-key go-mode-map (kbd "M-.") 'godef-jump)
+       ;; go get -u github.com/dougm/goflymake1
+       ;;  it is buggy
+       ;; (wcy-eval-if-installed "flymake"
+       ;;   (wcy-eval-if-installed "go-flymake"
+       ;;     (require 'go-flymake)))
+       (wcy-eval-if-installed "flycheck"
+         (wcy-eval-if-installed "go-flycheck"
+           (require 'go-flycheck)))
+       (defun go-mode-setup ()
+         (setq compile-command "go build -v && go test -v && go vet")
+         (define-key (current-local-map)
+           "\C-c\C-c" 'compile))
+       (add-hook 'go-mode-hook 'go-mode-setup)
+       ;; package-install company
+       (wcy-eval-if-installed "company"
+         (wcy-eval-if-installed "company-go"
+           (require 'company)
+           (require 'company-go)
+           ;; bigger popup window
+           (setq company-tooltip-limit 20)
+           ;; decrease delay before autocompletion
+           ;; popup shows
+           (setq company-idle-delay .3)
+           ;; remove  annoying blinking
+           (setq company-echo-delay 0)
+           ;; start autocompletion only after typing
+           (setq company-begin-commands '(self-insert-command))
+           (add-hook 'go-mode-hook 'wcy-go-mode-hook-company)
+           (defun wcy-go-mode-hook-company ()
+             (set
+              (make-local-variable 'company-backends) '(company-go))
+             (company-mode))
+           ))
+       ;; package-install go-eldoc
+       (wcy-eval-if-installed "go-eldoc"
+         (add-hook 'go-mode-hook 'go-eldoc-setup))
+       ;; error check
+       ;; go get -u github.com/kisielk/errcheck
+       (wcy-eval-if-installed "go-errcheck"
+         (require 'go-errcheck)
+         (add-hook 'go-mode-hook 'wcy-go-mode-hook-errcheck)
+         (defun wcy-go-mode-hook-errcheck ()
+           (add-hook 'after-save-hook #'(lambda() (call-interactively
+                                                   'go-errcheck)) t t)))
+       ;; go get golang.org/x/tools/cmd/oracle
+       ;; go get github.com/tleyden/checkers-bot-minimax
+       (load-file "$GOPATH/src/golang.org/x/tools/cmd/oracle/oracle.el")
+       )))
 ;;; -------------------  DONE --------------------------------
 ;; setq inhibit-startup-message to show "*scratch*" as the initial
 (setq inhibit-startup-message t)

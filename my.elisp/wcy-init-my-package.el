@@ -14,12 +14,18 @@
 	     ("xcscope" "https://raw.githubusercontent.com/dkogan/xcscope.el/master/xcscope.el"
 	      "xcscope.el"
 	      )
-             ("color-theme"
-              "http://download.savannah.gnu.org/releases/color-theme/color-theme.el.gz"
-              "color-theme.el.gz")
-             ("solarized"
-              "https://raw.githubusercontent.com/altercation/solarized/master/emacs-colors-solarized/color-theme-solarized.el"
-              "color-theme-solarized.el")
+         ("company-go"
+          "https://raw.githubusercontent.com/nsf/gocode/master/emacs-company/company-go.el"
+          "company-go.el")
+         ("go-errcheck"
+          "https://raw.githubusercontent.com/dominikh/go-errcheck.el/master/go-errcheck.el"
+          "go-errcheck.el")
+         ("color-theme"
+          "http://download.savannah.gnu.org/releases/color-theme/color-theme.el.gz"
+          "color-theme.el.gz")
+         ("solarized"
+          "https://raw.githubusercontent.com/altercation/solarized/master/emacs-colors-solarized/color-theme-solarized.el"
+          "color-theme-solarized.el")
              ))
     (apply #'wcy-init-my-package-simple var)))
 (defun wcy-init-my-package-simple(name url filename)
