@@ -1,0 +1,12 @@
+(nil
+ (ignore (setq a (read-string "name:") ))
+"![" a "][" a "]
+
+[" a "]: https://raw.githubusercontent.com/wcy123/wcy-attachments/master/" a ".png"
+
+)
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:
