@@ -1,0 +1,9 @@
+(nil
+ > "lager:debug(\"stack trace: ~p~n\", [ process_info(self(),current_stacktrace)])" _
+ > )
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

@@ -1,0 +1,15 @@
+(nil
+"%%\n"
+"%% Tests\n"
+"%%\n"
+"-ifdef(TEST).\n"
+"-include_lib(\"eunit/include/eunit.hrl\").\n"
+_
+"\n"
+"-endif.\n"
+)
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:
