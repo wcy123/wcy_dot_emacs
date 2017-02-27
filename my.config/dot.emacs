@@ -110,7 +110,9 @@
 	  ("e" . move-end-of-line)
 	  ("f" . forward-word)
 	  ("F" . forward-sexp)
-	  ("n" . next-line)
+	  ("h" . backward-char)
+      ("l" . forward-char)
+      ("n" . next-line)
 	  ("o" . exchange-point-and-mark)
 	  ("p" . previous-line)
 	  ("q" . keyboard-quit)
@@ -127,6 +129,7 @@
 		   (delete-region b e)
 		   (call-interactively 'yank)))
 	  ("SPC" . (lambda () (interactive "") (set-mark (point))))
+      ("%" . forward-sexp)
 	  )))
     (wcy-leader-key-mode
      ,@(wcy-make-keymap
@@ -164,15 +167,11 @@
 		      ("L" . ibuffer)
 		      ("n" . universal-argument)
 		      ("o" . exchange-point-and-mark)
-		      ("r" . query-replace-regexp)
-		      ("s" . (lambda () (interactive)
-			       (call-interactively 'search-forward)
-			       (unless mark-active (set-mark (match-beginning 0)))))
-		      ("S" . (lambda () (interactive)
-			       (call-interactively 'search-backward)
-			       (unless mark-active (set-mark (match-end 0)))))
+		      ("r" . isearch-backward)
+		      ("s" . isearch-forward)
 		      ("p" . nil)
 		      ("p b" . compile)
+		      ("q" . save-buffers-kill-terminal)
 		      ("w" . kill-region)
 		      ("@" . mark-sexp)
 		      ("x" ,@ctl-x-map)
@@ -195,12 +194,15 @@
 		      ("!" . shell-command)
 		      ("RET" . execute-extended-command)
 		      )))
-	  )))
-    ))
+	  )))))
 (wcy-adhoc-clipboard-enable)
 (add-to-list 'emulation-mode-map-alists
 	     'wcy-emulation-mode-map-alist)
 
+;;;
+(wcy-eval-if-installed
+    "ace-jump-mode"
+  (require 'ace-jump-mode))
 ;;; --------------------- MY SETTINGS -----------------------
 ;; do NOT add whitespace as needed when inserting parentheses.
 (setq parens-require-spaces nil)
@@ -372,6 +374,10 @@ main(_) ->
         (delete-file temp-file)
         (eval-buffer)
         ))))
+(wcy-eval-if-installed "adoc-mode"
+  (autoload 'adoc-mode "adoc-mode" nil t)
+  (add-to-list 'auto-mode-alist (cons "\\.txt\\'" 'adoc-mode))
+  (add-to-list 'auto-mode-alist (cons "\\.adoc\\'" 'adoc-mode)))
 (wcy-eval-if-installed "erlang"
   (require 'erlang)
   ;;  this is set properly in the detection period
@@ -387,7 +393,10 @@ main(_) ->
               ;; msync_client@localhost
               ;;"message@localhost"
               ;;"ejabberd@wangchunye"
-              "msync2@wangchunye"
+              ;; "etcd@localhost"
+              ;;"ejabberd@wangchunye"
+              "xmpp@localhost"
+              ;;"xmpp@localhost"
               "-hidden"
               ))
   (setenv "ERL_ROOT" erlang-root-dir)
@@ -396,10 +405,25 @@ main(_) ->
   (setq erlang-compile-extra-opts
         (list '(i . "./include")
               'export_all
+              (cons 'i
+                    "/usr/local/Cellar/erlang/18.2.1/lib/erlang/lib/kernel-4.1.1/src")
+              (cons 'i "/usr/local/Cellar/erlang/18.2.1/lib/erlang/lib/kernel-4.1.1/include")
+              (cons 'i (expand-file-name
+                        "d/working/msync/deps/lager/include"
+                        (getenv "HOME")))
+              (cons 'i (expand-file-name
+                        "d/working/msync/deps/im_libs/apps/message_store/include"
+                        (getenv "HOME")))
+              (cons 'i (expand-file-name
+                        "d/working/msync/deps"
+                        (getenv "HOME")))
               (cons 'i (expand-file-name
                         (getenv "HOME")))
               (cons 'i (expand-file-name
                         "d/working/ejabberd/deps/p1_xml/include"
+                        (getenv "HOME")))
+              (cons 'i (expand-file-name
+                        "d/working/ejabberd/deps/eredis/include"
                         (getenv "HOME")))
               (cons 'i (expand-file-name
                         "d/working/msync/include"
@@ -414,11 +438,14 @@ main(_) ->
                         "d/working/wiki.im.hexo/source/asn1-vs-protobuf/index/deps/gpb/include"
                         (getenv "HOME")))
               (cons 'i (expand-file-name
+                        "d/working/ejabberd/include"
+                        (getenv "HOME")))
+              (cons 'i (expand-file-name
                         "d/working/easemob/deps/tick"
                         (getenv "HOME")))
               (cons 'd (intern "'LAGER'"))
-              (cons 'd (intern "'LICENSE'"))
-              (list 'd (intern "'INITIAL_LICENSE_TIME'") 86400)
+              (cons 'd (intern "'TEST'"))
+              ;;(cons 'd (intern "'LICENSE'"))
               'debug_info))
   ;; TODO: this is no good way to detect distel is installed.
   (let ((distel-root (expand-file-name "~/d/working/distel")))
@@ -440,6 +467,7 @@ main(_) ->
           (define-key erlang-mode-map (kbd "<f7>") #'erlang-compile)
           (dolist (spec distel-shell-keys)
             (define-key erlang-shell-mode-map (read-kbd-macro (car spec)) (cadr spec))))
+
         (add-hook 'erlang-shell-mode-hook 'erlang-shell-mode-hook-1)))))
 ;;; -------------------  DONE --------------------------------
 ;; setq inhibit-startup-message to show "*scratch*" as the initial
