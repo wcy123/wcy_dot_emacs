@@ -1,0 +1,24 @@
+(nil
+ (ignore
+  (save-excursion
+    (goto-char (point-min))
+    (insert
+     "%%%-------------------------------------------------------------------
+%%% @author " user-full-name " <" user-mail-address ">
+%%% @copyright (C) 2015, WangChunye
+%%% @doc
+%%%
+%%% @end
+%%% Created : " (format-time-string "%Y/%m/%d %H:%M") " by " user-full-name " <" user-mail-address ">
+%%%-------------------------------------------------------------------
+-module(" (file-name-base (buffer-file-name)) ").
+-author('" user-mail-address "').
+"
+))))
+
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

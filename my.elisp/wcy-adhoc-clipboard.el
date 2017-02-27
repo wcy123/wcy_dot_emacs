@@ -54,8 +54,6 @@
   (wcy-adhoc-clipboard-save-content text))
 
 (require 'simple)
-(defvar wcy-adhoc-clipboard-old-interprogram-functions
-  (cons interprogram-paste-function interprogram-cut-function))
 (defvar wcy-adhoc-orig-interprogram-paste-function
   interprogram-paste-function)
 (defvar wcy-adhoc-orig-interprogram-cut-function
@@ -65,9 +63,9 @@
 (defun wcy-adhoc-clipboard-enable ()
   (interactive)
   (setq wcy-adhoc-orig-interprogram-paste-function
-        interprogram-paste-function
+        (or interprogram-paste-function #'ignore)
         wcy-adhoc-orig-interprogram-cut-function
-        interprogram-cut-function)
+        (or interprogram-cut-function #'ignore))
   (setq interprogram-paste-function
 	#'(lambda (&rest args)
 	    (let ((x (apply wcy-adhoc-orig-interprogram-paste-function args)))
