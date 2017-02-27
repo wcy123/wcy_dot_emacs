@@ -398,7 +398,7 @@ main(_) ->
               ;;"ejabberd@wangchunye"
               ;; "etcd@localhost"
               ;;"ejabberd@wangchunye"
-              "xmpp@localhost"
+              ;; "xmpp@localhost"
               ;;"xmpp@localhost"
               "msync@localhost"
               "-hidden"
