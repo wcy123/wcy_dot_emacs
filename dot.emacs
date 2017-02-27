@@ -1,3 +1,10 @@
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (when (display-graphic-p)
   (setq fonts
         (cond ((eq system-type 'darwin)     '("Monaco"     "STHeiti"))
@@ -12,7 +19,7 @@
                       (font-spec :family (car (cdr fonts))))))
 
 ;;(add-to-list 'exec-path "/usr/local/Cellar/erlang/R17.5/bin")
-(add-to-list 'exec-path "/usr/local/Cellar/erlang/R18.0/bin")
+(add-to-list 'exec-path "/usr/local/Cellar/erlang/R18.2.1/bin")
 (add-to-list 'exec-path "/usr/local/bin")
 (setenv "PATH" (mapconcat 'identity exec-path ":"))
 (setenv "MY_EMACS_HOME" (or (getenv "MY_EMACS_HOME")
@@ -28,6 +35,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(package-selected-packages (quote (##)))
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 (custom-set-faces
@@ -41,3 +49,4 @@
 ;; coding: undecided-unix
 ;; End:
 (set-default 'cursor-type 'box)
+(put 'downcase-region 'disabled nil)
