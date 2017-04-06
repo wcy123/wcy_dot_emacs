@@ -241,11 +241,12 @@
 (global-set-key (kbd "C-]") 'wcy-complete)
 ;;;---------------------- DESKTOP&SESSION--------------------
 ;; save all history
-(wcy-eval-if-installed
-    "session"
-  (require 'session)
-  (add-hook 'after-init-hook 'session-initialize)
-  (setq session-initialize '(session)))
+ ;; (wcy-eval-if-installed
+ ;;     "session"
+ ;;   (require 'session)
+ ;;   (add-hook 'after-init-hook 'session-initialize)
+;;   (setq session-initialize '(session)))
+(desktop-save-mode 1)
 ;; ------------------- SKELETON ----------------------------
 (eval-after-load "skeleton"
   '(progn
