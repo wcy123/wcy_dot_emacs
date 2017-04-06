@@ -1,8 +1,9 @@
 (nil
- "#include <iostream>" ?\n
- "using namespace std;" ?\n
+ "#pragma once\n"
+ "namespace deephi {\n"
  > _
- )
+ "}")
+
 
 ;; Local Variables:
 ;; mode:emacs-lisp

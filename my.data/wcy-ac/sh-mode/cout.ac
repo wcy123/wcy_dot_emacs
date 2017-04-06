@@ -1,8 +1,7 @@
 (nil
- "#include <iostream>" ?\n
- "using namespace std;" ?\n
- > _
- )
+ (ignore (setq a (read-string  "Variable:")))
+ "echo " a "=\"$" a "\"")
+
 
 ;; Local Variables:
 ;; mode:emacs-lisp

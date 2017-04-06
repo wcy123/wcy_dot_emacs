@@ -34,3 +34,31 @@ categories:
 comments: true
 ---
 " title (format-time-string "%Y/%m/%d %H:%M:%S"))))
+
+
+;;;###autoload
+(defun wcy-new-post (title)
+  ""
+  (interactive "sTitle: ")
+  ;;2014-08-27-first-post.markdown
+  (let* ((file-name (concat ""
+                            (format-time-string "%Y-%m-%d-")
+                            (replace-regexp-in-string "[^a-zA-Z‘[:multibyte:]]" "-" title)
+                            ".md"))
+         (b (find-file file-name)))
+    (with-current-buffer b
+      (when (zerop (buffer-size))
+        (wcy-insert-front-matter title)))))
+;;;###autoload
+(defun wcy-insert-front-matter (title)
+  ""
+  (interactive "sTitle: ")
+  (insert (format
+           "---
+layout: post
+title:  \"%s\"
+date:   %s
+categories:
+comments: true
+---
+" title (format-time-string "%Y/%m/%d %H:%M:%S"))))

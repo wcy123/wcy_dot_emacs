@@ -143,10 +143,12 @@
 		       (lambda ()
 			(interactive)
 			(switch-to-buffer (other-buffer))))
-		      ("b" . iswitchb-buffer)
+		      ("b" . ido-switch-buffer)
 		      ("c" . kill-ring-save)
 		      ("d" . nil)
 		      ("d d" . kill-line)
+		      ("d w" . kill-word)
+		      ("d l" . wcy-duplicate-line)
 		      ("f" . nil)
 		      ("f s" . save-buffer)
 		      ("f o" . find-file-at-point)
@@ -185,11 +187,12 @@
 		      (":" . pp-eval-expression)
 		      ("/" . dabbrev-expand)
 		      ("?" . hippie-expand)
-		      ("4" . kill-this-buffer)
-		      ("1" . delete-other-windows)
-		      ("2" . mark-sexp)
 		      ("0" . wcy-other-window)
+              ("1" . delete-other-windows)
+		      ("2" . mark-sexp)
+		      ("4" . kill-this-buffer)
 		      ("5" . wcy-display-buffer-name)
+		      ("7" . compile)
 		      ("]" . wcy-complete)
 		      ("3" . wcy-toggle-shell-and-cd)
 		      ("#" . wcy-toggle-shell)
@@ -220,7 +223,11 @@
  1 nil
  #'(lambda ()
      (show-paren-mode 1)
-     (iswitchb-mode t)
+     (setq ido-use-virtual-buffers t)
+     (setq ido-everywhere t)
+     (setq ido-enable-flex-matching t)
+     (ido-mode 1)
+     (global-subword-mode t)
      (which-func-mode 1)))
 (if (eq system-type 'darwin)
     (menu-bar-mode t)
@@ -272,6 +279,8 @@
      (add-hook 'c-mode-hook 'wcy-c-mode-hook)
      (add-hook 'c++-mode-hook 'wcy-c-mode-hook)
      (add-hook 'c++-mode-hook 'hs-minor-mode)
+     (add-hook 'c-mode-common-hook 'google-set-c-style)
+     (add-hook 'c-mode-common-hook 'google-make-newline-indent)
      (setq vc-diff-switches "-bBu")
      (setq ffap-c-path '("/usr/include/c++/4.3/" "/usr/include"))
      (define-key c-mode-map (kbd "C-c f") 'wcy-c-open-other-file)
@@ -286,10 +295,20 @@
     (add-hook 'cscope-list-entry-hook 'wcy-cscope-list-entry-hook)
      (if (display-graphic-p)
          (setq cscope-use-face t)
-       (setq cscope-use-face nil))
+       (setq cscope-use-face t))
      (defun wcy-cscope-list-entry-hook()
        (local-set-key (kbd "<RET>") 'cscope-select-entry-other-window))
      ))
+(wcy-eval-if-installed "cmake-mode"
+  (setq auto-mode-alist
+	  (append
+	   '(("CMakeLists\\.txt\\'" . cmake-mode))
+	   '(("\\.cmake\\'" . cmake-mode))
+	   auto-mode-alist))
+  (autoload 'cmake-mode
+    (expand-file-name
+     "my.package/cmake-mode.el"
+     my-emacs-home) t))
 ;; ------------------- MARKDOWN -----------------------------
 (wcy-eval-if-installed "markdown-mode"
   (autoload 'markdown-mode "markdown-mode")
@@ -379,7 +398,6 @@ main(_) ->
         ))))
 (wcy-eval-if-installed "adoc-mode"
   (autoload 'adoc-mode "adoc-mode" nil t)
-  (add-to-list 'auto-mode-alist (cons "\\.txt\\'" 'adoc-mode))
   (add-to-list 'auto-mode-alist (cons "\\.adoc\\'" 'adoc-mode)))
 (wcy-eval-if-installed "erlang"
   (require 'erlang)

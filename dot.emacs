@@ -1,4 +1,6 @@
+(setenv "PATH" "/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Emacs.app/Contents/MacOS/bin-x86_64-10_9:/Applications/Emacs.app/Contents/MacOS/libexec-x86_64-10_9:/usr/local/bin")
 
+(add-to-list 'exec-path "/usr/local/bin")
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
@@ -7,7 +9,7 @@
 
 (when (display-graphic-p)
   (setq fonts
-        (cond ((eq system-type 'darwin)     '("Monaco"     "STHeiti"))
+        (cond ((eq system-type 'darwin)     '("Andale Mono"     "STHeiti"))
               ((eq system-type 'gnu/linux)  '("Menlo"     "WenQuanYi Zen Hei"))
               ((eq system-type 'windows-nt) '("Consolas"  "Microsoft Yahei"))))
 
@@ -19,9 +21,7 @@
                       (font-spec :family (car (cdr fonts))))))
 
 ;;(add-to-list 'exec-path "/usr/local/Cellar/erlang/R17.5/bin")
-(add-to-list 'exec-path "/usr/local/Cellar/erlang/R18.2.1/bin")
-(add-to-list 'exec-path "/usr/local/bin")
-(setenv "PATH" (mapconcat 'identity exec-path ":"))
+;;(setenv "PATH" (mapconcat 'identity exec-path ":"))
 (setenv "MY_EMACS_HOME" (or (getenv "MY_EMACS_HOME")
                             (concat (getenv "HOME")  "/d/working/wcy_dot_emacs")))
 (load (expand-file-name
@@ -35,7 +35,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (##)))
+ '(package-selected-packages (quote (haskell-mode ##)))
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 (custom-set-faces

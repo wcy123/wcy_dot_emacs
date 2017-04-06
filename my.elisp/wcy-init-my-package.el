@@ -26,7 +26,15 @@
          ("solarized"
           "https://raw.githubusercontent.com/altercation/solarized/master/emacs-colors-solarized/color-theme-solarized.el"
           "color-theme-solarized.el")
-             ))
+         ("cmake"
+          "https://cmake.org/gitweb?p=cmake.git;a=blob_plain;hb=master;f=Auxiliary/cmake-mode.el"
+          "cmake-mode.el"
+          )
+         ("multi-term"
+          "http://www.emacswiki.org/emacs/download/multi-term.el"
+          "multi-term.el"
+          )
+         ))
     (apply #'wcy-init-my-package-simple var)))
 (defun wcy-init-my-package-simple(name url filename)
   (if (not (locate-file name load-path '(".elc" ".el")))
@@ -35,7 +43,7 @@
         (let* ((default-directory (expand-file-name "my.package" my-emacs-home))
                (full-name (expand-file-name filename))
                (ret (call-process "curl" nil nil nil
-                                  "-o"
+                                  "-Lo"
                                   full-name
                                   url)))
           (if (eq ret 0)

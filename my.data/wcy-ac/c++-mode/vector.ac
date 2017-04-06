@@ -1,6 +1,5 @@
 (nil
- "#include <iostream>" ?\n
- "using namespace std;" ?\n
+ "#include <vector>" ?\n
  > _
  )
 

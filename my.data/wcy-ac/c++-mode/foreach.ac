@@ -1,0 +1,9 @@
+(nil
+ (ignore (setq c (read-string  "Container Var:")))
+ (ignore (setq var (read-string  "Variable:")))
+ > "for( auto " var " = " c ".begin();"
+         var "!=" c ".end();"
+         "++" var "){" \n
+   >   _  \n
+  "}"  >
+)

@@ -37,6 +37,23 @@
 (defun wcy-adhoc-clipboard-save-content (text)
   (with-temp-file wcy-adhoc-clipboard-file-name
     (insert text)))
+
+
+(defun wcy-darwin-copy (start end)
+  "cut text to the adhoc clipboard"
+  (interactive "r")
+  (let ((text (buffer-substring start end)))
+    (with-temp-file wcy-adhoc-clipboard-file-name
+      (insert text))
+    (call-process-shell-command
+     "pbcopy"
+     wcy-adhoc-clipboard-file-name
+     nil nil)))
+(defun wcy-darwin-paste ()
+  "paste text to the adhoc clipboard"
+  (interactive)
+  (insert (shell-command-to-string "LANG=en_US.UTF-8 pbpaste")))
+
 ;; Return the value of the current wcy adhoc clipboard
 ;; If this function is called twice and finds the same text,
 ;; it returns nil the second time.  This is so that a single
