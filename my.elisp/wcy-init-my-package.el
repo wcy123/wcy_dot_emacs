@@ -34,7 +34,10 @@
           "http://www.emacswiki.org/emacs/download/multi-term.el"
           "multi-term.el"
           )
-         ))
+         ("ace-window"
+          "https://raw.githubusercontent.com/abo-abo/ace-window/master/ace-window.el"
+          "ace-window.el"
+         )))
     (apply #'wcy-init-my-package-simple var)))
 (defun wcy-init-my-package-simple(name url filename)
   (if (not (locate-file name load-path '(".elc" ".el")))
