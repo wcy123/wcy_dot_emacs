@@ -1,11 +1,38 @@
-(setenv "PATH" "/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Emacs.app/Contents/MacOS/bin-x86_64-10_9:/Applications/Emacs.app/Contents/MacOS/libexec-x86_64-10_9:/usr/local/bin")
-
-(add-to-list 'exec-path "/usr/local/bin")
+(when (eq system-type 'darwin)
+  (setenv "PATH"
+          (mapconcat
+           #'identity
+           (list
+            "/usr/bin"
+            "/bin"
+            "/usr/sbin"
+            "/sbin"
+            "/Applications/Emacs.app/Contents/MacOS/bin-x86_64-10_9"
+            "/Applications/Emacs.app/Contents/MacOS/libexec-x86_64-10_9"
+            "/usr/local/bin")
+           ":")))
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
+(require 'package)
+(setq package-enable-at-startup nil)
+(setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+                         ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+;; (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+;; (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+;; (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
 (package-initialize)
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(eval-when-compile
+  (require 'use-package))
+(require 'diminish)
+(require 'bind-key)
+
 
 (when (display-graphic-p)
   (setq fonts
@@ -20,8 +47,7 @@
     (set-fontset-font (frame-parameter nil 'font) charset
                       (font-spec :family (car (cdr fonts))))))
 
-;;(add-to-list 'exec-path "/usr/local/Cellar/erlang/R17.5/bin")
-;;(setenv "PATH" (mapconcat 'identity exec-path ":"))
+
 (setenv "MY_EMACS_HOME" (or (getenv "MY_EMACS_HOME")
                             (concat (getenv "HOME")  "/d/working/wcy_dot_emacs")))
 (load (expand-file-name
@@ -35,7 +61,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (haskell-mode ##)))
+ '(package-selected-packages
+   (quote
+    (erlang erlang-mode ggtags flycheck flycheck-color-mode-line company-irony company irony haskell-mode ##)))
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 (custom-set-faces

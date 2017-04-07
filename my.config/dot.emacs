@@ -1,8 +1,68 @@
 ;; default value for the useful variables
+;; == irony-mode ==
+(use-package irony
+  :ensure t
+  :after cc-mode
+  :config
+  (add-hook 'c++-mode-hook 'irony-mode)
+  (add-hook 'c-mode-hook 'irony-mode)
+  (add-hook 'objc-mode-hook 'irony-mode)
+  ;; replace the `completion-at-point' and `complete-symbol' bindings in
+  ;; irony-mode's buffers by irony-mode's function
+  (defun my-irony-mode-hook ()
+    (define-key irony-mode-map [remap completion-at-point]
+      'irony-completion-at-point-async)
+    (define-key irony-mode-map [remap complete-symbol]
+      'irony-completion-at-point-async))
+  (setq irony-additional-clang-options '("-std=c++11"))
+  (add-hook 'irony-mode-hook 'my-irony-mode-hook)
+  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+  )
+;; == company-mode ==
+(use-package company
+  :ensure t
+  :defer t
+  :init (add-hook 'after-init-hook 'global-company-mode)
+  :config
+  (use-package company-irony :ensure t :defer t)
+  (setq company-idle-delay              nil
+        company-minimum-prefix-length   2
+        company-show-numbers            t
+        company-tooltip-limit           20
+        company-dabbrev-downcase        nil
+        company-backends                '(company-irony company-gtags)
+        )
+  :bind ("M-RET" . company-complete-common)
+  )
+;; == flycheck ==
+(use-package flycheck
+  :ensure t
+  :defer t
+  :config
+  (add-hook 'c++-mode-hook 'flycheck-mode)
+  (add-hook 'c-mode-hook 'flycheck-mode))
+
+(use-package ggtags
+  :ensure t
+  :defer t
+  :init
+  (add-hook 'c-mode-common-hook
+            (lambda ()
+              (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
+                (ggtags-mode 1))))
+  :config
+  (define-key ggtags-mode-map (kbd "C-c g s") 'ggtags-find-other-symbol)
+  (define-key ggtags-mode-map (kbd "C-c g h") 'ggtags-view-tag-history)
+  (define-key ggtags-mode-map (kbd "C-c g r") 'ggtags-find-reference)
+  (define-key ggtags-mode-map (kbd "C-c g f") 'ggtags-find-file)
+  (define-key ggtags-mode-map (kbd "C-c g c") 'ggtags-create-tags)
+  (define-key ggtags-mode-map (kbd "C-c g u") 'ggtags-update-tags)
+  (define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark)
+  )
+(use-package ace-jump-mode
+  :ensure t)
+;; == my personal setup ==
 (defvar after-init-time nil)
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "http://stable.melpa.org/packages/") t)
 (defvar my-emacs-home
   (if load-file-name
       (file-name-as-directory (expand-file-name ".." (file-name-directory load-file-name)))
@@ -177,7 +237,7 @@
 		      ("p" . nil)
 		      ("p b" . compile)
 		      ("q" . save-buffers-kill-terminal)
-		      ("w" . kill-region)
+		      ("w" . ace-window)
 		      ("@" . mark-sexp)
 		      ("x" ,@ctl-x-map)
 		      ("y" . yank)
@@ -205,10 +265,6 @@
 (add-to-list 'emulation-mode-map-alists
 	     'wcy-emulation-mode-map-alist)
 
-;;;
-(wcy-eval-if-installed
-    "ace-jump-mode"
-  (require 'ace-jump-mode))
 ;;; --------------------- MY SETTINGS -----------------------
 ;; do NOT add whitespace as needed when inserting parentheses.
 (setq parens-require-spaces nil)
@@ -246,60 +302,64 @@
  ;;   (require 'session)
  ;;   (add-hook 'after-init-hook 'session-initialize)
 ;;   (setq session-initialize '(session)))
-(desktop-save-mode 1)
+;; (desktop-save-mode 1)
+(savehist-mode t)
 ;; ------------------- SKELETON ----------------------------
 (eval-after-load "skeleton"
   '(progn
-     (setq skeleton-end-newline nil)
-     (setq skeleton-pair nil)))
+     ))
+(use-package skeleton
+  :defer t
+  :init
+  (setq skeleton-end-newline nil)
+  (setq skeleton-pair nil))
 ;; ------------------- COMPILE ------------------------------
-(eval-after-load "compile"
-  '(progn
-     (setq compilation-scroll-output t
-           compilation-read-command nil)
-     ))
+(use-package compile
+  :config
+  (setq compilation-scroll-output t
+        compilation-read-command nil))
 ;; ------------------- C/C++ --------------------------------
-(eval-after-load "ffap"
-  '(progn
-     (if (getenv "INCLUDE")
-         (setq ffap-c-path
-               (append (split-string (getenv "INCLUDE") ":" nil)
-                       ffap-c-path)))))
-(eval-after-load "cc-mode"
-  '(progn
-     (setq gud-chdir-before-run nil)
-     ;; 设置缩进风格. 用 M-x c-set-style ,然后用 TAB 查看补全结果,可以看到所有风格名称.
-     (setq c-default-style
-           '((java-mode . "java")
-             ;;(c-mode . "k&r")
-             (c-mode . "linux")
-             ;;(c++-mode . "ellemtel")
-             (c++-mode . "stroustrup")
-             (other . "gnu")
-             ))
-     (add-hook 'c-mode-hook 'wcy-c-mode-hook)
-     (add-hook 'c++-mode-hook 'wcy-c-mode-hook)
-     (add-hook 'c++-mode-hook 'hs-minor-mode)
-     (add-hook 'c-mode-common-hook 'google-set-c-style)
-     (add-hook 'c-mode-common-hook 'google-make-newline-indent)
-     (setq vc-diff-switches "-bBu")
-     (setq ffap-c-path '("/usr/include/c++/4.3/" "/usr/include"))
-     (define-key c-mode-map (kbd "C-c f") 'wcy-c-open-other-file)
-     (define-key c++-mode-map (kbd "C-c f") 'wcy-c-open-other-file)
-     ))
-(wcy-eval-if-installed "xcscope"
-  (progn
-    (autoload 'cscope-minor-mode "xcscope")
-    (add-hook 'c-mode-hook (function cscope-minor-mode))
-    (add-hook 'c++-mode-hook (function cscope-minor-mode))
-    (add-hook 'dired-mode-hook (function cscope-minor-mode))
-    (add-hook 'cscope-list-entry-hook 'wcy-cscope-list-entry-hook)
-     (if (display-graphic-p)
-         (setq cscope-use-face t)
-       (setq cscope-use-face t))
-     (defun wcy-cscope-list-entry-hook()
-       (local-set-key (kbd "<RET>") 'cscope-select-entry-other-window))
-     ))
+(use-package ffap
+  :config
+  (if (getenv "INCLUDE")
+      (setq ffap-c-path
+            (append (split-string (getenv "INCLUDE") ":" nil)
+                    ffap-c-path))))
+(use-package cc-mode
+  :defer t
+  :config
+  (setq gud-chdir-before-run nil)
+  ;; 设置缩进风格. 用 M-x c-set-style ,然后用 TAB 查看补全结果,可以看到所有风格名称.
+  (setq c-default-style
+        '((java-mode . "java")
+          ;;(c-mode . "k&r")
+          (c-mode . "linux")
+          ;;(c++-mode . "ellemtel")
+          (c++-mode . "stroustrup")
+          (other . "gnu")
+          ))
+  (add-hook 'c-mode-hook 'wcy-c-mode-hook)
+  (add-hook 'c++-mode-hook 'wcy-c-mode-hook)
+  (add-hook 'c++-mode-hook 'hs-minor-mode)
+  (add-hook 'c-mode-common-hook 'google-set-c-style)
+  (add-hook 'c-mode-common-hook 'google-make-newline-indent)
+  (setq vc-diff-switches "-bBu")
+  (setq ffap-c-path '("/usr/include/c++/4.3/" "/usr/include"))
+  (define-key c-mode-map (kbd "C-c f") 'wcy-c-open-other-file)
+  (define-key c++-mode-map (kbd "C-c f") 'wcy-c-open-other-file))
+(use-package xcscope
+  :after cc-mode
+  :config
+  (autoload 'cscope-minor-mode "xcscope")
+  (add-hook 'c-mode-hook (function cscope-minor-mode))
+  (add-hook 'c++-mode-hook (function cscope-minor-mode))
+  (add-hook 'dired-mode-hook (function cscope-minor-mode))
+  (add-hook 'cscope-list-entry-hook 'wcy-cscope-list-entry-hook)
+  (if (display-graphic-p)
+      (setq cscope-use-face t)
+    (setq cscope-use-face t))
+  (defun wcy-cscope-list-entry-hook()
+    (local-set-key (kbd "<RET>") 'cscope-select-entry-other-window)))
 (wcy-eval-if-installed "cmake-mode"
   (setq auto-mode-alist
 	  (append
@@ -311,74 +371,79 @@
      "my.package/cmake-mode.el"
      my-emacs-home) t))
 ;; ------------------- MARKDOWN -----------------------------
-(wcy-eval-if-installed "markdown-mode"
-  (autoload 'markdown-mode "markdown-mode")
-  (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-  (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-  (eval-after-load "markdown-mode"
-    '(progn
-       (setq markdown-command "multimarkdown")
-       (setq markdown-command "markdown")
-       (define-key markdown-mode-map (kbd "ESC <up>") 'markdown-move-up)
-       (define-key markdown-mode-map (kbd "ESC <down>") 'markdown-move-down)
-       (define-key markdown-mode-map (kbd "ESC <left>") 'markdown-promote)
-       (define-key markdown-mode-map (kbd "ESC <right>") 'markdown-demote)
-       (define-key markdown-mode-map (kbd "<M-RET>") 'markdown-insert-list-item)
-       (setq markdown-xhtml-header-content
-             "<script type=\"text/x-mathjax-config\">
+(use-package markdown-mode
+  :ensure t
+  :mode "\\.md\\'"
+  :mode "\\.markdown\\'"
+  :config
+  (setq markdown-command "multimarkdown"
+        markdown-command "markdown"
+        markdown-xhtml-header-content
+        "<script type=\"text/x-mathjax-config\">
   MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'],['[',']']]}});
 </script>
 <script type=\"text/javascript\"
   src=\"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML\">
 </script> ")
-       (defun my-markdown-hook()
-         (let ((filename (wcy-search-file-in-parent-dir (list "markdown.css")
-                                                        default-directory)))
-           (setq markdown-css-path
-                 (or (and filename
-                          (file-relative-name filename default-directory))
-                     "")))
-         ;; (add-hook 'after-save-hook 'markdown-export t t)
-         )
-       (add-hook 'markdown-mode-hook 'my-markdown-hook)
-       )))
+  :bind (:map markdown-mode-map
+              ("ESC <up>"  . markdown-move-up)
+              ("ESC <down>" . markdown-move-down)
+              ("ESC <left>" . markdown-promote)
+              ("ESC <right>" . markdown-demote)
+              ("<M-RET>" . markdown-insert-list-item))
+  :config
+  (defun my-markdown-hook()
+    (let ((filename (wcy-search-file-in-parent-dir (list "markdown.css")
+                                                   default-directory)))
+      (setq markdown-css-path
+            (or (and filename
+                     (file-relative-name filename default-directory))
+                "")))
+    ;; (add-hook 'after-save-hook 'markdown-export t t)
+    )
+  (add-hook 'markdown-mode-hook 'my-markdown-hook))
 ;; -------------------- ELISP --------------------------------
-(eval-after-load "lisp-mode"
-  '(progn
-     (defun wcy-lisp-mode-common-hook()
-       (set-fill-column 80)
-       (hs-minor-mode 1)
-       (local-set-key (kbd "C-c C-v") 'hs-toggle-hiding))
-     (defun wcy-emacs-lisp-mode-hook()
-       (interactive)
-       (wcy-lisp-mode-common-hook)
-       ;; compile after file is saved.
-       (add-hook 'after-save-hook 'wcy-emacs-lisp-compile-on-save t t))
-     (defun wcy-lisp-mode-hook()
-       (wcy-lisp-mode-common-hook))
-     (defun wcy-emacs-lisp-compile-on-save ()
-       (if (and buffer-file-name
-                (string-match "\\.el$" buffer-file-name))
-           (byte-compile-file buffer-file-name)))
-     (add-hook 'lisp-mode-hook 'wcy-lisp-mode-common-hook)
-     (add-hook 'emacs-lisp-mode-hook 'wcy-emacs-lisp-mode-hook)
-     (add-hook 'emacs-lisp-mode-hook 'auto-fill-mode)
-     (define-key emacs-lisp-mode-map (kbd "C-c C-l") 'eval-buffer )
-     (define-key emacs-lisp-mode-map (kbd "C-c C-c") 'eval-defun )
-     (define-key emacs-lisp-mode-map (kbd "C-c C-m") 'pp-macroexpand-expression )
-     ;;(define-key emacs-lisp-mode-map (kbd "<SPC>") 'just-one-space)
-     ))
+(use-package lisp-mode
+  :defer t
+  :config
+  (defun wcy-lisp-mode-common-hook()
+    (set-fill-column 80)
+    (hs-minor-mode 1)
+    (local-set-key (kbd "C-c C-v") 'hs-toggle-hiding))
+  (defun wcy-emacs-lisp-mode-hook()
+    (interactive)
+    (wcy-lisp-mode-common-hook)
+    ;; compile after file is saved.
+    (add-hook 'after-save-hook 'wcy-emacs-lisp-compile-on-save t t))
+  (defun wcy-lisp-mode-hook()
+    (wcy-lisp-mode-common-hook))
+  (defun wcy-emacs-lisp-compile-on-save ()
+    (if (and buffer-file-name
+             (string-match "\\.el$" buffer-file-name))
+        (byte-compile-file buffer-file-name)))
+  (add-hook 'lisp-mode-hook 'wcy-lisp-mode-common-hook)
+  (add-hook 'emacs-lisp-mode-hook 'wcy-emacs-lisp-mode-hook)
+  (add-hook 'emacs-lisp-mode-hook 'auto-fill-mode)
+  :bind (:map emacs-lisp-mode-map
+              ("C-c C-l" . eval-buffer)
+              ("C-c C-c" . eval-defun)
+              ("C-c C-m" . pp-macroexpand-expression)
+              ;;("<SPC>" . just-one-space
+              ))
 ;; ------------------- protobuf ------------------------
-(wcy-eval-if-installed "protobuf-mode"
-  (require 'protobuf-mode)
-  (add-to-list 'auto-mode-alist '("\\.proto\\'" . protobuf-mode)))
+(use-package protobuf-mode
+  :ensure t
+  :mode "\\.proto\\'")
 ;; ------------------- ERLANG --------------------------
-;; detect erlang installation.
-(let* ((erl-exec (locate-file "escript" exec-path)))
-  (when erl-exec
-    (let ((temp-file (make-temp-file "erl")))
-      (with-temp-file temp-file
-        (insert "#!/usr/bin/env escript
+(use-package erlang
+  :mode ("\\.erl" . erlang-mode)
+  :config
+  ;; detect erlang installation.
+  (let* ((erl-exec (locate-file "escript" exec-path)))
+    (when erl-exec
+      (let ((temp-file (make-temp-file "erl")))
+        (with-temp-file temp-file
+          (insert "#!/usr/bin/env escript
 -export([main/1]).
 main(_) ->
     ToolPath = code:lib_dir(tools),
@@ -387,21 +452,16 @@ main(_) ->
     ElangModePath = filename:join(ToolPath, \"emacs\"),
     io:format(\"(add-to-list 'load-path ~p)~n\",[ElangModePath]).
 "))
-      (with-temp-buffer
-        (call-process-shell-command "escript"
-                                    nil ;input
-                                    (current-buffer) ;output
-                                    nil      ;display
-                                    temp-file)
-        (message "%s" (buffer-string))
-        (delete-file temp-file)
-        (eval-buffer)
-        ))))
-(wcy-eval-if-installed "adoc-mode"
-  (autoload 'adoc-mode "adoc-mode" nil t)
-  (add-to-list 'auto-mode-alist (cons "\\.adoc\\'" 'adoc-mode)))
-(wcy-eval-if-installed "erlang"
-  (require 'erlang)
+        (with-temp-buffer
+          (call-process-shell-command "escript"
+                                      nil ;input
+                                      (current-buffer) ;output
+                                      nil      ;display
+                                      temp-file)
+          (message "%s" (buffer-string))
+          (delete-file temp-file)
+          (eval-buffer)
+          ))))
   ;;  this is set properly in the detection period
   ;; (setq erlang-root-dir  "/home2/chunywan/d/local/lib/erlang")
   (setq inferior-erlang-machine-options
@@ -492,69 +552,69 @@ main(_) ->
             (define-key erlang-shell-mode-map (read-kbd-macro (car spec)) (cadr spec))))
 
         (add-hook 'erlang-shell-mode-hook 'erlang-shell-mode-hook-1)))))
-
+(use-package adoc-mode
+  :mode "\\.adoc\\'")
 ;;; -------------------- GO --------------------
 (defvar my-gopath (or (getenv "GOPATH")
                       (getenv "HOME")))
 (add-to-list 'load-path (expand-file-name "src/github.com/dougm/goflymake/"
                                           my-gopath))
 
-(wcy-eval-if-installed "go-mode"
-  (require 'go-mode-autoloads)
+(use-package go-mode
+  :mode "\\.go\\'"
+  :config
   ;; gotfmt will check whether the major mode is go-mode or not.
   (add-hook 'before-save-hook 'gofmt-before-save)
   (setq gofmt-command "goimports")
-  (eval-after-load "go-mode"
-    '(progn
-       (define-key go-mode-map (kbd "M-.") 'godef-jump)
-       ;; go get -u github.com/dougm/goflymake1
-       ;;  it is buggy
-       ;; (wcy-eval-if-installed "flymake"
-       ;;   (wcy-eval-if-installed "go-flymake"
-       ;;     (require 'go-flymake)))
-       (wcy-eval-if-installed "flycheck"
-         (wcy-eval-if-installed "go-flycheck"
-           (require 'go-flycheck)))
-       (defun go-mode-setup ()
-         (setq compile-command "go build -v && go test -v && go vet")
-         (define-key (current-local-map)
-           "\C-c\C-c" 'compile))
-       (add-hook 'go-mode-hook 'go-mode-setup)
-       ;; package-install company
-       (wcy-eval-if-installed "company"
-         (wcy-eval-if-installed "company-go"
-           (require 'company)
-           (require 'company-go)
-           ;; bigger popup window
-           (setq company-tooltip-limit 20)
-           ;; decrease delay before autocompletion
-           ;; popup shows
-           (setq company-idle-delay .3)
-           ;; remove  annoying blinking
-           (setq company-echo-delay 0)
-           ;; start autocompletion only after typing
-           (setq company-begin-commands '(self-insert-command))
-           (add-hook 'go-mode-hook 'wcy-go-mode-hook-company)
-           (defun wcy-go-mode-hook-company ()
-             (set
-              (make-local-variable 'company-backends) '(company-go))
-             (company-mode))
-           ))
-       ;; package-install go-eldoc
-       (wcy-eval-if-installed "go-eldoc"
-         (add-hook 'go-mode-hook 'go-eldoc-setup))
-       ;; error check
-       ;; go get -u github.com/kisielk/errcheck
-       (wcy-eval-if-installed "go-errcheck"
-         (require 'go-errcheck)
-         (add-hook 'go-mode-hook 'wcy-go-mode-hook-errcheck)
-         (defun wcy-go-mode-hook-errcheck ()
-           (add-hook 'after-save-hook #'(lambda() (call-interactively
-                                                   'go-errcheck)) t t)))
-       ;; go get golang.org/x/tools/cmd/oracle
-       ;; go get github.com/tleyden/checkers-bot-minimax
-       (load-file "$GOPATH/src/golang.org/x/tools/cmd/oracle/oracle.el")
-       )))
+  (define-key go-mode-map (kbd "M-.") 'godef-jump)
+  ;; go get -u github.com/dougm/goflymake1
+  ;;  it is buggy
+  ;; (wcy-eval-if-installed "flymake"
+  ;;   (wcy-eval-if-installed "go-flymake"
+  ;;     (require 'go-flymake)))
+  (wcy-eval-if-installed "flycheck"
+    (wcy-eval-if-installed "go-flycheck"
+      (require 'go-flycheck)))
+  (defun go-mode-setup ()
+    (setq compile-command "go build -v && go test -v && go vet")
+    (define-key (current-local-map)
+      "\C-c\C-c" 'compile))
+  (add-hook 'go-mode-hook 'go-mode-setup)
+  ;; package-install company
+  (wcy-eval-if-installed "company"
+    (wcy-eval-if-installed "company-go"
+      (require 'company)
+      (require 'company-go)
+      ;; bigger popup window
+      (setq company-tooltip-limit 20)
+      ;; decrease delay before autocompletion
+      ;; popup shows
+      (setq company-idle-delay .3)
+      ;; remove  annoying blinking
+      (setq company-echo-delay 0)
+      ;; start autocompletion only after typing
+      (setq company-begin-commands '(self-insert-command))
+      (add-hook 'go-mode-hook 'wcy-go-mode-hook-company)
+      (defun wcy-go-mode-hook-company ()
+        (set
+         (make-local-variable 'company-backends) '(company-go))
+        (company-mode))
+      ))
+  ;; package-install go-eldoc
+  (wcy-eval-if-installed "go-eldoc"
+    (add-hook 'go-mode-hook 'go-eldoc-setup))
+  ;; error check
+  ;; go get -u github.com/kisielk/errcheck
+  (wcy-eval-if-installed "go-errcheck"
+    (require 'go-errcheck)
+    (add-hook 'go-mode-hook 'wcy-go-mode-hook-errcheck)
+    (defun wcy-go-mode-hook-errcheck ()
+      (add-hook 'after-save-hook #'(lambda() (call-interactively
+                                              'go-errcheck)) t t)))
+  ;; go get golang.org/x/tools/cmd/oracle
+  ;; go get github.com/tleyden/checkers-bot-minimax
+  (load-file "$GOPATH/src/golang.org/x/tools/cmd/oracle/oracle.el")
+  )
 ;;; -------------------  DONE --------------------------------
 ;; setq inhibit-startup-message to show "*scratch*" as the initial
 (setq inhibit-startup-message t)
