@@ -10,6 +10,8 @@
   ;; replace the `completion-at-point' and `complete-symbol' bindings in
   ;; irony-mode's buffers by irony-mode's function
   (defun my-irony-mode-hook ()
+    (set (make-local-variable 'company-backends)
+         '(company-irony-c-headers company-irony company-gtags))
     (define-key irony-mode-map [remap completion-at-point]
       'irony-completion-at-point-async)
     (define-key irony-mode-map [remap complete-symbol]
@@ -17,6 +19,9 @@
   (setq irony-additional-clang-options '("-std=c++11"))
   (add-hook 'irony-mode-hook 'my-irony-mode-hook)
   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+  (use-package company-irony-c-headers
+    :ensure t
+    )
   )
 ;; == company-mode ==
 (use-package company
@@ -25,15 +30,18 @@
   :init (add-hook 'after-init-hook 'global-company-mode)
   :config
   (use-package company-irony :ensure t :defer t)
+  (use-package company-c-headers
+    :ensure t
+    :defer t)
   (setq company-idle-delay              nil
         company-minimum-prefix-length   2
         company-show-numbers            t
         company-tooltip-limit           20
         company-dabbrev-downcase        nil
-        company-backends                '(company-irony company-gtags)
         )
   :bind ("M-RET" . company-complete-common)
   )
+
 ;; == flycheck ==
 (use-package flycheck
   :ensure t
@@ -360,16 +368,14 @@
     (setq cscope-use-face t))
   (defun wcy-cscope-list-entry-hook()
     (local-set-key (kbd "<RET>") 'cscope-select-entry-other-window)))
-(wcy-eval-if-installed "cmake-mode"
-  (setq auto-mode-alist
-	  (append
-	   '(("CMakeLists\\.txt\\'" . cmake-mode))
-	   '(("\\.cmake\\'" . cmake-mode))
-	   auto-mode-alist))
-  (autoload 'cmake-mode
-    (expand-file-name
-     "my.package/cmake-mode.el"
-     my-emacs-home) t))
+(use-package cmake-mode
+  :ensure t
+  :mode "CMakeLists\\.txt\\'"
+  :mode "\\.cmake\\'"
+  :config
+  (defun my-cmake-mode-hook ()
+    (set (make-local-variable 'company-backends) '(company-files company-cmake)))
+  (add-hook 'cmake-mode-hook 'my-cmake-mode-hook))
 ;; ------------------- MARKDOWN -----------------------------
 (use-package markdown-mode
   :ensure t

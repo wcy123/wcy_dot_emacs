@@ -63,7 +63,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (erlang erlang-mode ggtags flycheck flycheck-color-mode-line company-irony company irony haskell-mode ##)))
+    (cmake-mode company-irony-c-headers company-c-headers erlang erlang-mode ggtags flycheck flycheck-color-mode-line company-irony company irony haskell-mode ##)))
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 (custom-set-faces
