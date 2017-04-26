@@ -50,10 +50,11 @@
 
 (setenv "MY_EMACS_HOME" (or (getenv "MY_EMACS_HOME")
                             (concat (getenv "HOME")  "/d/working/wcy_dot_emacs")))
-(load (expand-file-name
-       "dot.emacs"
-       (concat (getenv "MY_EMACS_HOME") "/my.config")))
-
+;; (load (expand-file-name
+;;        "dot.emacs"
+;;        (concat (getenv "MY_EMACS_HOME") "/my.config")))
+(add-to-list 'load-path (concat (getenv "MY_EMACS_HOME") "/my.config"))
+(require 'dot-emacs)
 (put 'narrow-to-region 'disabled nil)
 
 (custom-set-variables
@@ -63,7 +64,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (cmake-mode company-irony-c-headers company-c-headers erlang erlang-mode ggtags flycheck flycheck-color-mode-line company-irony company irony haskell-mode ##)))
+    (evil xcscope clang-format cmake-mode company-irony-c-headers company-c-headers erlang erlang-mode ggtags flycheck flycheck-color-mode-line company-irony company irony haskell-mode ##)))
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 (custom-set-faces
@@ -78,3 +79,4 @@
 ;; End:
 (set-default 'cursor-type 'box)
 (put 'downcase-region 'disabled nil)
+(put 'scroll-left 'disabled nil)
