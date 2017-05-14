@@ -37,6 +37,10 @@
                      (call-interactively 'back-to-indentation)
                      (call-interactively 'clang-format-region))))))
 
+(use-package ivy
+  :ensure t
+  :config
+  (setq ivy-use-virtual-buffers t))
 ;; == company-mode ==
 (use-package company
   :ensure t
@@ -246,16 +250,18 @@
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 (setq scroll-step 1) ;; keyboard scroll one line at a time
 ;; setup these mode at idle time
-(run-with-idle-timer
- 1 nil
- #'(lambda ()
-     (show-paren-mode 1)
-     (setq ido-use-virtual-buffers t)
-     (setq ido-everywhere t)
-     (setq ido-enable-flex-matching t)
-     (ido-mode 1)
-     (global-subword-mode t)
-     (which-func-mode 1)))
+;; (run-with-idle-timer
+;;  1 nil
+;;  #'(lambda ()
+;;      (show-paren-mode 1)
+;;      (setq ido-use-virtual-buffers t)
+;;      (setq ido-everywhere t)
+;;      (setq ido-enable-flex-matching t)
+;;      (ido-mode 1)
+;;      (global-subword-mode t)
+;;      (which-func-mode 1)))
+(show-paren-mode)
+(global-subword-mode t)
 (if (eq system-type 'darwin)
     (menu-bar-mode t)
     (menu-bar-mode 0))
