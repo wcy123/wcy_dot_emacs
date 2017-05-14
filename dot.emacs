@@ -2,14 +2,15 @@
   (setenv "PATH"
           (mapconcat
            #'identity
-           (list
+           (setq exec-path (list
             "/usr/bin"
+            "/usr/local/bin"
             "/bin"
             "/usr/sbin"
             "/sbin"
             "/Applications/Emacs.app/Contents/MacOS/bin-x86_64-10_9"
             "/Applications/Emacs.app/Contents/MacOS/libexec-x86_64-10_9"
-            "/usr/local/bin")
+            "/usr/local/bin"))
            ":")))
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
@@ -64,7 +65,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (ace-jump-buffer package-lint evil xcscope clang-format cmake-mode company-irony-c-headers company-c-headers erlang erlang-mode ggtags flycheck flycheck-color-mode-line company-irony company irony haskell-mode ##)))
+    (ivy matlab-mode ace-jump-buffer package-lint evil xcscope clang-format cmake-mode company-irony-c-headers company-c-headers erlang erlang-mode ggtags flycheck flycheck-color-mode-line company-irony company irony haskell-mode ##)))
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 (custom-set-faces
