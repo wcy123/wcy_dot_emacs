@@ -23,16 +23,29 @@
     :ensure t
     )
   )
+(use-package clang-format
+  :after cc-mode
+  :ensure t
+  :defer t
+  :config
+  (add-hook 'c-mode-common-hook
+            #'(lambda ()
+                (local-set-key
+                 (kbd "TAB")
+                 #'(lambda ()
+                     (interactive)
+                     (call-interactively 'back-to-indentation)
+                     (call-interactively 'clang-format-region))))))
+
 ;; == company-mode ==
 (use-package company
   :ensure t
   :defer t
   :init (add-hook 'after-init-hook 'global-company-mode)
+  :bind (:map company-active-map
+              (("C-n" . company-select-next)
+               ("C-p" . company-select-previous)))
   :config
-  (use-package company-irony :ensure t :defer t)
-  (use-package company-c-headers
-    :ensure t
-    :defer t)
   (setq company-idle-delay              nil
         company-minimum-prefix-length   2
         company-show-numbers            t
@@ -41,6 +54,14 @@
         )
   :bind ("M-RET" . company-complete-common)
   )
+(use-package company-irony
+  :after company
+  :ensure t
+  :defer t)
+(use-package company-c-headers
+  :ensure t
+  :after company
+  :defer t)
 
 ;; == flycheck ==
 (use-package flycheck
@@ -104,6 +125,11 @@
 (autoload 'wcy-update-my\.elisp-directory-autoloads "../my.elisp/wcy-update-my.elisp-directory-autoloads" "" nil nil)
 (wcy-update-my.elisp-directory-autoloads)
 ;; --------------------- SETUP MY KEY BINDINGS -----------------
+(use-package recentf
+  :defer t
+  :config
+  (setq recentf-max-saved-items 200))
+
 (wcy-global-set-key
  "C-z" 'kmacro-start-macro-or-insert-counter
  "M-z" 'kmacro-end-or-call-macro
@@ -164,116 +190,49 @@
      args)
     m))
 (use-package leader-key-mode
-  :load-path my-elisp-path
+  :load-path "~/d/working/leader-key-mode"
   :config
   (defun wcy-define-key-in-keymap(keymap args)
     (mapc
        #'(lambda (k-c)
            (define-key keymap (read-kbd-macro (car k-c)) (cdr k-c)))
        args))
-  (wcy-define-key-in-keymap
-   leader-key-mode-mark-active-keymap
-   '(("a" . move-beginning-of-line)
-     ("A" . beginning-of-defun)
-     ("b" . backward-word)
-     ("B" . backward-sexp)
-     ("c" . kill-ring-save)
-     ("C-d" . (lambda(b e)
-                (interactive "r")
-                (delete-region b e)))
-     ("d" . (lambda(b e)
-              (interactive "r")
-              (delete-region b e)))
-     ("e" . move-end-of-line)
-     ("f" . forward-word)
-     ("F" . forward-sexp)
-     ("h" . backward-char)
-     ("l" . forward-char)
-     ("n" . next-line)
-     ("o" . exchange-point-and-mark)
-     ("p" . previous-line)
-     ("q" . keyboard-quit)
-     ("u" . backward-up-list)
-     ("C-w" . kill-region)
-     ("w" . kill-region)
-     ("x" . kill-region)
-     ("y" . (lambda(b e)
-              (interactive "r")
-              (delete-region b e)
-              (call-interactively 'yank)))
-     ("v" . (lambda(b e)
-              (interactive "r")
-              (delete-region b e)
-              (call-interactively 'yank)))
-     ("SPC" . (lambda () (interactive "") (set-mark (point))))
-     (";" . comment-dwim)
-     ("%" . forward-sexp)))
+  (define-key leader-key-mode-keymap (kbd "]") 'wcy-complete)
+  (define-key leader-key-mode-keymap (kbd "g") nil)
+  (define-key leader-key-mode-keymap (kbd "g c") 'avy-goto-char)
+  (define-key leader-key-mode-keymap (kbd "g C") 'avy-goto-char-2)
+  (define-key leader-key-mode-keymap (kbd "g l") 'avy-goto-line)
+  (define-key leader-key-mode-keymap (kbd "g w") 'avy-goto-word-1)
+  (define-key leader-key-mode-keymap (kbd "g v") 'avy-copy-region)
+  (define-key leader-key-mode-keymap (kbd "g x") 'avy-kill-region)
+  (define-key leader-key-mode-keymap (kbd ".") 'find-tag)
+  (define-key leader-key-mode-keymap (kbd "4") 'kill-this-buffer)
   (defun my-delete-region (b e)
     (interactive "r")
     (delete-region b e))
-  (wcy-define-key-in-keymap
-   leader-key-mode-keymap
-   `(("\\" .
-      (lambda ()
-        (interactive)
-        (switch-to-buffer (other-buffer))))
-     ("b" . ido-switch-buffer)
-     ("c" . kill-ring-save)
-     ("d" . nil)
-     ("d d" . kill-line)
-     ("d w" . kill-word)
-     ("d l" . wcy-duplicate-line)
-     ("f" . nil)
-     ("f s" . save-buffer)
-     ("f o" . find-file-at-point)
-     ("f S" . save-some-buffers)
-     ("(" . insert-parentheses)
-     ("\"" . (lambda (arg) (interactive "P")
-               (insert-pair arg ?\" ?\")))
-     ("[" . (lambda (arg) (interactive "P")
-              (insert-pair arg ?\[ ?\])))
-     ("{" . (lambda (arg) (interactive "P")
-              (insert-pair arg ?\{ ?\})))
-     ("g" . nil)
-     ("g g" . beginning-of-buffer)
-     ("g t" . goto-line)
-     ("g w" . ace-jump-word-mode)
-     ("g c" . ace-jump-char-mode)
-     ("g l" . ace-jump-line-mode)
-     ("G"  . end-of-buffer)
-     ("h" . help-command)
-     ("l" . iswitchb-buffer)
-     ("L" . ibuffer)
-     ("n" . universal-argument)
-     ("o" . exchange-point-and-mark)
-     ("r" . isearch-backward)
-     ("s" . isearch-forward)
-     ("p" . nil)
-     ("p b" . compile)
-     ("q" . save-buffers-kill-terminal)
-     ("w" . ace-window)
-     ("@" . mark-sexp)
-     ("x" ,@ctl-x-map)
-     ("y" . yank)
-     ("v" . yank)
-     ("u" . undo)
-     ("SPC" . set-mark-command)
-     (":" . pp-eval-expression)
-     ("/" . dabbrev-expand)
-     ("?" . hippie-expand)
-     ("0" . wcy-other-window)
-     ("1" . delete-other-windows)
-     ("2" . mark-sexp)
-     ("4" . kill-this-buffer)
-     ("5" . wcy-display-buffer-name)
-     ("7" . compile)
-     ("]" . wcy-complete)
-     ("3" . wcy-toggle-shell-and-cd)
-     ("#" . wcy-toggle-shell)
-     ("`" . next-error)
-     ("!" . shell-command)
-     ("RET" . execute-extended-command))))
-(wcy-adhoc-clipboard-enable)
+  )
+(use-package avy
+  :ensure t
+  :commands
+  ( avy-goto-char
+    avy-goto-char-2
+    avy-isearch
+    avy-goto-line
+    avy-goto-subword-0
+    avy-goto-subword-1
+    avy-goto-word-0
+    avy-goto-word-1
+    avy-copy-line
+    avy-copy-region
+    avy-move-line
+    avy-move-region
+    avy-kill-whole-line
+    avy-kill-region
+    avy-kill-ring-save-whole-line
+    avy-kill-ring-save-region)
+  :config
+  (define-key isearch-mode-map (kbd "C-l") 'avy-isearch))
+  (wcy-adhoc-clipboard-enable)
 ;; (add-to-list 'emulation-mode-map-alists
 ;; 	     'wcy-emulation-mode-map-alist)
 
