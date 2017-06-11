@@ -40,6 +40,7 @@
 (use-package ivy
   :ensure t
   :config
+  (ivy-mode t)
   (setq ivy-use-virtual-buffers t))
 ;; == company-mode ==
 (use-package company
@@ -201,7 +202,7 @@
        #'(lambda (k-c)
            (define-key keymap (read-kbd-macro (car k-c)) (cdr k-c)))
        args))
-  (define-key leader-key-mode-keymap (kbd "]") 'wcy-complete)
+  (define-key leader-key-mode-keymap (kbd "}") 'wcy-complete)
   (define-key leader-key-mode-keymap (kbd "g") nil)
   (define-key leader-key-mode-keymap (kbd "g c") 'avy-goto-char)
   (define-key leader-key-mode-keymap (kbd "g C") 'avy-goto-char-2)
@@ -399,12 +400,30 @@
   (add-hook 'lisp-mode-hook 'wcy-lisp-mode-common-hook)
   (add-hook 'emacs-lisp-mode-hook 'wcy-emacs-lisp-mode-hook)
   (add-hook 'emacs-lisp-mode-hook 'auto-fill-mode)
+  (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
   :bind (:map emacs-lisp-mode-map
               ("C-c C-l" . eval-buffer)
               ("C-c C-c" . eval-defun)
               ("C-c C-m" . pp-macroexpand-expression)
               ;;("<SPC>" . just-one-space
               ))
+;; ----------- SCHEME ---------
+(use-package scheme
+  :ensure t
+  :defer t
+  :config
+  (use-package paredit
+    :ensure t
+    :config
+    (define-key paredit-mode-map (kbd "ESC <right>")
+      #'paredit-forward-slurp-sexp)
+    (define-key paredit-mode-map (kbd "ESC <left>")
+      #'paredit-forward-barf-sexp)
+    (define-key paredit-mode-map (kbd "M-9")
+      #'paredit-backward-slurp-sexp)
+    (define-key paredit-mode-map (kbd "M-0")
+      #'paredit-backward-barf-sexp))
+  (add-hook 'scheme-mode-hook 'enable-paredit-mode))
 ;; ------------------- protobuf ------------------------
 (use-package protobuf-mode
   :ensure t
