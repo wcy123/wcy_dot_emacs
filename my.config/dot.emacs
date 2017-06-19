@@ -407,22 +407,24 @@
               ("C-c C-m" . pp-macroexpand-expression)
               ;;("<SPC>" . just-one-space
               ))
+;; ------- pareedit
+(use-package paredit
+  :ensure t
+  :commands enable-paredit-mode
+  :config
+  (define-key paredit-mode-map (kbd "ESC <right>")
+    #'paredit-forward-slurp-sexp)
+  (define-key paredit-mode-map (kbd "ESC <left>")
+    #'paredit-forward-barf-sexp)
+  (define-key paredit-mode-map (kbd "M-9")
+    #'paredit-backward-slurp-sexp)
+  (define-key paredit-mode-map (kbd "M-0")
+    #'paredit-backward-barf-sexp))
 ;; ----------- SCHEME ---------
 (use-package scheme
   :ensure t
   :defer t
   :config
-  (use-package paredit
-    :ensure t
-    :config
-    (define-key paredit-mode-map (kbd "ESC <right>")
-      #'paredit-forward-slurp-sexp)
-    (define-key paredit-mode-map (kbd "ESC <left>")
-      #'paredit-forward-barf-sexp)
-    (define-key paredit-mode-map (kbd "M-9")
-      #'paredit-backward-slurp-sexp)
-    (define-key paredit-mode-map (kbd "M-0")
-      #'paredit-backward-barf-sexp))
   (add-hook 'scheme-mode-hook 'enable-paredit-mode))
 ;; ------------------- protobuf ------------------------
 (use-package protobuf-mode
