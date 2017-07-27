@@ -1,4 +1,5 @@
-(nil "<< std::endl;" >)
+(nil
+"L([](){" _ "})")
 
 
 ;; Local Variables:

@@ -197,21 +197,7 @@
 (use-package leader-key-mode
   :load-path "~/d/working/leader-key-mode"
   :config
-  (defun wcy-define-key-in-keymap(keymap args)
-    (mapc
-       #'(lambda (k-c)
-           (define-key keymap (read-kbd-macro (car k-c)) (cdr k-c)))
-       args))
-  (define-key leader-key-mode-keymap (kbd "}") 'wcy-complete)
-  (define-key leader-key-mode-keymap (kbd "g") nil)
-  (define-key leader-key-mode-keymap (kbd "g c") 'avy-goto-char)
-  (define-key leader-key-mode-keymap (kbd "g C") 'avy-goto-char-2)
-  (define-key leader-key-mode-keymap (kbd "g l") 'avy-goto-line)
-  (define-key leader-key-mode-keymap (kbd "g w") 'avy-goto-word-1)
-  (define-key leader-key-mode-keymap (kbd "g v") 'avy-copy-region)
-  (define-key leader-key-mode-keymap (kbd "g x") 'avy-kill-region)
-  (define-key leader-key-mode-keymap (kbd ".") 'find-tag)
-  (define-key leader-key-mode-keymap (kbd "4") 'kill-this-buffer)
+
   (defun my-delete-region (b e)
     (interactive "r")
     (delete-region b e))
@@ -550,6 +536,11 @@ main(_) ->
         (add-hook 'erlang-shell-mode-hook 'erlang-shell-mode-hook-1)))))
 (use-package adoc-mode
   :mode "\\.adoc\\'")
+;;; -------------------- haskell ---------------
+(use-package haskell-mode
+  :mode "\\.hs\\'"
+  :ensure t)
+
 ;;; -------------------- GO --------------------
 (defvar my-gopath (or (getenv "GOPATH")
                       (getenv "HOME")))

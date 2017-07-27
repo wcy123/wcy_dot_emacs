@@ -1,4 +1,5 @@
-(nil "<< std::endl;" >)
+(nil
+ " << TimeWheel::This() "  > _)
 
 
 ;; Local Variables:

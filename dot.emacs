@@ -65,8 +65,9 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (paredit ivy matlab-mode ace-jump-buffer package-lint evil xcscope clang-format cmake-mode company-irony-c-headers company-c-headers erlang erlang-mode ggtags flycheck flycheck-color-mode-line company-irony company irony haskell-mode ##)))
+    (color-theme-solarized paredit ivy matlab-mode ace-jump-buffer package-lint evil xcscope clang-format cmake-mode company-irony-c-headers company-c-headers erlang erlang-mode ggtags flycheck flycheck-color-mode-line company-irony company irony haskell-mode ##)))
  '(query-replace-from-to-separator " -> ")
+ '(safe-local-variable-values (quote ((a 1972))))
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 (custom-set-faces

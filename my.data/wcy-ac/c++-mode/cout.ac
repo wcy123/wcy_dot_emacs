@@ -1,6 +1,6 @@
 (nil
  (ignore (setq a (read-string  "Variable:")))
- "<< \"" a  " \"  << " a  " << \" \"" >)
+ "<< \"" a  " \"  << " a  " << \" \" //"  > _)
 
 
 ;; Local Variables:
