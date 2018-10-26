@@ -1,0 +1,21 @@
+(nil
+ "cmake_minimum_required(VERSION 3.5)
+project(" _ (file-name-nondirectory (directory-file-name default-directory))
+" VERSION 1.0.0 LANGUAGES C CXX)
+set (CMAKE_CXX_STANDARD 11)
+set (CMAKE_C_STANDARD 99)
+if (NOT DP_ROOTFS STREQUAL \"\")
+  include_directories(${DP_ROOTFS}/include)
+  link_directories(${DP_ROOTFS}/lib)
+endif()
+set(CMAKE_CXX_FLAGS_DEBUG \"-ggdb -O0 -fno-inline\")
+set(CMAKE_CXX_FLAGS \"-Wall -Werror\")
+set(CMAKE_C_FLAGS \"-Wall -Werror\")
+")
+
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

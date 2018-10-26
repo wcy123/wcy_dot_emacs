@@ -1,0 +1,38 @@
+(nil
+ (ignore
+  (progn
+    (unless (file-exists-p "src")
+      (make-directory "src"))
+    (with-temp-file "src/version.c.in"
+      (insert "
+const char* deephi_@PROJECT_NAME@_version() {
+    return \"@PROJECT_NAME@-@GIT_VERSION@@VERSION_SUFFIX@\";
+}
+
+static char @PROJECT_NAME@_version[] = \"Deephi @PROJECT_NAME@ Version: @PROJECT_NAME@-@GIT_VERSION@@VERSION_SUFFIX@ @BUILD_DATE@\";
+const char* deephi_version() {
+  return @PROJECT_NAME@_version;
+}
+"
+              ))))
+ "execute_process(
+  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+  COMMAND date +%F-%T
+  OUTPUT_VARIABLE BUILD_DATE)
+string(STRIP \"${BUILD_DATE}\" BUILD_DATE)
+if (\"${GIT_VERSION}\" STREQUAL \"\")
+  execute_process(
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    COMMAND git rev-parse HEAD
+    OUTPUT_VARIABLE GIT_VERSION)
+endif()
+string(STRIP \"${GIT_VERSION}\" GIT_VERSION)
+configure_file(src/version.c.in ${CMAKE_CURRENT_BINARY_DIR}/version.c)
+")
+
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

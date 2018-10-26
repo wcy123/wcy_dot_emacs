@@ -1,0 +1,9 @@
+(nil
+ "set (CMAKE_CXX_STANDARD 11)")
+
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

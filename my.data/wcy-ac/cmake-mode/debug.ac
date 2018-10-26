@@ -1,0 +1,10 @@
+(nil
+ "set(CMAKE_CXX_FLAGS_DEBUG \"-ggdb -O0 -fno-inline\")
+")
+
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

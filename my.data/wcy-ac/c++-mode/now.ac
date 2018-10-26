@@ -1,0 +1,8 @@
+(nil "auto " _ " = std::chrono::steady_clock::now();")
+
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

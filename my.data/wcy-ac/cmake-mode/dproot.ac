@@ -1,0 +1,13 @@
+(nil
+ "if (NOT DP_ROOTFS STREQUAL \"\")
+  include_directories(${DP_ROOTFS}/include)
+  link_directories(${DP_ROOTFS}/lib)
+endif()
+")
+
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

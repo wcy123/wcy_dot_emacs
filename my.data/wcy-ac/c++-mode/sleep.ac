@@ -1,0 +1,7 @@
+(nil " std::this_thread::sleep_for(std::chrono::milliseconds(" _ "));" )
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

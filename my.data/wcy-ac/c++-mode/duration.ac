@@ -1,0 +1,8 @@
+(nil "std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - " _ ")")
+
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

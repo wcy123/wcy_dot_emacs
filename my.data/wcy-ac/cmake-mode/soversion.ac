@@ -1,0 +1,11 @@
+(nil
+ "set_target_properties(${PROJECT_NAME} PROPERTIES
+  VERSION \"${PROJECT_VERSION}\"
+  SOVERSION \"${PROJECT_VERSION_MAJOR}\")")
+
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

@@ -1,0 +1,8 @@
+(nil (ignore (setq a (read-string  "Class:")))
+"std::unique_ptr<" a ">(new " a "(" _ "));" )
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

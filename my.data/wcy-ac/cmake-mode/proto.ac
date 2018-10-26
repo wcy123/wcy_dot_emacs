@@ -1,0 +1,25 @@
+(nil
+ (ignore (setq filename (expand-file-name (read-file-name  "Filename:"))))
+"
+FIND_PROGRAM(PROTOC protoc)
+add_custom_command(
+  OUTPUT
+  ${CMAKE_CURRENT_BINARY_DIR}/" (file-name-nondirectory (file-name-sans-extension filename)) ".pb.cc
+  ${CMAKE_CURRENT_BINARY_DIR}/" (file-name-nondirectory (file-name-sans-extension filename)) ".pb.h
+  DEPENDS   ${CMAKE_CURRENT_SOURCE_DIR}/" (file-relative-name filename) "
+  COMMAND  ${PROTOC}
+  ARGS --cpp_out  ${CMAKE_BINARY_DIR}
+  --proto_path ${CMAKE_CURRENT_SOURCE_DIR}/"  (file-name-directory (file-relative-name filename)) "
+  ${CMAKE_CURRENT_SOURCE_DIR}/" (file-relative-name filename) "
+  COMMENT \"Running C++ protocol buffer compiler on " (file-name-nondirectory filename) "\"
+  VERBATIM )
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+"
+  )
+
+
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:
