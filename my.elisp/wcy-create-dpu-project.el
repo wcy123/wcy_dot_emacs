@@ -98,7 +98,7 @@ class " interface-name "Imp :public " interface-name " {
        "
 #include \"./" project-name "_imp.hpp\"
 
-namespace  deepCMakeLists.txthi {namespace " project-name " {
+namespace  deephi {namespace " project-name " {
 
 " interface-name "Imp::" interface-name "Imp() {}
 " interface-name "Imp::~" interface-name "Imp() {}

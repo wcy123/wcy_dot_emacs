@@ -23,10 +23,9 @@
     :ensure t
     )
   )
+
 (use-package clang-format
-  :after cc-mode
   :ensure t
-  :defer t
   :config
   (add-hook 'c-mode-common-hook
             #'(lambda ()
@@ -140,10 +139,13 @@
  "M-z" 'kmacro-end-or-call-macro
  "C-w"  'backward-kill-word
  "M-7" 'compile
+ "M-2" 'compile
  ;;"C-x" #'(lambda () (interactive) (ding))
  ;;"C-v" 'yank
  "<f7>" 'compile
  "M-`" 'next-error
+ "M-1" 'next-error
+ "<f3>" 'next-error
  "<C-s-268632070>"  'toggle-fullscreen
  )
 (defun toggle-fullscreen ()
@@ -461,7 +463,7 @@ main(_) ->
               ;;"ejabberd@wangchunye"
               ;; "xmpp@localhost"
               ;;"xmpp@localhost"
-              "msync@localhost"
+              "hisiwww@dg17"
               "-hidden"
               ))
   (setenv "ERL_ROOT" erlang-root-dir)
