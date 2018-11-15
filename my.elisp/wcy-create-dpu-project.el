@@ -36,8 +36,8 @@ target_link_libraries(test_" ,project-name " ${PROJECT_NAME} ${OpenCV_LIBS})
       (apply 'insert
        `(
          "#pragma once
-#include <deephi/base/dpu/dpu_task.hpp>
 #include <opencv2/core.hpp>
+#include <memory>
 
 namespace deephi { namespace " ,project-name " {
 struct " ,interface-name "Result {
@@ -82,11 +82,15 @@ std::unique_ptr<" interface-name "> " interface-name "::create() {
 namespace deephi { namespace " project-name " {
 class " interface-name "Imp :public " interface-name " {
   public:
-    " interface-name "Imp();
+    " interface-name "Imp(bool need_preprocess = true);
     virtual ~" interface-name "Imp();
 
   private:
     virtual " interface-name "Result run(const cv::Mat& image) override;
+  private:
+   std::unique_ptr<deephi::base::DpuTask> task_;
+   std::vector<deephi::base::DpuLayerInput> layers_input_;
+   std::vector<deephi::base::DpuLayerOutput> layers_output_;
 
 };
 } }
@@ -97,13 +101,46 @@ class " interface-name "Imp :public " interface-name " {
       (insert
        "
 #include \"./" project-name "_imp.hpp\"
-
+#include <vector>
+#include <deephi/base/profiling.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgproc.hpp>
+using namespace std;
 namespace  deephi {namespace " project-name " {
 
-" interface-name "Imp::" interface-name "Imp() {}
-" interface-name "Imp::~" interface-name "Imp() {}
+" interface-name "Imp::" interface-name "Imp(bool need_preprocess):
+task_{deephi::base::DpuTask::create(\"<kernel-name>\",{\"<input-nodes>\"},{\"<output-nodes>\"})},
+layers_input_{ task_->getLayerInputData() },
+layers_output_{ task_->getLayerOutputData() }
+{
+     if(need_preprocess) {
+          auto mean = vector<float>{128.0f, 128.0f, 128.0f};
+          auto scale = vector<float>{1.0f, 1.0f, 1.0f};
+          task_->setMeanScaleBGR(mean, scale);
+     }
+}
+" interface-name "Imp::~" interface-name "Imp() {
+}
 
-" interface-name "Result " interface-name "Imp::run(const cv::Mat& image) {
+" interface-name "Result " interface-name "Imp::run(const cv::Mat& input_image)
+{
+  cv::Mat image;
+  if (layers_input_[0].width_ != (unsigned)input_image.cols ||
+      layers_output_[0].height_ != (unsigned)input_image.rows) {
+    cv::resize(input_image, image,
+               cv::Size(layers_input_[0].width_, layers_input_[0].height_), 0,
+               0, cv::INTER_NEAREST);
+  } else {
+    image = input_image;
+  }
+   __TIC__(" (upcase project-name) "_SET_IMG)
+  task_->setImageBGR(image);
+  __TOC__(" (upcase project-name) "_SET_IMG)
+
+  __TIC__(" (upcase project-name) "_DPU)
+  task_->run();
+  __TOC__(" (upcase project-name) "_DPU)
+
   return " interface-name "Result{};
 }
 
