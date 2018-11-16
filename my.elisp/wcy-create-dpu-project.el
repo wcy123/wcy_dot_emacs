@@ -1,6 +1,6 @@
 ;;;###autoload
 (defun wcy-create-dpu-project(project-name interface-name)
-  (interactive "MProject Name: MInterface Name: ")
+  (interactive "MProject Name: \nMInterface Name: ")
 
   (let ((a 1))
     (with-temp-file "CMakeLists.txt"
@@ -175,3 +175,6 @@ int main(int argc, char *argv[])
 
 "))
     ))
+
+
+()
