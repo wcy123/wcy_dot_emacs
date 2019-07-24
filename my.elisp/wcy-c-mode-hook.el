@@ -5,7 +5,7 @@
   (c-set-offset 'inextern-lang 0)
   (set (make-local-variable 'parens-require-spaces) nil)
   (add-hook 'before-save-hook 'clang-format-buffer t t)
-  (add-hook 'before-save-hook 'wcy-maybe-copyright-update t t)
+  ;; (add-hook 'before-save-hook 'wcy-maybe-copyright-update t t)
   )
 
 (defun wcy-maybe-copyright-update ()

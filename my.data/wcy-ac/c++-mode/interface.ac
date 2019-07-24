@@ -6,7 +6,7 @@
 "public:"   > \n
 classname "();"  > \n
 "virtual ~" classname "();"  > \n
-"virtual ~" classname "(const " classname "& other) = delete;"  > \n
+ classname "(const " classname "& other) = delete;"  > \n
  classname "& operator=(const " classname "&rhs) = delete;" \n
  "public:"  > \n
  "static std::unique_ptr<" classname "> create();" \n

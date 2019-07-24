@@ -1,0 +1,15 @@
+(nil
+ "#include <memory>" > \n
+ "class "  (setq classname (read-string "interface name:"))  > \n
+ "#include \"" classname ".hpp\"" \n
+classname "::" classname "() {}" > \n
+classname "::~" classname "() {}" > \n
+"std::unique_ptr<" classname "> " classname "::create()"  " {
+    return std::unique_ptr<" classname ">(new " _ "());" \n
+"}" > \n
+)
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:

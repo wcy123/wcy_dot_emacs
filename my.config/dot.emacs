@@ -604,6 +604,10 @@ main(_) ->
   ;; go get github.com/tleyden/checkers-bot-minimax
   (load-file "$GOPATH/src/golang.org/x/tools/cmd/oracle/oracle.el")
   )
+;;; ------------------ for bazel -----------------------------
+(add-to-list 'auto-mode-alist '("\\.bzl\\'" . python-mode))
+(add-to-list 'auto-mode-alist '("WORKSPACE" . python-mode))
+
 ;;; -------------------  DONE --------------------------------
 ;; setq inhibit-startup-message to show "*scratch*" as the initial
 (setq inhibit-startup-message t)

@@ -1,20 +1,17 @@
 
 (nil
- "class "  (setq classname (read-string "class name:"))  > \n
- "{" > \n 
-"public:"   > \n
-classname "();"  > \n
-"~" classname "();"  > \n
- "public:"  > \n
- > _ \n
- "protected:" > \n 
- > \n
- "private:" > \n
- > \n
- "private:" > \n
- classname "(const " classname "&rhs);" n
- classname "& operator=(const " classname "&rhs);" n
- "};" > \n
+  (ignore (setq a (read-string  "Class:")))
+"
+class " a "{
+public:
+    explicit "  a   "(" _ ");
+    "  a   "(const "  a   "&) = delete;
+    "  a   "& operator=(const "  a   "& other) = delete;
+
+    virtual ~"  a   "();
+private:
+};
+"
  )
 
 ;; Local Variables:

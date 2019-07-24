@@ -1,0 +1,13 @@
+
+(nil
+  (ignore (setq a (read-string  "Class:")))
+"
+public:
+    std::unique_ptr<" a "> create(" _ ");
+"
+ )
+
+;; Local Variables:
+;; mode:emacs-lisp
+;; coding: utf-8-unix
+;; End:
