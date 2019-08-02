@@ -31,7 +31,11 @@
 
 (eval-when-compile
   (require 'use-package))
+(or (package-installed-p 'diminish)
+    (package-install 'diminish))
 (require 'diminish)
+(or (package-installed-p 'bind-key)
+    (package-install 'bind-key))
 (require 'bind-key)
 
 
@@ -61,11 +65,9 @@
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
+
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (color-theme-solarized paredit ivy matlab-mode ace-jump-buffer package-lint evil xcscope clang-format cmake-mode company-irony-c-headers company-c-headers erlang erlang-mode ggtags flycheck flycheck-color-mode-line company-irony company irony haskell-mode ##)))
  '(query-replace-from-to-separator " -> ")
  '(safe-local-variable-values (quote ((a 1972))))
  '(show-paren-mode t)

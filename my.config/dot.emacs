@@ -75,23 +75,24 @@
   (add-hook 'c++-mode-hook 'flycheck-mode)
   (add-hook 'c-mode-hook 'flycheck-mode))
 
-(use-package ggtags
-  :ensure t
-  :defer t
-  :init
-  (add-hook 'c-mode-common-hook
-            (lambda ()
-              (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
-                (ggtags-mode 1))))
-  :config
-  (define-key ggtags-mode-map (kbd "C-c g s") 'ggtags-find-other-symbol)
-  (define-key ggtags-mode-map (kbd "C-c g h") 'ggtags-view-tag-history)
-  (define-key ggtags-mode-map (kbd "C-c g r") 'ggtags-find-reference)
-  (define-key ggtags-mode-map (kbd "C-c g f") 'ggtags-find-file)
-  (define-key ggtags-mode-map (kbd "C-c g c") 'ggtags-create-tags)
-  (define-key ggtags-mode-map (kbd "C-c g u") 'ggtags-update-tags)
-  (define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark)
-  )
+(when (>= emacs-major-version 25)
+  (use-package ggtags
+    :ensure t
+    :defer t
+    :init
+    (add-hook 'c-mode-common-hook
+              (lambda ()
+                (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
+                  (ggtags-mode 1))))
+    :config
+    (define-key ggtags-mode-map (kbd "C-c g s") 'ggtags-find-other-symbol)
+    (define-key ggtags-mode-map (kbd "C-c g h") 'ggtags-view-tag-history)
+    (define-key ggtags-mode-map (kbd "C-c g r") 'ggtags-find-reference)
+    (define-key ggtags-mode-map (kbd "C-c g f") 'ggtags-find-file)
+    (define-key ggtags-mode-map (kbd "C-c g c") 'ggtags-create-tags)
+    (define-key ggtags-mode-map (kbd "C-c g u") 'ggtags-update-tags)
+    (define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark)
+    ))
 (use-package ace-jump-mode
   :ensure t)
 ;; == my personal setup ==
@@ -313,6 +314,9 @@
   (setq ffap-c-path '("/usr/include/c++/4.3/" "/usr/include"))
   (define-key c-mode-map (kbd "C-c f") 'wcy-c-open-other-file)
   (define-key c++-mode-map (kbd "C-c f") 'wcy-c-open-other-file))
+;; wired xcsope is not work well with use package
+(or (package-installed-p 'xcscope)
+    (package-install 'xcscope))
 (use-package xcscope
   :after cc-mode
   :config
@@ -388,7 +392,7 @@
   (add-hook 'lisp-mode-hook 'wcy-lisp-mode-common-hook)
   (add-hook 'emacs-lisp-mode-hook 'wcy-emacs-lisp-mode-hook)
   (add-hook 'emacs-lisp-mode-hook 'auto-fill-mode)
-  (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
+  ;; (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
   :bind (:map emacs-lisp-mode-map
               ("C-c C-l" . eval-buffer)
               ("C-c C-c" . eval-defun)
@@ -397,6 +401,7 @@
               ))
 ;; ------- pareedit
 (use-package paredit
+  :if (>= emacs-major-version 25)
   :ensure t
   :commands enable-paredit-mode
   :config

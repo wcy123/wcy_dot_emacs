@@ -8,3 +8,4 @@ cd $HOME/d/working
 [ -d leader-key-mode ] ||  clone https://github.com/wcy123/leader-key-mode.git
 ln -sf $HOME/d/working/wcy_dot_emacs/dot.emacs $HOME/.emacs
 mkdir -p $HOME/.emacs.d
+mkdir -p $HOME/tmp/
