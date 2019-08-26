@@ -29,3 +29,4 @@ git config --global alias.p 'pull --rebase'
 git config --global alias.m 'merge --ff-only'
 git config --global alias.f 'fetch --all --prune'
 git config --global alias.c 'commit --verbose'
+git config --global push.default simple
