@@ -340,7 +340,7 @@
   (add-hook 'cmake-mode-hook 'my-cmake-mode-hook))
 ;; ------------------- MARKDOWN -----------------------------
 (use-package markdown-mode
-  :ensure t
+  :ensure nil
   :mode "\\.md\\'"
   :mode "\\.markdown\\'"
   :config
