@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 main() {
-    # (maybe_create_directies);
-    # (git_clone_repo);
-    # (install_git_alias);
+    (maybe_create_directies);
+    (git_clone_repo);
+    (install_git_alias);
     (maybe_config_bashrc);
 }
 
