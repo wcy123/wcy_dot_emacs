@@ -77,7 +77,7 @@
 
 (when (>= emacs-major-version 25)
   (use-package ggtags
-    :ensure t
+    :ensure nil
     :defer t
     :init
     (add-hook 'c-mode-common-hook
