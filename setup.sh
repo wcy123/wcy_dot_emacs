@@ -40,8 +40,8 @@ maybe_config_bashrc() {
     bashrc_config="
 HISTSIZE=10000000
 HISTFILESIZE=10000000
-HISTCONTROL=ignoreboth:ignoredups:erasedups
-PROMPT_COMMAND='history -a;history -r'
+HISTCONTROL=ignoreboth:ignoredups:erasedup
+PROMPT_COMMAND='history -a;history -c;history -r'
 [ -f \$HOME/.fzf.bash ] && source \$HOME/.fzf.bash
 export PS1='% '
 export LESS=XR
