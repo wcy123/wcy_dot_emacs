@@ -5,6 +5,7 @@ main() {
     (git_clone_repo);
     (install_git_alias);
     (maybe_config_bashrc);
+    (maybe_config_tmux);
 }
 
 maybe_create_directies () {
@@ -22,6 +23,7 @@ git_clone_repo() {
 
 install_git_alias() {
     ## setup git alias
+    git config --global alias.l 'log --graph --decorate'
     git config --global alias.ll 'log --graph --decorate --full-diff'
     git config --global alias.d 'diff --ignore-space-at-eol --ignore-all-space --ignore-space-change'
     git config --global alias.la 'log --graph --decorate --all'
@@ -46,6 +48,9 @@ PROMPT_COMMAND='history -a;history -c;history -r'
 export PS1='% '
 export LESS=XR
 alias g=git
+eval \"\$(lua ~/.z.lua/z.lua --init bash)\"
+alias zh='z -I -t .'
+alias tag='global --path-style=through --result=grep --color=always'
 "
     old_bash_config_md5sum=`cat ~/.bashrc | awk ' />>> wcy/ {d = 1;next;}  /<<< wcy/{d=0;next}  d== 1 {print}' | md5sum`
     this_bashrc_config_md5sum=`echo "$bashrc_config" | md5sum`
@@ -70,5 +75,8 @@ alias g=git
     fi
 }
 
-
+## copy
+function maybe_config_tmux() {
+echo
+}
 main;
