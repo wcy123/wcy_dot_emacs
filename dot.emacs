@@ -69,7 +69,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (ggtags haskell-mode company-irony-c-headers protobuf-mode paredit cmake-mode xcscope avy ace-jump-mode flycheck company-c-headers company-irony company ivy clang-format irony diminish use-package)))
+    (projectile ggtags haskell-mode company-irony-c-headers protobuf-mode paredit cmake-mode xcscope avy ace-jump-mode flycheck company-c-headers company-irony company ivy clang-format irony diminish use-package)))
  '(query-replace-from-to-separator " -> ")
  '(safe-local-variable-values (quote ((a 1972))))
  '(show-paren-mode t)

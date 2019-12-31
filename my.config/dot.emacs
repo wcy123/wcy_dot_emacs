@@ -24,6 +24,12 @@
     )
   )
 
+(use-package projectile
+  :ensure
+  :config
+  (setq projectile-completion-system 'ivy)
+  (setq a 1))
+
 (use-package clang-format
   :ensure t
   :config
@@ -201,7 +207,7 @@
 (use-package leader-key-mode
   :load-path "~/d/working/leader-key-mode"
   :config
-
+  (define-key leader-key-mode-keymap (kbd "p") projectile-command-map)
   (defun my-delete-region (b e)
     (interactive "r")
     (delete-region b e))
