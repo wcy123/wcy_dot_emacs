@@ -18,8 +18,8 @@
 ;; You may delete these explanatory comments.
 (require 'package)
 (setq package-enable-at-startup nil)
-(setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                         ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+(setq package-archives '(("gnu"   . "/group/dphi_arch/mirrors/elpa-mirror/gnu")
+                         ("melpa" . "/group/dphi_arch/mirrors/elpa-mirror/melpa")))
 ;; (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 ;; (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 ;; (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
@@ -39,18 +39,18 @@
 (require 'bind-key)
 
 
-(when (display-graphic-p)
-  (setq fonts
-        (cond ((eq system-type 'darwin)     '("Andale Mono"     "STHeiti"))
-              ((eq system-type 'gnu/linux)  '("Menlo"     "WenQuanYi Zen Hei"))
-              ((eq system-type 'windows-nt) '("Consolas"  "Microsoft Yahei"))))
+;; (when (display-graphic-p)
+;;   (setq fonts
+;;         (cond ((eq system-type 'darwin)     '("Andale Mono"     "STHeiti"))
+;;               ((eq system-type 'gnu/linux)  '("Menlo"     "WenQuanYi Zen Hei"))
+;;               ((eq system-type 'windows-nt) '("Consolas"  "Microsoft Yahei"))))
 
-  (setq face-font-rescale-alist '(("STHeiti" . 1.2) ("Microsoft Yahei" . 1.2) ("WenQuanYi Zen Hei" . 1.2)))
-  (set-face-attribute 'default nil :font
-                      (format "%s:pixelsize=%d" (car fonts) 14))
-  (dolist (charset '(kana han symbol cjk-misc bopomofo))
-    (set-fontset-font (frame-parameter nil 'font) charset
-                      (font-spec :family (car (cdr fonts))))))
+;;   (setq face-font-rescale-alist '(("STHeiti" . 1.2) ("Microsoft Yahei" . 1.2) ("WenQuanYi Zen Hei" . 1.2)))
+;;   (set-face-attribute 'default nil :font
+;;                       (format "%s:pixelsize=%d" (car fonts) 14))
+;;   (dolist (charset '(kana han symbol cjk-misc bopomofo))
+;;     (set-fontset-font (frame-parameter nil 'font) charset
+;;                       (font-spec :family (car (cdr fonts))))))
 
 
 (setenv "MY_EMACS_HOME" (or (getenv "MY_EMACS_HOME")
@@ -65,9 +65,11 @@
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
-
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (ggtags haskell-mode company-irony-c-headers protobuf-mode paredit cmake-mode xcscope avy ace-jump-mode flycheck company-c-headers company-irony company ivy clang-format irony diminish use-package)))
  '(query-replace-from-to-separator " -> ")
  '(safe-local-variable-values (quote ((a 1972))))
  '(show-paren-mode t)

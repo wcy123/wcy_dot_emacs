@@ -45,12 +45,19 @@ HISTFILESIZE=10000000
 HISTCONTROL=ignoreboth:ignoredups:erasedup
 PROMPT_COMMAND='history -a;history -c;history -r'
 [ -f \$HOME/.fzf.bash ] && source \$HOME/.fzf.bash
+[ -f \$HOME/.z.lua/z.lua ] && eval \"\$(lua \$HOME/.z.lua/z.lua --init bash)\" && alias zh='z -I -t .'
 export PS1='% '
+export PS1='\u@\h:\W% '
 export LESS=XR
+alias gl='global --path-style=through --result=grep --color=always'
 alias g=git
-eval \"\$(lua ~/.z.lua/z.lua --init bash)\"
-alias zh='z -I -t .'
-alias tag='global --path-style=through --result=grep --color=always'
+function loop ()
+{
+    eval "$@";
+    while sleep 1; do
+        eval "$@";
+    done
+}
 "
     old_bash_config_md5sum=`cat ~/.bashrc | awk ' />>> wcy/ {d = 1;next;}  /<<< wcy/{d=0;next}  d== 1 {print}' | md5sum`
     this_bashrc_config_md5sum=`echo "$bashrc_config" | md5sum`
