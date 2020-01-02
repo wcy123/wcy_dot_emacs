@@ -18,8 +18,13 @@
 ;; You may delete these explanatory comments.
 (require 'package)
 (setq package-enable-at-startup nil)
-(setq package-archives '(("gnu"   . "/group/dphi_arch/mirrors/elpa-mirror/gnu")
-                         ("melpa" . "/group/dphi_arch/mirrors/elpa-mirror/melpa")))
+(when (file-exists-p "/group/dphi_arch/mirrors/elpa-mirror/gnu")
+  (setq package-archives '(("gnu"   .  "http://elpa.gnu.org/packages/")
+                           ("melpa"
+                            .  "http://melpa.org/packages/"))))
+(when (file-exists-p "/group/dphi_arch/mirrors/elpa-mirror/gnu")
+  (setq package-archives '(("gnu"   . "/group/dphi_arch/mirrors/elpa-mirror/gnu")
+                           ("melpa" . "/group/dphi_arch/mirrors/elpa-mirror/melpa"))))
 ;; (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 ;; (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 ;; (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
