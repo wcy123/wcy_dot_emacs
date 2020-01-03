@@ -22,9 +22,9 @@
   (setq package-archives '(("gnu"   .  "http://elpa.gnu.org/packages/")
                            ("melpa"
                             .  "http://melpa.org/packages/"))))
-(when (file-exists-p "/group/dphi_arch/mirrors/elpa-mirror/gnu")
-  (setq package-archives '(("gnu"   . "/group/dphi_arch/mirrors/elpa-mirror/gnu")
-                           ("melpa" . "/group/dphi_arch/mirrors/elpa-mirror/melpa"))))
+(when (not (file-exists-p "/group/dphi_arch/mirrors/elpa-mirror/gnu"))
+  (setq package-archives '(("gnu"   . "http://elpa.gnu.org/packages/")
+                           ("melpa" . "http://melpa.org/packages/"))))
 ;; (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 ;; (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 ;; (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
@@ -74,7 +74,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (projectile ggtags haskell-mode company-irony-c-headers protobuf-mode paredit cmake-mode xcscope avy ace-jump-mode flycheck company-c-headers company-irony company ivy clang-format irony diminish use-package)))
+    (proj projectile ggtags haskell-mode company-irony-c-headers protobuf-mode paredit cmake-mode xcscope avy ace-jump-mode flycheck company-c-headers company-irony company ivy clang-format irony diminish use-package)))
  '(query-replace-from-to-separator " -> ")
  '(safe-local-variable-values (quote ((a 1972))))
  '(show-paren-mode t)
