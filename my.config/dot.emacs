@@ -33,6 +33,7 @@
 (use-package clang-format
   :ensure t
   :config
+  (setq clang-format-fallback-style "Google")
   (add-hook 'c-mode-common-hook
             #'(lambda ()
                 (local-set-key
