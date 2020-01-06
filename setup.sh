@@ -23,9 +23,10 @@ git_clone_repo() {
 
 install_git_alias() {
     ## setup git alias
-    git config --global alias.l 'log --graph --decorate'
+    git config --global color.ui auto
+    git config --global alias.l 'log --graph --decorate --full-diff'
     git config --global alias.ll 'log --graph --decorate --full-diff'
-    git config --global alias.d 'diff --ignore-space-at-eol --ignore-all-space --ignore-space-change'
+    git config --global alias.d 'diff --ignore-space-at-eol --ignore-all-space --ignore-space-change --color=always'
     git config --global alias.la 'log --graph --decorate --all'
     git config --global alias.s 'status'
     git config --global alias.a 'add -A -p'

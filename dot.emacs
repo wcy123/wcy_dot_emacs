@@ -1,3 +1,4 @@
+(setq package-check-signature nil)
 (when (eq system-type 'darwin)
   (setenv "PATH"
           (mapconcat
