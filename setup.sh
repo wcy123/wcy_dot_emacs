@@ -2,26 +2,46 @@
 set -e
 main() {
     (maybe_create_directies);
-    (git_clone_repo);
+    (git_clone_repos);
     (install_git_alias);
     (maybe_config_bashrc);
     (maybe_config_tmux);
 }
+run () {
+    info "$*"
+    eval "$*"
+}
+
+info() {
+    echo "info $*"
+}
 
 maybe_create_directies () {
-    mkdir -p $HOME/d/working
-    mkdir -p $HOME/.emacs.d
-    mkdir -p $HOME/tmp/
+    run mkdir -p $HOME/d/working
+    run mkdir -p $HOME/.emacs.d
+    run mkdir -p $HOME/tmp/
+}
+
+git_clone_repos() {
+    git_clone_repo https://github.com/wcy123/wcy_dot_emacs.git wcy_dot_emacs
+    git_clone_repo https://github.com/wcy123/leader-key-mode_emacs.git leader-key-mode
+    run ln -sf $HOME/d/working/wcy_dot_emacs/dot.emacs $HOME/.emacs
 }
 
 git_clone_repo() {
+    local url=$1;shift;
+    local dir=$1;shift;
     cd $HOME/d/working;
-    [ -d wcy_dot_emacs ] || git clone https://github.com/wcy123/wcy_dot_emacs.git
-    [ -d leader-key-mode ] || git clone https://github.com/wcy123/leader-key-mode.git
-    ln -sf $HOME/d/working/wcy_dot_emacs/dot.emacs $HOME/.emacs
+    info "git cloning $url to $dir"
+    if [ -d $dir ]; then
+        info "d/working/$dir has already been cloned.";
+    else
+        run git clone $url $dir;
+    fi
 }
 
 install_git_alias() {
+    info installing git alias
     ## setup git alias
     git config --global color.ui auto
     git config --global alias.l 'log --graph --decorate --full-diff'
@@ -40,13 +60,14 @@ install_git_alias() {
 
 
 maybe_config_bashrc() {
-    bashrc_config="
+
+    bashrc_config=$(cat <<EOF
 HISTSIZE=10000000
 HISTFILESIZE=10000000
 HISTCONTROL=ignoreboth:ignoredups:erasedup
 PROMPT_COMMAND='history -a;history -c;history -r'
 [ -f \$HOME/.fzf.bash ] && source \$HOME/.fzf.bash
-[ -f \$HOME/.z.lua/z.lua ] && eval \"\$(lua \$HOME/.z.lua/z.lua --init bash)\" && alias zh='z -I -t .'
+[ -f \$HOME/.z.lua/z.lua ] && eval "\$(lua \$HOME/.z.lua/z.lua --init bash)" && alias zh='z -I -t .'
 export PS1='% '
 export PS1='\u@\h:\W% '
 export LESS=XR
@@ -54,12 +75,17 @@ alias gl='global --path-style=through --result=grep --color=always'
 alias g=git
 function loop ()
 {
-    eval "$@";
+    eval "\$@";
     while sleep 1; do
-        eval "$@";
+        eval "\$@";
     done
 }
-"
+function title() {
+  echo -ne "\033]0;"\$1"\007"
+}
+
+EOF
+)
     old_bash_config_md5sum=`cat ~/.bashrc | awk ' />>> wcy/ {d = 1;next;}  /<<< wcy/{d=0;next}  d== 1 {print}' | md5sum`
     this_bashrc_config_md5sum=`echo "$bashrc_config" | md5sum`
     if [ x"$old_bash_config_md5sum" == x"$this_bashrc_config_md5sum" ]; then
