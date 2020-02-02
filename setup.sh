@@ -71,6 +71,7 @@ PROMPT_COMMAND='history -a;history -c;history -r'
 export PS1='% '
 export PS1='\u@\h:\W% '
 export LESS=XR
+stty -ixon
 alias gl='global --path-style=through --result=grep --color=always'
 alias g=git
 function loop ()
