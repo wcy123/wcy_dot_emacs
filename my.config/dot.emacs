@@ -233,8 +233,13 @@
     avy-kill-ring-save-whole-line
     avy-kill-ring-save-region)
   :config
-  (define-key isearch-mode-map (kbd "C-l") 'avy-isearch))
-  (wcy-adhoc-clipboard-enable)
+
+  (wcy-adhoc-clipboard-enable))
+(eval-after-load "isearch"
+  '(progn
+     (load-file (locate-file "avy-autoloads.el" load-path))
+     (define-key isearch-mode-map (kbd "C-l") 'avy-isearch)))
+
 ;; (add-to-list 'emulation-mode-map-alists
 ;; 	     'wcy-emulation-mode-map-alist)
 
