@@ -238,7 +238,11 @@
 (eval-after-load "isearch"
   '(progn
      (load-file (locate-file "avy-autoloads.el" load-path))
-     (define-key isearch-mode-map (kbd "C-l") 'avy-isearch)))
+     (define-key isearch-mode-map (kbd "C-l") 'avy-isearch)
+     (add-hook 'isearch-mode-end-hook 'my-goto-match-beginning)
+     (defun my-goto-match-beginning ()
+      (when (and isearch-forward isearch-other-end)
+        (goto-char isearch-other-end)))))
 
 ;; (add-to-list 'emulation-mode-map-alists
 ;; 	     'wcy-emulation-mode-map-alist)
@@ -631,7 +635,9 @@ main(_) ->
 (setq inhibit-startup-message t)
 (wcy-dot-emacs-is-done)
 (message "dot emacs is successful loaded.")
-
+;; if behind a proxy, use this method
+;; (setq url-gateway-method 'socks)
+;; (setq socks-server '("Default server" "127.0.0.1" 10080 5))
 (defalias 'exit 'save-buffers-kill-terminal)
 ;; Local Variables:
 ;; mode:emacs-lisp
