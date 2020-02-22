@@ -244,6 +244,15 @@
       (when (and isearch-forward isearch-other-end)
         (goto-char isearch-other-end)))))
 
+(use-package rg
+  :ensure t
+  :commands
+  (rg
+   )
+  :bind (:map global-map ("C-c s"  . rg))
+  :config
+  (define-key leader-key-mode-keymap (kbd "s") 'rg)
+  )
 ;; (add-to-list 'emulation-mode-map-alists
 ;; 	     'wcy-emulation-mode-map-alist)
 
