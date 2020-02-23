@@ -240,8 +240,12 @@
      (load-file (locate-file "avy-autoloads.el" load-path))
      (define-key isearch-mode-map (kbd "C-l") 'avy-isearch)
      (add-hook 'isearch-mode-end-hook 'my-goto-match-beginning)
+     ;;(remove-hook 'isearch-mode-end-hook 'my-goto-match-beginning)
      (defun my-goto-match-beginning ()
-      (when (and isearch-forward isearch-other-end)
+       (when (and isearch-forward isearch-other-end
+                  (not
+                   ;; conflict with avy-isearch
+                   (eq this-command 'avy-isearch)))
         (goto-char isearch-other-end)))))
 
 (use-package rg
