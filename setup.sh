@@ -48,7 +48,7 @@ install_git_alias() {
     git config --global alias.ll 'log --graph --decorate --full-diff'
     git config --global alias.d 'diff --ignore-space-at-eol --ignore-all-space --ignore-space-change --color=always'
     git config --global alias.la 'log --graph --decorate --all'
-    git config --global alias.s 'status'
+    git config --global alias.s 'status --untracked-files'
     git config --global alias.a 'add -A -p'
     git config --global alias.rvs 'remote -v show'
     git config --global alias.p 'pull --rebase'
@@ -74,6 +74,7 @@ export LESS=XR
 stty -ixon
 alias gl='global --path-style=through --result=grep --color=always'
 alias g=git
+alias cd='cd -P'
 function loop ()
 {
     eval "\$@";
