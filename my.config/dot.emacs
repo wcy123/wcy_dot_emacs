@@ -255,7 +255,7 @@
    )
   :bind (:map global-map ("C-c s"  . rg))
   :config
-  (define-key leader-key-mode-keymap (kbd "s") 'rg)
+  (define-key leader-key-mode-keymap (kbd "s") rg-global-map)
   )
 ;; (add-to-list 'emulation-mode-map-alists
 ;; 	     'wcy-emulation-mode-map-alist)
