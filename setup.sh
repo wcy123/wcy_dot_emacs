@@ -45,7 +45,7 @@ install_git_alias() {
     ## setup git alias
     git config --global color.ui auto
     git config --global alias.l 'log --graph --decorate --full-diff'
-    git config --global alias.ll 'log --graph --decorate --full-diff'
+    git config --global alias.ll 'log --graph --decorate --full-diff --stat'
     git config --global alias.d 'diff --ignore-space-at-eol --ignore-all-space --ignore-space-change --color=always'
     git config --global alias.la 'log --graph --decorate --all'
     git config --global alias.s 'status --untracked-files'
