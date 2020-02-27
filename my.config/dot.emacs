@@ -370,7 +370,7 @@
   (add-hook 'cmake-mode-hook 'my-cmake-mode-hook))
 ;; ------------------- MARKDOWN -----------------------------
 (use-package markdown-mode
-  :ensure nil
+  :ensure t
   :mode "\\.md\\'"
   :mode "\\.markdown\\'"
   :config
@@ -388,6 +388,9 @@
               ("ESC <down>" . markdown-move-down)
               ("ESC <left>" . markdown-promote)
               ("ESC <right>" . markdown-demote)
+              ("C-j" . tmux-cc-send-current-line)
+              ("C-M-j" . tmux-cc-select-block)
+              ("C-c <RET>" . tmux-cc-send-region)
               ("<M-RET>" . markdown-insert-list-item))
   :config
   (defun my-markdown-hook()
@@ -399,6 +402,7 @@
                 "")))
     ;; (add-hook 'after-save-hook 'markdown-export t t)
     )
+  (require 'tmux-cc)
   (add-hook 'markdown-mode-hook 'my-markdown-hook))
 ;; -------------------- ELISP --------------------------------
 (use-package lisp-mode
@@ -646,6 +650,10 @@ main(_) ->
 ;;; -------------------  DONE --------------------------------
 ;; setq inhibit-startup-message to show "*scratch*" as the initial
 (setq inhibit-startup-message t)
+(condition-case nil
+    (load-file (concat (file-name-as-directory
+                        user-emacs-directory) (concat system-name ".el")))
+  (error nil))
 (wcy-dot-emacs-is-done)
 (message "dot emacs is successful loaded.")
 ;; if behind a proxy, use this method

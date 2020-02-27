@@ -24,13 +24,20 @@
 
 ;;; Code:
 
+
+
+(defvar tmux-cc-delimiter-begin "^```\n"
+  "begin of a delimter")
+(defvar tmux-cc-delimiter-end "^```\n"
+  "end of a delimter")
 (defun tmux-cc--convert-keys(strings)
   (seq-map #'(lambda(c) (format "%x" c)) strings))
 ;;(tmux-cc--convert-keys "hello")
 (defun tmux-cc-send-keys (strings)
-  (apply #'call-process `("tmux" nil nil nil
+  (let ((ret (apply #'call-process `("tmux" nil "*tmux cc*" t
                            "send-keys" "-t" "1" "-H" ,@(tmux-cc--convert-keys
-                                                        strings))))
+                                                        strings)))))
+    (message "call return %S" ret)))
 (defun tmux-cc-send-region(begin end)
   (interactive "r")
   (unless mark-active
@@ -38,12 +45,31 @@
   (let ((content (buffer-substring begin end)))
     (tmux-cc-send-keys content)))
 
+(defun tmux-cc-send-current-line ()
+  (interactive)
+  (tmux-cc-send-keys (buffer-substring (line-beginning-position) (+  1 (line-end-position)))))
+
+
+(defun tmux-cc--search-end ()
+  (save-excursion
+    (when (search-forward-regexp tmux-cc-delimiter-begin nil t nil)
+      (match-beginning 0))))
+
+(defun tmux-cc--search-begin ()
+  (save-excursion
+    (when (search-backward-regexp tmux-cc-delimiter-end nil t nil)
+      (match-end 0))))
+
 (defun tmux-cc-select-block ()
   (interactive)
-  (let ((begin (save-excursion (search-backward "\f\n" nil t nil)))
-        (end (save-excursion (search-forward "\f\n" nil t nil))))
+  (let ((begin (tmux-cc--search-begin))
+        (end (tmux-cc--search-end)))
     (when (and begin end)
-      (push-mark (- end 2) nil t)
-      (goto-char (+ 2 begin)))))
+      (push-mark begin nil t)
+      (goto-char end))))
+(global-set-key (kbd "M-5") 'tmux-cc-send-region)
+(global-set-key (kbd "M-6") 'tmux-cc-select-block)
+;; (global-set-key (kbd "M-6") 'tmux-cc-send-current-line)
+
 (provide 'tmux-cc)
 ;;; tmux-cc.el ends here
