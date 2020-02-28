@@ -1,3 +1,7 @@
+(condition-case nil
+    (load-file (concat (file-name-as-directory
+                        user-emacs-directory) (concat system-name ".el")))
+  (error nil))
 (setq package-check-signature nil)
 (when (eq system-type 'darwin)
   (setenv "PATH"

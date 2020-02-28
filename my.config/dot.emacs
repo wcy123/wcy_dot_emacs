@@ -650,10 +650,6 @@ main(_) ->
 ;;; -------------------  DONE --------------------------------
 ;; setq inhibit-startup-message to show "*scratch*" as the initial
 (setq inhibit-startup-message t)
-(condition-case nil
-    (load-file (concat (file-name-as-directory
-                        user-emacs-directory) (concat system-name ".el")))
-  (error nil))
 (wcy-dot-emacs-is-done)
 (message "dot emacs is successful loaded.")
 ;; if behind a proxy, use this method
