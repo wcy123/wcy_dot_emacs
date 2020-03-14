@@ -1,4 +1,10 @@
 ;; default value for the useful variables
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (when (or (memq window-system '(mac ns x))
+            (memq system-type '(darwin)))
+    (exec-path-from-shell-initialize)))
 ;; == irony-mode ==
 (use-package irony
   :ensure t
@@ -643,6 +649,27 @@ main(_) ->
   ;; go get github.com/tleyden/checkers-bot-minimax
   (load-file "$GOPATH/src/golang.org/x/tools/cmd/oracle/oracle.el")
   )
+
+;;; ------------------ for rust ----------------------------
+(use-package rust-mode
+  :mode "\\.rs\\'"
+  :ensure t
+  :config
+  (add-hook 'rust-mode-hook #'cargo-minor-mode)
+  (setq rust-format-on-save t))
+(use-package racer
+  :ensure t
+  :config
+  :after (rust-mode)
+  :config
+  (add-hook 'rust-mode-hook #'racer-mode)
+  (add-hook 'racer-mode-hook #'eldoc-mode)
+  (add-hook 'racer-mode-hook #'company-mode)
+  (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
+  (setq company-tooltip-align-annotations t)
+  (setq racer-loaded 1))
+
+
 ;;; ------------------ for bazel -----------------------------
 (add-to-list 'auto-mode-alist '("\\.bzl\\'" . python-mode))
 (add-to-list 'auto-mode-alist '("WORKSPACE" . python-mode))

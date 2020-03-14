@@ -3,20 +3,6 @@
                         user-emacs-directory) (concat system-name ".el")))
   (error nil))
 (setq package-check-signature nil)
-(when (eq system-type 'darwin)
-  (setenv "PATH"
-          (mapconcat
-           #'identity
-           (setq exec-path (list
-            "/usr/bin"
-            "/usr/local/bin"
-            "/bin"
-            "/usr/sbin"
-            "/sbin"
-            "/Applications/Emacs.app/Contents/MacOS/bin-x86_64-10_9"
-            "/Applications/Emacs.app/Contents/MacOS/libexec-x86_64-10_9"
-            "/usr/local/bin"))
-           ":")))
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
@@ -79,7 +65,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (markdown-mode find-file-in-project rg proj projectile ggtags haskell-mode company-irony-c-headers protobuf-mode paredit cmake-mode xcscope avy ace-jump-mode flycheck company-c-headers company-irony company ivy clang-format irony diminish use-package)))
+    (markdown-mode find-file-in-project rg racer rust exec-path-from-shell rust-mode proj projectile ggtags haskell-mode company-irony-c-headers protobuf-mode paredit cmake-mode xcscope avy ace-jump-mode flycheck company-c-headers company-irony company ivy clang-format irony diminish use-package)))
  '(query-replace-from-to-separator " -> ")
  '(safe-local-variable-values (quote ((a 1972))))
  '(show-paren-mode t)
